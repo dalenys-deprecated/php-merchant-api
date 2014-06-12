@@ -4,7 +4,7 @@
  * Class Be2bill_Api_ClientBuilder
  * Usefull to simply create Be2bill_Api_Client object without managing dependencies
  */
-class Be2bill_Api_ClientBuilder
+abstract class Be2bill_Api_ClientBuilder
 {
     protected static $productionUrls = array('https://secure-magenta1.be2bill.com', 'https://secure-magenta2.be2bill.com');
     protected static $sandboxUrls = array('https://secure-test.be2bill.com');

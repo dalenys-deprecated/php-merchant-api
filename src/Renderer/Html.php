@@ -42,15 +42,10 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
 
         $html .= $this->buildHiddenInputs($params);
 
-        $html .= $this->buildSubmit($htmlOptions);
+        $html .= $this->buildSubmitInput($htmlOptions);
         $html .= '</form>';
 
         return $html;
-    }
-
-    public function setEncoding($encoding)
-    {
-        $this->encoding = $encoding;
     }
 
     /**
@@ -81,14 +76,14 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
      */
     protected function buildHiddenInput($key, $value)
     {
-        return '<input type="hidden" name="' . $this->escape($key) . '" value="' . $this->escape($value) . '">';
+        return '<input type="hidden" name="' . $this->escape($key) . '" value="' . $this->escape($value) . '" />';
     }
 
     /**
      * @param $options
      * @return string
      */
-    protected function buildSubmit($options)
+    protected function buildSubmitInput(array $options = array())
     {
         if (isset($options['SUBMIT'])) {
             $attributes = $this->buildAttributes($options['SUBMIT']);
@@ -110,6 +105,11 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
         }
 
         return $attributes;
+    }
+
+    public function setEncoding($encoding)
+    {
+        $this->encoding = $encoding;
     }
 
     /**
