@@ -1,0 +1,16 @@
+{
+    "name": "Be2bill/Api",
+    "type": "library",
+    "version": "1.0.0",
+    "description": "Be2bill merchant API",
+    "keywords": ["be2bill","payment","visa","mastercard","amex","american express","psp"],
+    "homepage": "http://www.be2bill.com/",
+    "license": "BSD",
+    "require": {
+        "php": ">=5.2.0",
+        "lib-curl": "*"
+    },
+    "autoload": {
+        "psr-0": { "Be2bill": "." }
+    }
+}
