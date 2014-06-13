@@ -233,6 +233,10 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
         ));
 
         $this->senderMock->expects($this->exactly(2))
+            ->method('shouldRetry')
+            ->will($this->returnValue(true));
+
+        $this->senderMock->expects($this->exactly(2))
             ->method('send')
             ->with(
                 'http://test/front/service/rest/process',

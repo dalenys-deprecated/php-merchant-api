@@ -626,6 +626,8 @@ class Be2bill_Api_Client
 
             if ($result) {
                 return $result;
+            } elseif ($this->sender->shouldRetry() == false) {
+                return false;
             }
         }
 
