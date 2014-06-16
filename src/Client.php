@@ -457,13 +457,13 @@ class Be2bill_Api_Client
      * This will return the result formatted as a compressed CSV file.
      *
      * @param        $transactionId
-     * @param        $to
+     * @param        $destination
      * @param string $compression
      * @return bool|mixed
      */
-    public function getTransactionsByTransactionId($transactionId, $to, $compression = 'GZIP')
+    public function getTransactionsByTransactionId($transactionId, $destination, $compression = 'GZIP')
     {
-        return $this->getTransactions('TRANSACTIONID', $transactionId, $to, $compression);
+        return $this->getTransactions('TRANSACTIONID', $transactionId, $destination, $compression);
     }
 
     /**
@@ -471,13 +471,13 @@ class Be2bill_Api_Client
      * This will return the result formatted as a compressed CSV file.
      *
      * @param        $orderId
-     * @param        $to
+     * @param        $destination
      * @param string $compression
      * @return bool|mixed
      */
-    public function getTransactionsByOrderId($orderId, $to, $compression = 'GZIP')
+    public function getTransactionsByOrderId($orderId, $destination, $compression = 'GZIP')
     {
-        return $this->getTransactions('ORDERID', $orderId, $to, $compression);
+        return $this->getTransactions('ORDERID', $orderId, $destination, $compression);
     }
 
     /**
@@ -486,12 +486,12 @@ class Be2bill_Api_Client
      * This will return the result of the report creation request
      *
      * @param        $date
-     * @param        $to
+     * @param        $destination
      * @param string $compression
      * @param        $options
      * @return bool|mixed
      */
-    public function exportTransactions($date, $to, $compression = 'GZIP', array $options = array())
+    public function exportTransactions($date, $destination, $compression = 'GZIP', array $options = array())
     {
         $params = $options;
 
@@ -501,10 +501,10 @@ class Be2bill_Api_Client
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
 
-        if ($this->isHttpUrl($to)) {
-            $params['CALLBACKURL'] = $to;
+        if ($this->isHttpUrl($destination)) {
+            $params['CALLBACKURL'] = $destination;
         } else {
-            $params['MAILTO'] = $to;
+            $params['MAILTO'] = $destination;
         }
 
         $params['HASH'] = $this->hash($params);
@@ -518,12 +518,12 @@ class Be2bill_Api_Client
      * This will return the result of the report creation request
      *
      * @param        $date
-     * @param        $to
+     * @param        $destination
      * @param        $compression
      * @param        $options
      * @return bool|mixed
      */
-    public function exportChargebacks($date, $to, $compression = 'GZIP', array $options = array())
+    public function exportChargebacks($date, $destination, $compression = 'GZIP', array $options = array())
     {
         $params = $options;
 
@@ -533,10 +533,10 @@ class Be2bill_Api_Client
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
 
-        if ($this->isHttpUrl($to)) {
-            $params['CALLBACKURL'] = $to;
+        if ($this->isHttpUrl($destination)) {
+            $params['CALLBACKURL'] = $destination;
         } else {
-            $params['MAILTO'] = $to;
+            $params['MAILTO'] = $destination;
         }
 
         $params['HASH'] = $this->hash($params);
@@ -550,12 +550,12 @@ class Be2bill_Api_Client
      * This will return the result of the report creation request
      *
      * @param        $date
-     * @param        $to
+     * @param        $destination
      * @param        $compression
      * @param        $options
      * @return bool|mixed
      */
-    public function exportReconciliation($date, $to, $compression = 'GZIP', $options = array())
+    public function exportReconciliation($date, $destination, $compression = 'GZIP', $options = array())
     {
         $params = $options;
 
@@ -565,10 +565,10 @@ class Be2bill_Api_Client
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
 
-        if ($this->isHttpUrl($to)) {
-            $params['CALLBACKURL'] = $to;
+        if ($this->isHttpUrl($destination)) {
+            $params['CALLBACKURL'] = $destination;
         } else {
-            $params['MAILTO'] = $to;
+            $params['MAILTO'] = $destination;
         }
 
         $params['HASH'] = $this->hash($params);
@@ -740,13 +740,13 @@ class Be2bill_Api_Client
     }
 
     /**
-     * @param $by
+     * @param $searchBy
      * @param $id
-     * @param $to
+     * @param $destination
      * @param $compression
      * @return bool|mixed
      */
-    protected function getTransactions($by, $id, $to, $compression)
+    protected function getTransactions($searchBy, $id, $destination, $compression)
     {
         $params["OPERATIONTYPE"] = 'getTransactions';
         $params['IDENTIFIER']    = $this->identifier;
@@ -756,18 +756,18 @@ class Be2bill_Api_Client
             $id = implode(';', $id);
         }
 
-        if ($by == 'ORDERID') {
+        if ($searchBy == 'ORDERID') {
             $params['ORDERID'] = $id;
-        } elseif ($by == 'TRANSACTIONID') {
+        } elseif ($searchBy == 'TRANSACTIONID') {
             $params['TRANSACTIONID'] = $id;
         }
 
         $params["COMPRESSION"] = $compression;
 
-        if ($this->isHttpUrl($to)) {
-            $params['CALLBACKURL'] = $to;
+        if ($this->isHttpUrl($destination)) {
+            $params['CALLBACKURL'] = $destination;
         } else {
-            $params['MAILTO'] = $to;
+            $params['MAILTO'] = $destination;
         }
 
         $params['HASH'] = $this->hash($params);
