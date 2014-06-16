@@ -153,7 +153,7 @@ class Be2bill_Api_Client
      * @param int          $orderId
      * @param string       $clientIdentifier
      * @param string       $description
-     * @param array         $htmlOptions An array of HTML attributes to add to the submit or form button (allowing to change name, style, class attribute etc.).
+     * @param array        $htmlOptions An array of HTML attributes to add to the submit or form button (allowing to change name, style, class attribute etc.).
      * Example:
      * <code>
      * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
@@ -731,6 +731,7 @@ class Be2bill_Api_Client
         $params['CLIENTIP']        = $clientIP;
         $params['ALIAS']           = $alias;
         $params['IDENTIFIER']      = $this->identifier;
+        $params['AMOUNT']          = $amount;
         $params['VERSION']         = self::API_VERSION;
 
         $params['HASH'] = $this->hash($params);
