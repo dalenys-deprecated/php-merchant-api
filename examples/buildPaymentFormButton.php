@@ -19,15 +19,23 @@ Be2bill_Api_Client::registerAutoloader();
 // Just implement BE2BILL_IDENTIFIER and BE2BILL_PASSWORD as defined
 $be2bill = Be2bill_Api_ClientBuilder::buildSandboxClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 
-echo $be2bill->buildPaymentFormButton(15387, 'order_'.time(), 'user_123456', 'Payment sample',
-    $htmlOptions = array('SUBMIT' => array("value" => "Pay with be2bill"), 'FORM' => array('id' => 'myform')),
+echo $be2bill->buildPaymentFormButton(
+    15387,
+    'order_'.time(),
+    'user_123456',
+    'Payment sample',
+    $htmlOptions = array(
+        'SUBMIT' => array("value" => "Pay with be2bill"),
+        'FORM' => array('id' => 'myform')
+    ),
     $options = array(
         "3DSECURE"         => "yes",
         "CARDFULLNAME"     => "John Doe",
         "CLIENTEMAIL"      => "toto@pouet.com",
         "HIDECARDFULLNAME" => "yes",
         "HIDECLIENTEMAIL"  => "yes"
-    ));
+    )
+);
 
 ?>
 </body>

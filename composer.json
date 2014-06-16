@@ -17,7 +17,7 @@
     },
 
     "autoload": {
-        "psr-0": {
+        "psr-2": {
             "Be2bill_Api_": "src/"
         }
     }
