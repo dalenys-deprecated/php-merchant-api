@@ -56,7 +56,19 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->payment('1111222233334444', '01-12', '123', 'john doe', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->payment(
+            '1111222233334444',
+            '01-12',
+            '123',
+            'john doe',
+            100,
+            42,
+            'ident',
+            'test@test.com',
+            '1.1.1.1',
+            'desc',
+            'Firefox'
+        );
     }
 
     public function testAuthorization()
@@ -87,7 +99,19 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->authorization('1111222233334444', '01-12', '123', 'john doe', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->authorization(
+            '1111222233334444',
+            '01-12',
+            '123',
+            'john doe',
+            100,
+            42,
+            'ident',
+            'test@test.com',
+            '1.1.1.1',
+            'desc',
+            'Firefox'
+        );
     }
 
     public function testCredit()
@@ -118,7 +142,19 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->credit('1111222233334444', '01-12', '123', 'john doe', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->credit(
+            '1111222233334444',
+            '01-12',
+            '123',
+            'john doe',
+            100,
+            42,
+            'ident',
+            'test@test.com',
+            '1.1.1.1',
+            'desc',
+            'Firefox'
+        );
     }
 
     public function testCapture()
@@ -170,7 +206,7 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->oneClickPayment('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->oneClickPayment('A1', 100, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
     public function testSubscriptionPayment()
@@ -199,7 +235,7 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->subscriptionPayment('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->subscriptionPayment('A1', 100, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
     public function testOneClickAuthorization()
@@ -228,7 +264,7 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->oneClickAuthorization('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->oneClickAuthorization('A1', 100, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
     public function testSubscriptionAuthorization()
@@ -258,7 +294,7 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->subscriptionAuthorization('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->subscriptionAuthorization('A1', 100, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
     public function testRefund()
@@ -329,7 +365,7 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->api->redirectForPayment(100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+        $this->api->redirectForPayment(100, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
     public function testTwoRequestsWhenRequestOneFailWithDirectLink()

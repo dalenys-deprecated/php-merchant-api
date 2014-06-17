@@ -63,6 +63,23 @@ class Be2bill_Api_DirectLinkClient
         $this->password   = $password;
     }
 
+    /**
+     * Directlink payment. You have to specify SENSIBLE payment data (card, cryptogramm...)
+     * @see http://fr.pcisecuritystandards.org/minisite/en/
+     * @param       $cardPan
+     * @param       $cardDate
+     * @param       $cardCryptogram
+     * @param       $cardFullName
+     * @param       $amount
+     * @param       $orderId
+     * @param       $clientIdentifier
+     * @param       $clientEmail
+     * @param       $clientIP
+     * @param       $description
+     * @param       $clientUserAgent
+     * @param array $options
+     * @return bool|string
+     */
     public function payment(
         $cardPan,
         $cardDate,
@@ -72,8 +89,8 @@ class Be2bill_Api_DirectLinkClient
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
@@ -95,13 +112,30 @@ class Be2bill_Api_DirectLinkClient
             $orderId,
             $clientIdentifier,
             $clientEmail,
-            $description,
             $clientIP,
+            $description,
             $clientUserAgent,
             $params
         );
     }
 
+    /**
+     * Directlink authorization. You have to specify SENSIBLE payment data (card, cryptogramm...)
+     * @see http://fr.pcisecuritystandards.org/minisite/en/
+     * @param       $cardPan
+     * @param       $cardDate
+     * @param       $cardCryptogram
+     * @param       $cardFullName
+     * @param       $amount
+     * @param       $orderId
+     * @param       $clientIdentifier
+     * @param       $clientEmail
+     * @param       $clientIP
+     * @param       $description
+     * @param       $clientUserAgent
+     * @param array $options
+     * @return bool|string
+     */
     public function authorization(
         $cardPan,
         $cardDate,
@@ -111,8 +145,8 @@ class Be2bill_Api_DirectLinkClient
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
@@ -129,13 +163,30 @@ class Be2bill_Api_DirectLinkClient
             $orderId,
             $clientIdentifier,
             $clientEmail,
-            $description,
             $clientIP,
+            $description,
             $clientUserAgent,
             $params
         );
     }
 
+    /**
+     * Directlink credit. You have to specify SENSIBLE payment data (card, cryptogramm...)
+     * @see http://fr.pcisecuritystandards.org/minisite/en/
+     * @param       $cardPan
+     * @param       $cardDate
+     * @param       $cardCryptogram
+     * @param       $cardFullName
+     * @param       $amount
+     * @param       $orderId
+     * @param       $clientIdentifier
+     * @param       $clientEmail
+     * @param       $clientIP
+     * @param       $description
+     * @param       $clientUserAgent
+     * @param array $options
+     * @return bool|string
+     */
     public function credit(
         $cardPan,
         $cardDate,
@@ -145,8 +196,8 @@ class Be2bill_Api_DirectLinkClient
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
@@ -158,6 +209,50 @@ class Be2bill_Api_DirectLinkClient
         $params['CARDCVV']          = $cardCryptogram;
         $params['CARDFULLNAME']     = $cardFullName;
         $params["AMOUNT"]           = $amount;
+
+        return $this->transaction(
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $clientIP,
+            $description,
+            $clientUserAgent,
+            $params
+        );
+    }
+
+    /**
+     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result
+     * formatted as an array.
+     *
+     * @param       $alias
+     * @param       $amount
+     * @param       $orderId
+     * @param       $clientIdentifier
+     * @param       $clientEmail
+     * @param       $clientIP
+     * @param       $description
+     * @param       $clientUserAgent
+     * @param array $options
+     * @return bool|mixed
+     */
+    public function oneClickPayment(
+        $alias,
+        $amount,
+        $orderId,
+        $clientIdentifier,
+        $clientEmail,
+        $clientIP,
+        $description,
+        $clientUserAgent,
+        array $options = array()
+    ) {
+        $params = $options;
+
+        $params['OPERATIONTYPE'] = 'payment';
+        $params['ALIAS']         = $alias;
+        $params['ALIASMODE']     = 'oneclick';
+        $params["AMOUNT"]        = $amount;
 
         return $this->transaction(
             $orderId,
@@ -229,52 +324,8 @@ class Be2bill_Api_DirectLinkClient
      * @param       $orderId
      * @param       $clientIdentifier
      * @param       $clientEmail
-     * @param       $description
      * @param       $clientIP
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return bool|mixed
-     */
-    public function oneClickPayment(
-        $alias,
-        $amount,
-        $orderId,
-        $clientIdentifier,
-        $clientEmail,
-        $description,
-        $clientIP,
-        $clientUserAgent,
-        array $options = array()
-    ) {
-        $params = $options;
-
-        $params['OPERATIONTYPE'] = 'payment';
-        $params['ALIAS']         = $alias;
-        $params['ALIASMODE']     = 'oneclick';
-        $params["AMOUNT"]        = $amount;
-
-        return $this->transaction(
-            $orderId,
-            $clientIdentifier,
-            $clientEmail,
-            $description,
-            $clientIP,
-            $clientUserAgent,
-            $params
-        );
-    }
-
-    /**
-     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result
-     * formatted as an array.
-     *
-     * @param       $alias
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
      * @param       $description
-     * @param       $clientIP
      * @param       $clientUserAgent
      * @param array $options
      * @return bool|string
@@ -285,8 +336,8 @@ class Be2bill_Api_DirectLinkClient
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
@@ -301,8 +352,8 @@ class Be2bill_Api_DirectLinkClient
             $orderId,
             $clientIdentifier,
             $clientEmail,
-            $description,
             $clientIP,
+            $description,
             $clientUserAgent,
             $params
         );
@@ -329,8 +380,8 @@ class Be2bill_Api_DirectLinkClient
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
@@ -389,8 +440,8 @@ class Be2bill_Api_DirectLinkClient
             $orderId,
             $clientIdentifier,
             $clientEmail,
-            $description,
             $clientIP,
+            $description,
             $clientUserAgent,
             $params
         );
@@ -417,7 +468,7 @@ class Be2bill_Api_DirectLinkClient
         return $this->requests($this->getURLs($this->directLinkPath), $params);
     }
 
-// Redirection
+    // Redirection
 
     /**
      * This method is used to redirect a cardholder to an alternative payment provider (like wallets) and will
@@ -429,8 +480,8 @@ class Be2bill_Api_DirectLinkClient
      * @param       $orderId
      * @param       $clientIdentifier
      * @param       $clientEmail
-     * @param       $description
      * @param       $clientIP
+     * @param       $description
      * @param       $clientUserAgent
      * @param array $options
      * @return bool|string
@@ -440,8 +491,8 @@ class Be2bill_Api_DirectLinkClient
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
@@ -691,12 +742,22 @@ class Be2bill_Api_DirectLinkClient
     }
 
     // Internals
+    /**
+     * @param       $orderId
+     * @param       $clientIdentifier
+     * @param       $clientEmail
+     * @param       $clientIP
+     * @param       $description
+     * @param       $clientUserAgent
+     * @param array $options
+     * @return bool|string
+     */
     protected function transaction(
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
