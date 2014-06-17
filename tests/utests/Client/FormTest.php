@@ -22,7 +22,8 @@ class Client_FormTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue('dummy'));
 
         $this->api = new Be2bill_Api_Client(
-            'i', 'p',
+            'i',
+            'p',
             array('http://test'),
             $this->renderMock,
             $this->senderDummy,

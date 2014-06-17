@@ -59,9 +59,8 @@ class Renderer_HtmlTest extends PHPUnit_Framework_TestCase
     {
         $renderer = new Be2bill_Api_Renderer_Html('http://test.com');
 
-        $html = <<<HTML
-<form method="post" action="http://test.com/front/form/process" target="t" ><input type="hidden" name="foo" value="bar" /><input type="submit" name="biz"  /></form>
-HTML;
+        $html = '<form method="post" action="http://test.com/front/form/process" target="t" >' .
+        '<input type="hidden" name="foo" value="bar" /><input type="submit" name="biz"  /></form>';
 
         $this->assertEquals(
             $html,

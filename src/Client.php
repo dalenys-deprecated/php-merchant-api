@@ -113,13 +113,15 @@ class Be2bill_Api_Client
      * @param string        $orderId
      * @param string        $clientIdentifier
      * @param string        $description
-     * @param array         $htmlOptions An array of HTML attributes to add to the submit or form button (allowing to change name, style, class attribute etc.).
+     * @param array         $htmlOptions An array of HTML attributes to add to the submit or form button
+     * (allowing to change name, style, class attribute etc.).
      * Example:
      * <code>
      * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
      * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
      * </code>
-     * @param array         $options Others be2bill options. See Be2bill documentation for more information (3DS, CREATEALIAS, etc.)
+     * @param array         $options Others be2bill options. See Be2bill documentation for more information
+     * (3DS, CREATEALIAS, etc.)
      * @return string The HTML output to display
      */
     public function buildPaymentFormButton(
@@ -151,13 +153,15 @@ class Be2bill_Api_Client
      * @param int          $orderId
      * @param string       $clientIdentifier
      * @param string       $description
-     * @param array        $htmlOptions An array of HTML attributes to add to the submit or form button (allowing to change name, style, class attribute etc.).
+     * @param array        $htmlOptions An array of HTML attributes to add to the submit or form button
+     * (allowing to change name, style, class attribute etc.).
      * Example:
      * <code>
      * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
      * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
      * </code>
-     * @param        array $options Others be2bill options. See Be2bill documentation for more information (3DS, CREATEALIAS etc.)
+     * @param        array $options Others be2bill options. See Be2bill documentation for more information
+     * (3DS, CREATEALIAS etc.)
      * @see capture
      * @return string The HTML output to display
      */
@@ -236,7 +240,8 @@ class Be2bill_Api_Client
     }
 
     /**
-     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result formatted as an array.
+     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result
+     * formatted as an array.
      *
      * @param       $alias
      * @param       $amount
@@ -285,7 +290,8 @@ class Be2bill_Api_Client
     }
 
     /**
-     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result formatted as an array.
+     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result
+     * formatted as an array.
      *
      * @param       $alias
      * @param       $amount
@@ -329,7 +335,8 @@ class Be2bill_Api_Client
     }
 
     /**
-     * This method is used to initiate a subscription transaction using an ALIAS and will return the result formatted as an array.
+     * This method is used to initiate a subscription transaction using an ALIAS and will return the result
+     * formatted as an array.
      *
      * @param       $alias
      * @param       $amount
@@ -378,7 +385,8 @@ class Be2bill_Api_Client
     }
 
     /**
-     * This method is used to initiate a subscription transaction using an ALIAS and will return the result formatted as an array.
+     * This method is used to initiate a subscription transaction using an ALIAS and will return the result
+     * formatted as an array.
      *
      * @param       $alias
      * @param       $amount
@@ -445,8 +453,10 @@ class Be2bill_Api_Client
     // Redirection
 
     /**
-     * This method is used to redirect a cardholder to an alternative payment provider (like wallets) and will return the result formatted as an array.
-     * In case of success, you will have to display the $result[REDIRECTHTML] code with a base64_decode to redirect the user to the payment page.
+     * This method is used to redirect a cardholder to an alternative payment provider (like wallets) and will
+     * return the result formatted as an array.
+     * In case of success, you will have to display the $result[REDIRECTHTML] code with a base64_decode to redirect
+     * the user to the payment page.
      *
      * @param       $amount
      * @param       $orderId
