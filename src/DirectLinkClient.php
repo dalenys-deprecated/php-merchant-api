@@ -36,9 +36,8 @@ class Be2bill_Api_DirectLinkClient
      * @param                                 $identifier
      * @param                                 $password
      * @param array                           $urls
-     * @param Be2bill_Api_Renderer_Renderable $renderer
      * @param Be2bill_Api_Sender_Sendable     $sender
-     * @param Be2bill_Api_Hash_Hashable       $sender
+     * @param Be2bill_Api_Hash_Hashable       $hash
      */
     public function __construct(
         $identifier,
@@ -50,8 +49,8 @@ class Be2bill_Api_DirectLinkClient
         $this->setCredentials($identifier, $password);
         $this->setUrls($urls);
 
-        $this->sender   = $sender;
-        $this->hash     = $hash;
+        $this->sender = $sender;
+        $this->hash   = $hash;
     }
 
     /**
@@ -62,6 +61,113 @@ class Be2bill_Api_DirectLinkClient
     {
         $this->identifier = $identifier;
         $this->password   = $password;
+    }
+
+    public function payment(
+        $cardPan,
+        $cardDate,
+        $cardCryptogram,
+        $cardFullName,
+        $amount,
+        $orderId,
+        $clientIdentifier,
+        $clientEmail,
+        $description,
+        $clientIP,
+        $clientUserAgent,
+        array $options = array()
+    ) {
+        $params = $options;
+
+        if (is_array($amount)) {
+            $params["AMOUNTS"] = $amount;
+        } else {
+            $params["AMOUNT"] = $amount;
+        }
+
+        $params['OPERATIONTYPE']    = 'payment';
+        $params['CARDCODE']         = $cardPan;
+        $params['CARDVALIDITYDATE'] = $cardDate;
+        $params['CARDCVV']          = $cardCryptogram;
+        $params['CARDFULLNAME']     = $cardFullName;
+
+        return $this->transaction(
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
+    }
+
+    public function authorization(
+        $cardPan,
+        $cardDate,
+        $cardCryptogram,
+        $cardFullName,
+        $amount,
+        $orderId,
+        $clientIdentifier,
+        $clientEmail,
+        $description,
+        $clientIP,
+        $clientUserAgent,
+        array $options = array()
+    ) {
+        $params = $options;
+
+        $params['OPERATIONTYPE']    = 'authorization';
+        $params['CARDCODE']         = $cardPan;
+        $params['CARDVALIDITYDATE'] = $cardDate;
+        $params['CARDCVV']          = $cardCryptogram;
+        $params['CARDFULLNAME']     = $cardFullName;
+        $params["AMOUNT"]           = $amount;
+
+        return $this->transaction(
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
+    }
+
+    public function credit(
+        $cardPan,
+        $cardDate,
+        $cardCryptogram,
+        $cardFullName,
+        $amount,
+        $orderId,
+        $clientIdentifier,
+        $clientEmail,
+        $description,
+        $clientIP,
+        $clientUserAgent,
+        array $options = array()
+    ) {
+        $params = $options;
+
+        $params['OPERATIONTYPE']    = 'credit';
+        $params['CARDCODE']         = $cardPan;
+        $params['CARDVALIDITYDATE'] = $cardDate;
+        $params['CARDCVV']          = $cardCryptogram;
+        $params['CARDFULLNAME']     = $cardFullName;
+        $params["AMOUNT"]           = $amount;
+
+        return $this->transaction(
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
     }
 
     /**
@@ -142,18 +248,12 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params = $options;
 
-        if (is_array($amount)) {
-            $params["AMOUNTS"] = $amount;
-        } else {
-            $params["AMOUNT"] = $amount;
-        }
-
         $params['OPERATIONTYPE'] = 'payment';
+        $params['ALIAS']         = $alias;
         $params['ALIASMODE']     = 'oneclick';
+        $params["AMOUNT"]        = $amount;
 
-        return $this->rebillTransaction(
-            $alias,
-            $amount,
+        return $this->transaction(
             $orderId,
             $clientIdentifier,
             $clientEmail,
@@ -192,13 +292,12 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params = $options;
 
-        $params["AMOUNT"]        = $amount;
         $params['OPERATIONTYPE'] = 'authorization';
+        $params['ALIAS']         = $alias;
         $params['ALIASMODE']     = 'oneclick';
+        $params["AMOUNT"]        = $amount;
 
-        return $this->rebillTransaction(
-            $alias,
-            $amount,
+        return $this->transaction(
             $orderId,
             $clientIdentifier,
             $clientEmail,
@@ -237,18 +336,12 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params = $options;
 
-        if (is_array($amount)) {
-            $params["AMOUNTS"] = $amount;
-        } else {
-            $params["AMOUNT"] = $amount;
-        }
-
         $params['OPERATIONTYPE'] = 'payment';
         $params['ALIASMODE']     = 'subscription';
+        $params['ALIAS']         = $alias;
+        $params["AMOUNT"]        = $amount;
 
-        return $this->rebillTransaction(
-            $alias,
-            $amount,
+        return $this->transaction(
             $orderId,
             $clientIdentifier,
             $clientEmail,
@@ -287,13 +380,12 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params = $options;
 
-        $params["AMOUNT"]        = $amount;
         $params['OPERATIONTYPE'] = 'authorization';
         $params['ALIASMODE']     = 'subscription';
+        $params['ALIAS']         = $alias;
+        $params["AMOUNT"]        = $amount;
 
-        return $this->rebillTransaction(
-            $alias,
-            $amount,
+        return $this->transaction(
             $orderId,
             $clientIdentifier,
             $clientEmail,
@@ -325,7 +417,7 @@ class Be2bill_Api_DirectLinkClient
         return $this->requests($this->getURLs($this->directLinkPath), $params);
     }
 
-    // Redirection
+// Redirection
 
     /**
      * This method is used to redirect a cardholder to an alternative payment provider (like wallets) and will
@@ -355,23 +447,21 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params = $options;
 
-        $params["AMOUNT"]          = $amount;
-        $params['ORDERID']         = $orderId;
-        $params['CLIENTIDENT']     = $clientIdentifier;
-        $params['CLIENTEMAIL']     = $clientEmail;
-        $params['DESCRIPTION']     = $description;
-        $params['CLIENTUSERAGENT'] = $clientUserAgent;
-        $params['CLIENTIP']        = $clientIP;
-        $params['IDENTIFIER']      = $this->identifier;
-        $params['VERSION']         = self::API_VERSION;
-
         if (!isset($options['OPERATIONTYPE'])) {
             $params['OPERATIONTYPE'] = 'payment';
         }
 
-        $params['HASH'] = $this->hash($params);
+        $params['AMOUNT'] = $amount;
 
-        return $this->requests($this->getURLs($this->directLinkPath), $params);
+        return $this->transaction(
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
     }
 
     // Export methods
@@ -385,8 +475,11 @@ class Be2bill_Api_DirectLinkClient
      * @param string $compression
      * @return bool|mixed
      */
-    public function getTransactionsByTransactionId($transactionId, $destination, $compression = 'GZIP')
-    {
+    public function getTransactionsByTransactionId(
+        $transactionId,
+        $destination,
+        $compression = 'GZIP'
+    ) {
         return $this->getTransactions('TRANSACTIONID', $transactionId, $destination, $compression);
     }
 
@@ -399,8 +492,11 @@ class Be2bill_Api_DirectLinkClient
      * @param string $compression
      * @return bool|mixed
      */
-    public function getTransactionsByOrderId($orderId, $destination, $compression = 'GZIP')
-    {
+    public function getTransactionsByOrderId(
+        $orderId,
+        $destination,
+        $compression = 'GZIP'
+    ) {
         return $this->getTransactions('ORDERID', $orderId, $destination, $compression);
     }
 
@@ -415,8 +511,12 @@ class Be2bill_Api_DirectLinkClient
      * @param        $options
      * @return bool|mixed
      */
-    public function exportTransactions($date, $destination, $compression = 'GZIP', array $options = array())
-    {
+    public function exportTransactions(
+        $date,
+        $destination,
+        $compression = 'GZIP',
+        array $options = array()
+    ) {
         $params = $options;
 
         $params["COMPRESSION"]   = $compression;
@@ -447,8 +547,12 @@ class Be2bill_Api_DirectLinkClient
      * @param        $options
      * @return bool|mixed
      */
-    public function exportChargebacks($date, $destination, $compression = 'GZIP', array $options = array())
-    {
+    public function exportChargebacks(
+        $date,
+        $destination,
+        $compression = 'GZIP',
+        array $options = array()
+    ) {
         $params = $options;
 
         $params["COMPRESSION"]   = $compression;
@@ -479,8 +583,12 @@ class Be2bill_Api_DirectLinkClient
      * @param        $options
      * @return bool|mixed
      */
-    public function exportReconciliation($date, $destination, $compression = 'GZIP', $options = array())
-    {
+    public function exportReconciliation(
+        $date,
+        $destination,
+        $compression = 'GZIP',
+        $options = array()
+    ) {
         $params = $options;
 
         $params["COMPRESSION"]   = $compression;
@@ -583,22 +691,7 @@ class Be2bill_Api_DirectLinkClient
     }
 
     // Internals
-
-    /**
-     * @param       $alias
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $description
-     * @param       $clientIP
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return bool|string
-     */
-    protected function rebillTransaction(
-        $alias,
-        $amount,
+    protected function transaction(
         $orderId,
         $clientIdentifier,
         $clientEmail,
@@ -615,9 +708,7 @@ class Be2bill_Api_DirectLinkClient
         $params['DESCRIPTION']     = $description;
         $params['CLIENTUSERAGENT'] = $clientUserAgent;
         $params['CLIENTIP']        = $clientIP;
-        $params['ALIAS']           = $alias;
         $params['IDENTIFIER']      = $this->identifier;
-        $params['AMOUNT']          = $amount;
         $params['VERSION']         = self::API_VERSION;
 
         $params['HASH'] = $this->hash($params);
@@ -632,8 +723,12 @@ class Be2bill_Api_DirectLinkClient
      * @param $compression
      * @return bool|mixed
      */
-    protected function getTransactions($searchBy, $id, $destination, $compression)
-    {
+    protected function getTransactions(
+        $searchBy,
+        $id,
+        $destination,
+        $compression
+    ) {
         $params["OPERATIONTYPE"] = 'getTransactions';
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;

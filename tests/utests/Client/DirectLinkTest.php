@@ -12,8 +12,8 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->senderMock  = $this->getMock('Be2bill_Api_Sender_Sendable');
-        $this->hashStub    = $this->getMock('Be2bill_Api_Hash_Hashable');
+        $this->senderMock = $this->getMock('Be2bill_Api_Sender_Sendable');
+        $this->hashStub   = $this->getMock('Be2bill_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->once())
             ->method('compute')
@@ -26,6 +26,99 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
             $this->senderMock,
             $this->hashStub
         );
+    }
+
+    public function testPayment()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'method' => 'payment',
+                    'params' => array(
+                        'AMOUNT'           => 100,
+                        'IDENTIFIER'       => 'i',
+                        'OPERATIONTYPE'    => 'payment',
+                        'ORDERID'          => 42,
+                        'CLIENTIDENT'      => 'ident',
+                        'CLIENTEMAIL'      => 'test@test.com',
+                        'CLIENTIP'         => '1.1.1.1',
+                        'CLIENTUSERAGENT'  => 'Firefox',
+                        'VERSION'          => '2.0',
+                        'HASH'             => 'dummy',
+                        'DESCRIPTION'      => 'desc',
+                        'CARDCODE'         => '1111222233334444',
+                        'CARDCVV'          => '123',
+                        'CARDVALIDITYDATE' => '01-12',
+                        'CARDFULLNAME'     => 'john doe'
+                    )
+                )
+            );
+
+        $this->api->payment('1111222233334444', '01-12', '123', 'john doe', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+    }
+
+    public function testAuthorization()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'method' => 'authorization',
+                    'params' => array(
+                        'AMOUNT'           => 100,
+                        'IDENTIFIER'       => 'i',
+                        'OPERATIONTYPE'    => 'authorization',
+                        'ORDERID'          => 42,
+                        'CLIENTIDENT'      => 'ident',
+                        'CLIENTEMAIL'      => 'test@test.com',
+                        'CLIENTIP'         => '1.1.1.1',
+                        'CLIENTUSERAGENT'  => 'Firefox',
+                        'VERSION'          => '2.0',
+                        'HASH'             => 'dummy',
+                        'DESCRIPTION'      => 'desc',
+                        'CARDCODE'         => '1111222233334444',
+                        'CARDCVV'          => '123',
+                        'CARDVALIDITYDATE' => '01-12',
+                        'CARDFULLNAME'     => 'john doe'
+                    )
+                )
+            );
+
+        $this->api->authorization('1111222233334444', '01-12', '123', 'john doe', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
+    }
+
+    public function testCredit()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'method' => 'credit',
+                    'params' => array(
+                        'AMOUNT'           => 100,
+                        'IDENTIFIER'       => 'i',
+                        'OPERATIONTYPE'    => 'credit',
+                        'ORDERID'          => 42,
+                        'CLIENTIDENT'      => 'ident',
+                        'CLIENTEMAIL'      => 'test@test.com',
+                        'CLIENTIP'         => '1.1.1.1',
+                        'CLIENTUSERAGENT'  => 'Firefox',
+                        'VERSION'          => '2.0',
+                        'HASH'             => 'dummy',
+                        'DESCRIPTION'      => 'desc',
+                        'CARDCODE'         => '1111222233334444',
+                        'CARDCVV'          => '123',
+                        'CARDVALIDITYDATE' => '01-12',
+                        'CARDFULLNAME'     => 'john doe'
+                    )
+                )
+            );
+
+        $this->api->credit('1111222233334444', '01-12', '123', 'john doe', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
     }
 
     public function testCapture()
