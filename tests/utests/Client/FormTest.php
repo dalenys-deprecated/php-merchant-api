@@ -4,29 +4,25 @@ class Client_FormTest extends PHPUnit_Framework_TestCase
 {
     protected $renderMock = null;
     protected $hashStub = null;
-    protected $senderDummy = null;
 
     /**
-     * @var Be2bill_Api_Client
+     * @var Be2bill_Api_FormClient
      */
     protected $api = null;
 
     public function setUp()
     {
         $this->renderMock  = $this->getMock('Be2bill_Api_Renderer_Renderable');
-        $this->senderDummy = $this->getMock('Be2bill_Api_Sender_Sendable');
         $this->hashStub    = $this->getMock('Be2bill_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->once())
             ->method('compute')
             ->will($this->returnValue('dummy'));
 
-        $this->api = new Be2bill_Api_Client(
+        $this->api = new Be2bill_Api_FormClient(
             'i',
             'p',
-            array('http://test'),
             $this->renderMock,
-            $this->senderDummy,
             $this->hashStub
         );
     }

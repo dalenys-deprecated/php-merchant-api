@@ -4,7 +4,7 @@
  * Implements Be2bill payment API
  * @version 1.0.0
  */
-class Be2bill_Api_Client
+class Be2bill_Api_DirectLinkClient
 {
     const API_VERSION = '2.0';
 
@@ -21,11 +21,6 @@ class Be2bill_Api_Client
     protected $password = null;
 
     // Internals
-
-    /**
-     * @var Be2bill_Api_Renderer_Renderable
-     */
-    protected $renderer = null;
 
     /**
      * @var Be2bill_Api_Sender_Sendable
@@ -49,14 +44,12 @@ class Be2bill_Api_Client
         $identifier,
         $password,
         array $urls,
-        Be2bill_Api_Renderer_Renderable $renderer,
         Be2bill_Api_Sender_Sendable $sender,
         Be2bill_Api_Hash_Hashable $hash
     ) {
         $this->setCredentials($identifier, $password);
         $this->setUrls($urls);
 
-        $this->renderer = $renderer;
         $this->sender   = $sender;
         $this->hash     = $hash;
     }
@@ -70,124 +63,6 @@ class Be2bill_Api_Client
         $this->identifier = $identifier;
         $this->password   = $password;
     }
-
-    // Autoloading
-
-    /**
-     * Register a standard autoloader for the Be2bill Client API
-     */
-    public static function registerAutoloader()
-    {
-        spl_autoload_register(__CLASS__ . '::autoloader');
-    }
-
-    /**
-     * @param $className string The class name
-     */
-    public static function autoloader($className)
-    {
-        $prefix = 'Be2bill_Api';
-
-        $len = strlen($prefix);
-        if (strncmp($prefix, $className, $len) !== 0) {
-            // skip this autoloader
-            return;
-        }
-        $relative_class = substr($className, $len + 1);
-        $file           = str_replace('_', DIRECTORY_SEPARATOR, $relative_class) . '.php';
-
-        require $file;
-    }
-
-    /**
-     * Build form payment and submit button
-     *
-     * This method will return the form payment and all hidden input configuring the be2bill transaction.
-     * @param integer|array $amount The transaction amount in cents.
-     *  If $amount is an array it will be used as NTime transaction (fragmented payment).
-     *  In this case, the array should be formatted this way:
-     *  <code>
-     *      $amounts = array('2014-01-01' => 100, '2014-02-01' => 200, '2014-03-01' => 100)
-     *  </code>
-     *  The first entry's date should be the current date (today)
-     * @param string        $orderId
-     * @param string        $clientIdentifier
-     * @param string        $description
-     * @param array         $htmlOptions An array of HTML attributes to add to the submit or form button
-     * (allowing to change name, style, class attribute etc.).
-     * Example:
-     * <code>
-     * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
-     * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
-     * </code>
-     * @param array         $options Others be2bill options. See Be2bill documentation for more information
-     * (3DS, CREATEALIAS, etc.)
-     * @return string The HTML output to display
-     */
-    public function buildPaymentFormButton(
-        $amount,
-        $orderId,
-        $clientIdentifier,
-        $description,
-        array $htmlOptions = array(),
-        array $options = array()
-    ) {
-        $params = $options;
-
-        // Handle N-Time payments
-        if (is_array($amount)) {
-            $params["AMOUNTS"] = $amount;
-        } else {
-            $params["AMOUNT"] = $amount;
-        }
-
-        return $this->buildProcessButton('payment', $orderId, $clientIdentifier, $description, $htmlOptions, $params);
-    }
-
-    /**
-     * Build form authorization and submit button
-     *
-     * This method will return the form authorization and all hidden input configuring the be2bill transaction.
-     * You will have to call the {@link capture} method to confirm this authorization
-     * @param int          $amount
-     * @param int          $orderId
-     * @param string       $clientIdentifier
-     * @param string       $description
-     * @param array        $htmlOptions An array of HTML attributes to add to the submit or form button
-     * (allowing to change name, style, class attribute etc.).
-     * Example:
-     * <code>
-     * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
-     * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
-     * </code>
-     * @param        array $options Others be2bill options. See Be2bill documentation for more information
-     * (3DS, CREATEALIAS etc.)
-     * @see capture
-     * @return string The HTML output to display
-     */
-    public function buildAuthorizationFormButton(
-        $amount,
-        $orderId,
-        $clientIdentifier,
-        $description,
-        array $htmlOptions = array(),
-        array $options = array()
-    ) {
-        $params = $options;
-
-        $params["AMOUNT"] = $amount;
-
-        return $this->buildProcessButton(
-            'authorization',
-            $orderId,
-            $clientIdentifier,
-            $description,
-            $htmlOptions,
-            $params
-        );
-    }
-
-    // Editing API
 
     /**
      * This method is used to refund a transaction and will return the result formatted as an array.
@@ -644,10 +519,7 @@ class Be2bill_Api_Client
      */
     public function checkHash($params)
     {
-        $received_hash   = $params['HASH'];
-        $calculated_hash = $this->hash($params);
-
-        return $received_hash == $calculated_hash;
+        return $this->hash->checkHash($this->password, $params);
     }
 
     /**
@@ -711,39 +583,6 @@ class Be2bill_Api_Client
     }
 
     // Internals
-
-    /**
-     * @param       $operationType
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $description
-     * @param array $htmlOptions
-     * @param array $options
-     * @return string
-     */
-    protected function buildProcessButton(
-        $operationType,
-        $orderId,
-        $clientIdentifier,
-        $description,
-        array $htmlOptions = array(),
-        array $options = array()
-    ) {
-        $params = $options;
-
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['OPERATIONTYPE'] = $operationType;
-        $params['ORDERID']       = $orderId;
-        $params['CLIENTIDENT']   = $clientIdentifier;
-        $params['DESCRIPTION']   = $description;
-        $params['VERSION']       = self::API_VERSION;
-
-        $params['HASH'] = $this->hash($params);
-
-        $renderer = $this->renderer;
-
-        return $renderer->render($params, $htmlOptions);
-    }
 
     /**
      * @param       $alias

@@ -13,19 +13,36 @@ abstract class Be2bill_Api_ClientBuilder
     protected static $sandboxUrls = array('https://secure-test.be2bill.com');
 
     /**
-     * Build a production client
+     * Build a production form builder
      * @param $identifier
      * @param $password
      * @param $urls
-     * @return Be2bill_Api_Client
+     * @return Be2bill_Api_FormClient
      */
-    public static function buildProductionClient($identifier, $password)
+    public static function buildProductionFormClient($identifier, $password)
     {
-        $api = new Be2bill_Api_Client(
+        $api = new Be2bill_Api_FormClient(
+            $identifier,
+            $password,
+            new Be2bill_Api_Renderer_Html(current(self::$productionUrls)),
+            new Be2bill_Api_Hash_Parameters()
+        );
+
+        return $api;
+    }
+
+    /**
+     * Build a direclink production client
+     * @param $identifier
+     * @param $password
+     * @return Be2bill_Api_DirectLinkClient
+     */
+    public static function buildProductionDirectLinkClient($identifier, $password)
+    {
+        $api = new Be2bill_Api_DirectLinkClient(
             $identifier,
             $password,
             self::$productionUrls,
-            new Be2bill_Api_Renderer_Html(current(self::$productionUrls)),
             new Be2bill_Api_Sender_Curl(),
             new Be2bill_Api_Hash_Parameters()
         );
@@ -34,19 +51,36 @@ abstract class Be2bill_Api_ClientBuilder
     }
 
     /**
-     * Build a sandbox client (transactions are fake)
+     * Build a sandbox form builder (transactions are fake)
      * @param $identifier
      * @param $password
      * @param $urls
-     * @return Be2bill_Api_Client
+     * @return Be2bill_Api_FormClient
      */
-    public static function buildSandboxClient($identifier, $password)
+    public static function buildSandboxFormClient($identifier, $password)
     {
-        $api = new Be2bill_Api_Client(
+        $api = new Be2bill_Api_FormClient(
+            $identifier,
+            $password,
+            new Be2bill_Api_Renderer_Html(current(self::$sandboxUrls)),
+            new Be2bill_Api_Hash_Parameters()
+        );
+
+        return $api;
+    }
+
+    /**
+     * Build a sandbox directlink client
+     * @param $identifier
+     * @param $password
+     * @return Be2bill_Api_DirectLinkClient
+     */
+    public static function buildSandboxDirectlinkClient($identifier, $password)
+    {
+        $api = new Be2bill_Api_DirectLinkClient(
             $identifier,
             $password,
             self::$sandboxUrls,
-            new Be2bill_Api_Renderer_Html(current(self::$sandboxUrls)),
             new Be2bill_Api_Sender_Curl(),
             new Be2bill_Api_Hash_Parameters()
         );
@@ -54,7 +88,10 @@ abstract class Be2bill_Api_ClientBuilder
         return $api;
     }
 
-    public static function switchUrls()
+    /**
+     * Use another production URL
+     */
+    public static function switchProductionUrls()
     {
         self::$productionUrls = array_reverse(self::$productionUrls);
     }

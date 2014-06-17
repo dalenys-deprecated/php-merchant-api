@@ -9,15 +9,15 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require 'config.php';
-require '../src/Client.php';
+require '../src/Autoloader.php';
 
-Be2bill_Api_Client::registerAutoloader();
+Be2bill_Api_Autoloader::registerAutoloader();
 
 // Use fallback URL
-// Be2bill_Api_ClientBuilder::switchUrls();
+// Be2bill_Api_ClientBuilder::switchProductionUrls();
 
 // Just implement BE2BILL_IDENTIFIER and BE2BILL_PASSWORD as defined
-$be2bill = Be2bill_Api_ClientBuilder::buildSandboxClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+$be2bill = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 
 echo $be2bill->buildPaymentFormButton(
     15387,

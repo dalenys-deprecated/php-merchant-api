@@ -1,5 +1,5 @@
 <?php
 
-require '../src/Client.php';
+require '../src/Autoloader.php';
 
-Be2bill_Api_Client::registerAutoloader();
+Be2bill_Api_Autoloader::registerAutoloader();

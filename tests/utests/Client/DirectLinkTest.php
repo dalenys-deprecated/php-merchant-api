@@ -2,18 +2,16 @@
 
 class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
 {
-    protected $renderDummy = null;
     protected $hashStub = null;
     protected $senderMock = null;
 
     /**
-     * @var Be2bill_Api_Client
+     * @var Be2bill_Api_FormClient
      */
     protected $api = null;
 
     public function setUp()
     {
-        $this->renderDummy = $this->getMock('Be2bill_Api_Renderer_Renderable');
         $this->senderMock  = $this->getMock('Be2bill_Api_Sender_Sendable');
         $this->hashStub    = $this->getMock('Be2bill_Api_Hash_Hashable');
 
@@ -21,11 +19,10 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
             ->method('compute')
             ->will($this->returnValue('dummy'));
 
-        $this->api = new Be2bill_Api_Client(
+        $this->api = new Be2bill_Api_DirectLinkClient(
             'i',
             'p',
             array('http://test'),
-            $this->renderDummy,
             $this->senderMock,
             $this->hashStub
         );
