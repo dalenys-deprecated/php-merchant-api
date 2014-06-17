@@ -46,7 +46,9 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
                         'MAILTO'        => 'test@test.com',
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy'
-                    )));
+                    )
+                )
+            );
 
         $this->api->getTransactionsByTransactionId('A1', 'test@test.com');
     }
@@ -67,7 +69,9 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
                         'CALLBACKURL'   => 'http://test.com/',
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy'
-                    )));
+                    )
+                )
+            );
 
         $this->api->getTransactionsByTransactionId('A1', 'http://test.com/');
     }
@@ -88,7 +92,9 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
                         'MAILTO'        => 'test@test.com',
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy'
-                    )));
+                    )
+                )
+            );
 
         $this->api->getTransactionsByOrderId('oid', 'test@test.com');
     }
@@ -109,7 +115,9 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
                         'MAILTO'        => 'test@test.com',
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy'
-                    )));
+                    )
+                )
+            );
 
         $this->api->getTransactionsByOrderId(array('a', 'b', 'c'), 'test@test.com');
     }
@@ -130,7 +138,9 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
                         'MAILTO'        => 'test@test.com',
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy'
-                    )));
+                    )
+                )
+            );
 
         $this->api->exportTransactions('2014-01-02', 'test@test.com');
     }
@@ -151,7 +161,9 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
                         'MAILTO'        => 'test@test.com',
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy'
-                    )));
+                    )
+                )
+            );
 
         $this->api->exportReconciliation('2014-01-02', 'test@test.com');
     }

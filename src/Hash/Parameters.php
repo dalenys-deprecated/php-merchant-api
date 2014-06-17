@@ -1,6 +1,6 @@
 <?php
 
-class Be2bill_Api_Hash_Parameters implements  Be2bill_Api_Hash_Hashable
+class Be2bill_Api_Hash_Parameters implements Be2bill_Api_Hash_Hashable
 {
     public function compute($password, array $data = array())
     {

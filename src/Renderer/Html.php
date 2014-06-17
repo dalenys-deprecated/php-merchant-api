@@ -38,7 +38,7 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
         }
 
         // Return something like $prodUrl / formPath
-        $html = '<form method="post" action="' . $this->url . '" '. $attributes .'>';
+        $html = '<form method="post" action="' . $this->url . '" ' . $attributes . '>';
 
         $html .= $this->buildHiddenInputs($params);
 

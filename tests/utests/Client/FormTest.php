@@ -44,7 +44,8 @@ class Client_FormTest extends PHPUnit_Framework_TestCase
                     'VERSION'       => '2.0',
                     'HASH'          => 'dummy',
                     'DESCRIPTION'   => 'desc'
-                ));
+                )
+            );
 
         $this->api->buildPaymentFormButton(100, 42, 'ident', 'desc');
     }
@@ -63,9 +64,15 @@ class Client_FormTest extends PHPUnit_Framework_TestCase
                     'VERSION'       => '2.0',
                     'HASH'          => 'dummy',
                     'DESCRIPTION'   => 'desc'
-                ));
+                )
+            );
 
-        $this->api->buildPaymentFormButton(array('2014-01-16' => 100, '2014-02-16' => 100, '2014-03-16' => 100), 42, 'ident', 'desc');
+        $this->api->buildPaymentFormButton(
+            array('2014-01-16' => 100, '2014-02-16' => 100, '2014-03-16' => 100),
+            42,
+            'ident',
+            'desc'
+        );
     }
 
     public function testFormAuthorization()
@@ -82,7 +89,8 @@ class Client_FormTest extends PHPUnit_Framework_TestCase
                     'VERSION'       => '2.0',
                     'HASH'          => 'dummy',
                     'DESCRIPTION'   => 'desc'
-                ));
+                )
+            );
 
         $this->api->buildAuthorizationFormButton(100, 42, 'ident', 'desc');
     }

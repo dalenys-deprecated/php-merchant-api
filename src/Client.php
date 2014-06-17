@@ -52,8 +52,7 @@ class Be2bill_Api_Client
         Be2bill_Api_Renderer_Renderable $renderer,
         Be2bill_Api_Sender_Sendable $sender,
         Be2bill_Api_Hash_Hashable $hash
-    )
-    {
+    ) {
         $this->setCredentials($identifier, $password);
         $this->setUrls($urls);
 
@@ -130,8 +129,7 @@ class Be2bill_Api_Client
         $description,
         array $htmlOptions = array(),
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         // Handle N-Time payments
@@ -170,13 +168,19 @@ class Be2bill_Api_Client
         $description,
         array $htmlOptions = array(),
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         $params["AMOUNT"] = $amount;
 
-        return $this->buildProcessButton('authorization', $orderId, $clientIdentifier, $description, $htmlOptions, $params);
+        return $this->buildProcessButton(
+            'authorization',
+            $orderId,
+            $clientIdentifier,
+            $description,
+            $htmlOptions,
+            $params
+        );
     }
 
     // Editing API
@@ -255,8 +259,7 @@ class Be2bill_Api_Client
         $clientIP,
         $clientUserAgent,
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         if (is_array($amount)) {
@@ -268,7 +271,17 @@ class Be2bill_Api_Client
         $params['OPERATIONTYPE'] = 'payment';
         $params['ALIASMODE']     = 'oneclick';
 
-        return $this->rebillTransaction($alias, $amount, $orderId, $clientIdentifier, $clientEmail, $description, $clientIP, $clientUserAgent, $params);
+        return $this->rebillTransaction(
+            $alias,
+            $amount,
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
     }
 
     /**
@@ -295,15 +308,24 @@ class Be2bill_Api_Client
         $clientIP,
         $clientUserAgent,
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         $params["AMOUNT"]        = $amount;
         $params['OPERATIONTYPE'] = 'authorization';
         $params['ALIASMODE']     = 'oneclick';
 
-        return $this->rebillTransaction($alias, $amount, $orderId, $clientIdentifier, $clientEmail, $description, $clientIP, $clientUserAgent, $params);
+        return $this->rebillTransaction(
+            $alias,
+            $amount,
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
     }
 
     /**
@@ -330,8 +352,7 @@ class Be2bill_Api_Client
         $clientIP,
         $clientUserAgent,
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         if (is_array($amount)) {
@@ -343,7 +364,17 @@ class Be2bill_Api_Client
         $params['OPERATIONTYPE'] = 'payment';
         $params['ALIASMODE']     = 'subscription';
 
-        return $this->rebillTransaction($alias, $amount, $orderId, $clientIdentifier, $clientEmail, $description, $clientIP, $clientUserAgent, $params);
+        return $this->rebillTransaction(
+            $alias,
+            $amount,
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
     }
 
     /**
@@ -370,15 +401,24 @@ class Be2bill_Api_Client
         $clientIP,
         $clientUserAgent,
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         $params["AMOUNT"]        = $amount;
         $params['OPERATIONTYPE'] = 'authorization';
         $params['ALIASMODE']     = 'subscription';
 
-        return $this->rebillTransaction($alias, $amount, $orderId, $clientIdentifier, $clientEmail, $description, $clientIP, $clientUserAgent, $params);
+        return $this->rebillTransaction(
+            $alias,
+            $amount,
+            $orderId,
+            $clientIdentifier,
+            $clientEmail,
+            $description,
+            $clientIP,
+            $clientUserAgent,
+            $params
+        );
     }
 
     /**
@@ -427,8 +467,7 @@ class Be2bill_Api_Client
         $clientIP,
         $clientUserAgent,
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         $params["AMOUNT"]          = $amount;
@@ -679,8 +718,7 @@ class Be2bill_Api_Client
         $description,
         array $htmlOptions = array(),
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         $params['IDENTIFIER']    = $this->identifier;
@@ -719,8 +757,7 @@ class Be2bill_Api_Client
         $clientIP,
         $clientUserAgent,
         array $options = array()
-    )
-    {
+    ) {
         $params = $options;
 
         $params['ORDERID']         = $orderId;

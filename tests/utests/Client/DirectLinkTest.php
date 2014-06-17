@@ -46,7 +46,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy',
                         'DESCRIPTION'   => 'desc'
-                    )));
+                    )
+                )
+            );
 
         $this->api->capture('A1', 42, 'desc');
     }
@@ -73,7 +75,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'         => '2.0',
                         'HASH'            => 'dummy',
                         'DESCRIPTION'     => 'desc'
-                    )));
+                    )
+                )
+            );
 
         $this->api->oneClickPayment('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
     }
@@ -100,7 +104,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'         => '2.0',
                         'HASH'            => 'dummy',
                         'DESCRIPTION'     => 'desc'
-                    )));
+                    )
+                )
+            );
 
         $this->api->subscriptionPayment('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
     }
@@ -127,7 +133,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'         => '2.0',
                         'HASH'            => 'dummy',
                         'DESCRIPTION'     => 'desc'
-                    )));
+                    )
+                )
+            );
 
         $this->api->oneClickAuthorization('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
     }
@@ -155,7 +163,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'         => '2.0',
                         'HASH'            => 'dummy',
                         'DESCRIPTION'     => 'desc'
-                    )));
+                    )
+                )
+            );
 
         $this->api->subscriptionAuthorization('A1', 100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
     }
@@ -176,7 +186,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy',
                         'DESCRIPTION'   => 'desc'
-                    )));
+                    )
+                )
+            );
 
         $this->api->refund('A1', 42, 'desc');
     }
@@ -195,7 +207,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'OPERATIONTYPE' => 'stopntimes',
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy',
-                    )));
+                    )
+                )
+            );
 
         $this->api->stopNTimes('A1');
     }
@@ -220,17 +234,21 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'         => '2.0',
                         'HASH'            => 'dummy',
                         'DESCRIPTION'     => 'desc'
-                    )));
+                    )
+                )
+            );
 
         $this->api->redirectForPayment(100, 42, 'ident', 'test@test.com', 'desc', '1.1.1.1', 'Firefox');
     }
 
     public function testTwoRequestsWhenRequestOneFailWithDirectLink()
     {
-        $this->api->setUrls(array(
-            'http://test',
-            'http://test'
-        ));
+        $this->api->setUrls(
+            array(
+                'http://test',
+                'http://test'
+            )
+        );
 
         $this->senderMock->expects($this->exactly(2))
             ->method('shouldRetry')
@@ -250,7 +268,9 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                         'VERSION'       => '2.0',
                         'HASH'          => 'dummy',
                         'DESCRIPTION'   => 'desc'
-                    )))
+                    )
+                )
+            )
             ->will($this->returnValueMap(array(false, array('CODE' => '0000'))));
 
         $this->api->capture('A1', 42, 'desc');

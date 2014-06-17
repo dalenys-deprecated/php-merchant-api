@@ -13,7 +13,7 @@ class Be2bill_Api_Sender_Curl implements Be2bill_Api_Sender_Sendable
     public function __construct()
     {
         $this->curlHandler = curl_init();
-        $this->timeout = self::REQUEST_TIMEOUT;
+        $this->timeout     = self::REQUEST_TIMEOUT;
     }
 
     public function setTimeout($timeout)
