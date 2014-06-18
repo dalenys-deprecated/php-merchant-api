@@ -6,7 +6,7 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
     protected $senderMock = null;
 
     /**
-     * @var Be2bill_Api_FormClient
+     * @var Be2bill_Api_DirectLinkClient
      */
     protected $api = null;
 

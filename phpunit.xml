@@ -2,8 +2,11 @@
 
 <phpunit colors="true" bootstrap="tests/bootstrap.php">
     <testsuites>
-        <testsuite name="Be2bill Client Api Test Suite">
-            <directory>./tests</directory>
+        <testsuite name="utests">
+            <directory>./tests/utests</directory>
+        </testsuite>
+        <testsuite name="ftests">
+            <directory>./tests/ftests</directory>
         </testsuite>
     </testsuites>
 </phpunit>

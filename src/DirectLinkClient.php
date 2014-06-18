@@ -258,8 +258,8 @@ class Be2bill_Api_DirectLinkClient
             $orderId,
             $clientIdentifier,
             $clientEmail,
-            $description,
             $clientIP,
+            $description,
             $clientUserAgent,
             $params
         );
@@ -374,7 +374,7 @@ class Be2bill_Api_DirectLinkClient
      * @param array $options
      * @return bool|string
      */
-    public function subscriptionPayment(
+    public function subscriptionAuthorization(
         $alias,
         $amount,
         $orderId,
@@ -387,7 +387,7 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params = $options;
 
-        $params['OPERATIONTYPE'] = 'payment';
+        $params['OPERATIONTYPE'] = 'authorization';
         $params['ALIASMODE']     = 'subscription';
         $params['ALIAS']         = $alias;
         $params["AMOUNT"]        = $amount;
@@ -396,8 +396,8 @@ class Be2bill_Api_DirectLinkClient
             $orderId,
             $clientIdentifier,
             $clientEmail,
-            $description,
             $clientIP,
+            $description,
             $clientUserAgent,
             $params
         );
@@ -412,26 +412,26 @@ class Be2bill_Api_DirectLinkClient
      * @param       $orderId
      * @param       $clientIdentifier
      * @param       $clientEmail
-     * @param       $description
      * @param       $clientIP
+     * @param       $description
      * @param       $clientUserAgent
      * @param array $options
      * @return bool|string
      */
-    public function subscriptionAuthorization(
+    public function subscriptionPayment(
         $alias,
         $amount,
         $orderId,
         $clientIdentifier,
         $clientEmail,
-        $description,
         $clientIP,
+        $description,
         $clientUserAgent,
         array $options = array()
     ) {
         $params = $options;
 
-        $params['OPERATIONTYPE'] = 'authorization';
+        $params['OPERATIONTYPE'] = 'payment';
         $params['ALIASMODE']     = 'subscription';
         $params['ALIAS']         = $alias;
         $params["AMOUNT"]        = $amount;
@@ -508,8 +508,8 @@ class Be2bill_Api_DirectLinkClient
             $orderId,
             $clientIdentifier,
             $clientEmail,
-            $description,
             $clientIP,
+            $description,
             $clientUserAgent,
             $params
         );
