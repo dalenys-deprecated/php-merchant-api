@@ -1,4 +1,4 @@
-[Be2bill Merchant API] (http://dev.be2bill.com/home.html)
+[Be2bill Merchant API] (http://developers.be2bill.com/)
 
 A simple PHP implementation of the Be2bill payment platform API.
 
@@ -20,7 +20,7 @@ $be2bill = Be2bill_Api_ClientBuilder::buildProductionFormClient(BE2BILL_IDENTIFI
 echo $be2bill->buildPaymentFormButton(10000, 'order_123', 'user_123456', 'Payment sample');
 ```
 
-##Payment options
+## Payment options
 You can specify some additional options to the buildPaymentFormButton method.
 The most useful options are:
 - ALIAS = yes/no => Ask for the creation of a rebilling alias (allowing one click payments or subscription like payments)
@@ -29,7 +29,7 @@ The most useful options are:
 
 For the full list of options you can read the Be2bill documentation
 
-##Sandbox environment
+## Sandbox environment
 You can easily test your integration with the sandbox environment. This environment will simulate payments without processing any real money move.
 You just have to use another builder method:
 ```php
