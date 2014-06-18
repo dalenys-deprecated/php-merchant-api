@@ -1,4 +1,4 @@
-[Be2bill Merchant API] (http://developers.be2bill.com/)
+[Be2bill Merchant API] (http://developer.be2bill.com/)
 
 [![Build Status](https://travis-ci.org/be2bill/php-merchant-api.svg?branch=master)](https://travis-ci.org/be2bill/php-merchant-api)
 
