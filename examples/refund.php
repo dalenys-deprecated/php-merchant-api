@@ -9,7 +9,7 @@ require '../src/Autoloader.php';
 Be2bill_Api_Autoloader::registerAutoloader();
 
 // Just implement BE2BILL_IDENTIFIER and BE2BILL_PASSWORD as defined
-$be2bill = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+$be2bill = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 
 $result = $be2bill->refund('A151805', 'order-42', 'Refund transaction A151805', $options = array("AMOUNT" => "50"));
 

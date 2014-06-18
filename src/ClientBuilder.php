@@ -75,7 +75,7 @@ abstract class Be2bill_Api_ClientBuilder
      * @param $password
      * @return Be2bill_Api_DirectLinkClient
      */
-    public static function buildSandboxDirectlinkClient($identifier, $password)
+    public static function buildSandboxDirectLinkClient($identifier, $password)
     {
         $api = new Be2bill_Api_DirectLinkClient(
             $identifier,

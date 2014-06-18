@@ -4,7 +4,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 {
     public function testPayment()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date   = date('%m-%y', time() + 365 * 24 * 3600);
         $result = $api->payment(
@@ -26,7 +26,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 
     public function testAuthorization()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date   = date('%m-%y', time() + 365 * 24 * 3600);
         $result = $api->authorization(
@@ -48,7 +48,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 
     public function testCapture()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date =
         $result = $api->authorization(
@@ -71,7 +71,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 
     public function testOneClickPayment()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date   = date('%m-%y', time() + 365 * 24 * 3600);
         $result = $api->payment(
@@ -107,7 +107,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 
     public function testSubscriptionPayment()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date   = date('%m-%y', time() + 365 * 24 * 3600);
         $result = $api->payment(
@@ -143,7 +143,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 
     public function testOneClickAuthorization()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date   = date('%m-%y', time() + 365 * 24 * 3600);
         $result = $api->payment(
@@ -179,7 +179,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 
     public function testSubscriptionAuthorization()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date   = date('%m-%y', time() + 365 * 24 * 3600);
         $result = $api->payment(
@@ -215,7 +215,7 @@ class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
 
     public function testRefund()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
         $date =
         $result = $api->payment(

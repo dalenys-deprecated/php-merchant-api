@@ -32,7 +32,16 @@ For the full list of options you can read the Be2bill documentation
 ## Sandbox environment
 You can easily test your integration with the sandbox environment. This environment will simulate payments without processing any real money move.
 You just have to use another builder method:
+
 ```php
 $be2bill = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 ```
 
+## Transaction edition
+You can edit a transaction: capturing or refunding an authorization.
+You should use the direct link AP:
+
+```php
+$be2bill = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+$be2bill->capture('A1234', 'order_42', 'capturing a transaction');
+```
