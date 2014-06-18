@@ -12,10 +12,10 @@ require 'src/Client.php';
 define('BE2BILL_IDENTIFIER', 'YOUR ACCOUNT IDENTIFIER');
 define('BE2BILL_PASSWORD', 'YOUR ACCOUNT PASSWORD');
 
-Be2bill_Api_Client::registerAutoloader();
+Be2bill_Api_Autoloader::registerAutoloader();
 
 // Just implement BE2BILL_IDENTIFIER and BE2BILL_PASSWORD as defined
-$be2bill = Be2bill_Api_ClientBuilder::buildProductionClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+$be2bill = Be2bill_Api_ClientBuilder::buildProductionFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 
 echo $be2bill->buildPaymentFormButton(10000, 'order_123', 'user_123456', 'Payment sample');
 ```
@@ -33,5 +33,5 @@ For the full list of options you can read the Be2bill documentation
 You can easily test your integration with the sandbox environment. This environment will simulate payments without processing any real money move.
 You just have to use another builder method:
 ```php
-$be2bill = Be2bill_Api_ClientBuilder::buildSandboxClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+$be2bill = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 ```
