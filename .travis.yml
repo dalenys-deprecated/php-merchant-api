@@ -8,4 +8,4 @@ php:
   - "hhvm"
 
 install: cp tests/ftests/config.php.dist tests/ftests/config.php
-script: phpunit --coverage-text --testsuite utest
+script: phpunit --coverage-text --testsuite utests
