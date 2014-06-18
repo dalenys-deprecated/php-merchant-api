@@ -1,5 +1,7 @@
 [Be2bill Merchant API] (http://developers.be2bill.com/)
 
+[![Build Status](https://travis-ci.org/be2bill/php-merchant-api.svg?branch=master)](https://travis-ci.org/be2bill/php-merchant-api)
+
 A simple PHP implementation of the Be2bill payment platform API.
 
 ## Using a simple payment form
