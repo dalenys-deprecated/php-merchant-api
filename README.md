@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-php-merchant-api
-================
-
-Be2bill PHP library
-||||||| merged common ancestors
-=======
 [Be2bill Merchant API] (http://developers.be2bill.com/)
 
 A simple PHP implementation of the Be2bill payment platform API.
@@ -42,4 +35,4 @@ You just have to use another builder method:
 ```php
 $be2bill = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 ```
->>>>>>> master
+
