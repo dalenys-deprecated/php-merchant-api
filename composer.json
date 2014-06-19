@@ -1,7 +1,6 @@
 {
-    "name": "Be2bill/Api",
+    "name": "be2bill/api",
     "type": "library",
-    "version": "1.0.0",
     "description": "Be2bill merchant API",
     "keywords": ["be2bill","payment","visa","mastercard","amex","american express","psp"],
     "homepage": "http://www.be2bill.com/",
@@ -17,7 +16,7 @@
     },
 
     "autoload": {
-        "psr-2": {
+        "psr-0": {
             "Be2bill_Api_": "src/"
         }
     }
