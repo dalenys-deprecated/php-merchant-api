@@ -1,14 +1,18 @@
 language: php
 
 php:
-# Actually, the phpunit vesion of 5.2 vm is not compatible with testsuite parameters
-#  - "5.2"
-  - "5.3"
-  - "5.4"
-  - "5.5"
-  - "5.6"
-# Due to hhvm bug with entities the build is not functionnal: https://github.com/facebook/hhvm/issues/2266
-#  - "hhvm"
+  - 5.2
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm
 
+matrix:
+  allow_failures:
+    # Due to hhvm bug with entities the build is not functionnal: https://github.com/facebook/hhvm/issues/2266
+    - php: hhvm
+    # Actually, the phpunit vesion of 5.2 vm is not compatible with testsuite parameters
+    - php: 5.2
 install: cp tests/ftests/config.php.dist tests/ftests/config.php
 script: phpunit --coverage-text --testsuite utests
