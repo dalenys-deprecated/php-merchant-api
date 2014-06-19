@@ -1,8 +1,8 @@
 {
-    "name": "be2bill/api",
+    "name": "be2bill/php-api",
     "type": "library",
     "description": "Be2bill merchant API",
-    "keywords": ["be2bill","payment","visa","mastercard","amex","american express","psp"],
+    "keywords": ["be2bill","payment","visa","mastercard","amex","american express","psp", "php"],
     "homepage": "http://www.be2bill.com/",
     "license": "BSD-3-Clause",
 
