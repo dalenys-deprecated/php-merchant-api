@@ -10,8 +10,6 @@ php:
 
 matrix:
   allow_failures:
-    # Due to hhvm bug with entities the build is not functionnal: https://github.com/facebook/hhvm/issues/2266
-    - php: hhvm
     # Actually, the phpunit vesion of 5.2 vm is not compatible with testsuite parameters
     - php: 5.2
 install: cp tests/ftests/config.php.dist tests/ftests/config.php
