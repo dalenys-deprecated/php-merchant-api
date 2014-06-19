@@ -4,9 +4,7 @@
  * Usage:
  * php hash_generator.php PASSWORD URI_QUERY_STRING_TO_HASH
  */
-require '../src/FormClient.php';
-
-Be2bill_Api_FormClient::registerAutoloader();
+require 'autoload.php';
 
 if ($argc < 2) {
     echo "Usage: php " . __FILE__ . " password IDENTIFIER=foo&PARAM2=bar...\n";
