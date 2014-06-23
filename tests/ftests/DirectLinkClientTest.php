@@ -1,6 +1,6 @@
 <?php
 
-class DirectLinkClient_FormTest extends PHPUnit_Framework_TestCase
+class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 {
     public function testPayment()
     {
