@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require 'config.php';
-require '../src/Autoloader.php';
+require '../src/Be2bill/Api/Autoloader.php';
 
 Be2bill_Api_Autoloader::registerAutoloader();
 
@@ -16,9 +16,9 @@ $result = $be2bill->oneClickPayment(
     100,
     'order_48',
     'client_123456',
+    '127.0.0.1',
     'john.doe@email.com',
     'Oneclick payment',
-    '127.0.0.1',
     'mozilla',
     $options = array("EXTRADATA" => "Premium user")
 );

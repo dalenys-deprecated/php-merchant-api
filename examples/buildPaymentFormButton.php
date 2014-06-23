@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require 'config.php';
-require '../src/Autoloader.php';
+require '../src/Be2bill/Api/Autoloader.php';
 
 Be2bill_Api_Autoloader::registerAutoloader();
 
