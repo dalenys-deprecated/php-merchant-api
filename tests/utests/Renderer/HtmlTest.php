@@ -6,13 +6,9 @@ class Renderer_HtmlTest extends PHPUnit_Framework_TestCase
     {
         $renderer = new Be2bill_Api_Renderer_Html('http://test.com/');
 
-        $reflected = new ReflectionClass('Be2bill_Api_Renderer_Html');
-        $method    = $reflected->getMethod('buildHiddenInput');
-        $method->setAccessible(true);
-
         $this->assertEquals(
             '<input type="hidden" name="foo" value="bar" />',
-            $method->invokeArgs($renderer, array('foo', 'bar'))
+            $renderer->buildHiddenInput('foo', 'bar')
         );
     }
 
