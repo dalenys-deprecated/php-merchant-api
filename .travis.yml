@@ -13,4 +13,4 @@ matrix:
     # Actually, the phpunit vesion of 5.2 vm is not compatible with testsuite parameters
     - php: 5.2
 install: cp tests/ftests/config.php.dist tests/ftests/config.php
-script: phpunit --coverage-text --testsuite utests
+script: phpunit --coverage-text tests/utests

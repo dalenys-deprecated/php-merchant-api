@@ -16,8 +16,8 @@ $result = $be2bill->oneClickPayment(
     100,
     'order_48',
     'client_123456',
-    '127.0.0.1',
     'john.doe@email.com',
+    '127.0.0.1',
     'Oneclick payment',
     'mozilla',
     $options = array("EXTRADATA" => "Premium user")
