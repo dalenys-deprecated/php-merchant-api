@@ -20,13 +20,9 @@ class Renderer_HtmlTest extends PHPUnit_Framework_TestCase
     {
         $renderer = new Be2bill_Api_Renderer_Html('http://test.com/');
 
-        $reflected = new ReflectionClass('Be2bill_Api_Renderer_Html');
-        $method    = $reflected->getMethod('buildHiddenInput');
-        $method->setAccessible(true);
-
         $this->assertEquals(
             '<input type="hidden" name="foo" value="h&eacute;" />',
-            $method->invokeArgs($renderer, array('foo', 'hé'))
+            $renderer->buildHiddenInput('foo', 'hé')
         );
     }
 
@@ -34,13 +30,9 @@ class Renderer_HtmlTest extends PHPUnit_Framework_TestCase
     {
         $renderer = new Be2bill_Api_Renderer_Html('http://test.com/');
 
-        $reflected = new ReflectionClass('Be2bill_Api_Renderer_Html');
-        $method    = $reflected->getMethod('buildHiddenInputs');
-        $method->setAccessible(true);
-
         $this->assertEquals(
             '<input type="hidden" name="foo" value="bar" /><input type="hidden" name="baz" value="boz" />',
-            $method->invokeArgs($renderer, array(array('foo' => 'bar', 'baz' => 'boz')))
+            $renderer->buildHiddenInputs(array('foo' => 'bar', 'baz' => 'boz'))
         );
     }
 
@@ -48,11 +40,7 @@ class Renderer_HtmlTest extends PHPUnit_Framework_TestCase
     {
         $renderer = new Be2bill_Api_Renderer_Html('http://test.com');
 
-        $reflected = new ReflectionClass('Be2bill_Api_Renderer_Html');
-        $method    = $reflected->getMethod('buildSubmitInput');
-        $method->setAccessible(true);
-
-        $this->assertEquals('<input type="submit"  />', $method->invokeArgs($renderer, array(array())));
+        $this->assertEquals('<input type="submit"  />', $renderer->buildSubmitInput(array()));
     }
 
     public function testRender()
