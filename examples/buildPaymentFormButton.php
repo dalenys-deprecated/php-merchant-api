@@ -31,7 +31,7 @@ echo $be2bill->buildPaymentFormButton(
     $options = array(
         "3DSECURE"         => "yes",
         "CARDFULLNAME"     => "John Doe",
-        "CLIENTEMAIL"      => "toto@pouet.com",
+        "CLIENTEMAIL"      => "john.doe@email.com",
         "HIDECARDFULLNAME" => "yes",
         "HIDECLIENTEMAIL"  => "yes"
     )
