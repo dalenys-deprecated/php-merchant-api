@@ -12,8 +12,8 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->senderMock  = $this->getMock('Be2bill_Api_Sender_Sendable');
-        $this->hashStub    = $this->getMock('Be2bill_Api_Hash_Hashable');
+        $this->senderMock = $this->getMock('Be2bill_Api_Sender_Sendable');
+        $this->hashStub   = $this->getMock('Be2bill_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->once())
             ->method('compute')
@@ -148,6 +148,29 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
         $this->senderMock->expects($this->once())
             ->method('send')
             ->with(
+                'http://test/front/service/rest/export',
+                array(
+                    'method' => 'exportChargebacks',
+                    'params' => array(
+                        'IDENTIFIER'    => 'i',
+                        'DATE'          => '2014-01-02',
+                        'OPERATIONTYPE' => 'exportChargebacks',
+                        'COMPRESSION'   => 'GZIP',
+                        'MAILTO'        => 'test@test.com',
+                        'VERSION'       => '2.0',
+                        'HASH'          => 'dummy'
+                    )
+                )
+            );
+
+        $this->api->exportChargebacks('2014-01-02', 'test@test.com');
+    }
+
+    public function testExportReconciliation()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
                 'http://test/front/service/rest/reconciliation',
                 array(
                     'method' => 'export',
@@ -164,5 +187,52 @@ class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
             );
 
         $this->api->exportReconciliation('2014-01-02', 'test@test.com');
+    }
+
+    public function testExportReconciledTransactions()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/reconciliation',
+                array(
+                    'method' => 'exportReconciledTransactions',
+                    'params' => array(
+                        'IDENTIFIER'    => 'i',
+                        'DATE'          => '2014-01-02',
+                        'OPERATIONTYPE' => 'exportReconciledTransactions',
+                        'COMPRESSION'   => 'GZIP',
+                        'MAILTO'        => 'test@test.com',
+                        'VERSION'       => '2.0',
+                        'HASH'          => 'dummy'
+                    )
+                )
+            );
+
+        $this->api->exportReconciledTransactions('2014-01-02', 'test@test.com');
+    }
+
+    public function testExportWithDateInterval()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/export',
+                array(
+                    'method' => 'exportTransactions',
+                    'params' => array(
+                        'IDENTIFIER'    => 'i',
+                        'STARTDATE'     => '2014-01-02',
+                        'ENDDATE'       => '2014-01-05',
+                        'OPERATIONTYPE' => 'exportTransactions',
+                        'COMPRESSION'   => 'GZIP',
+                        'MAILTO'        => 'test@test.com',
+                        'VERSION'       => '2.0',
+                        'HASH'          => 'dummy'
+                    )
+                )
+            );
+
+        $this->api->exportTransactions(array('2014-01-02', '2014-01-05'), 'test@test.com');
     }
 }

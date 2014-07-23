@@ -2,7 +2,7 @@
 
 /**
  * Implements Be2bill payment API
- * @version 1.0.0
+ * @version 1.2.0
  */
 class Be2bill_Api_DirectLinkClient
 {
@@ -556,7 +556,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date
+     * @param        $date YY-MM or YY-MM-DD or array(startDate, endDate)
      * @param        $destination
      * @param string $compression
      * @param        $options
@@ -571,10 +571,11 @@ class Be2bill_Api_DirectLinkClient
         $params = $options;
 
         $params["COMPRESSION"]   = $compression;
-        $params["DATE"]          = $date;
         $params["OPERATIONTYPE"] = 'exportTransactions';
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
+
+        $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
         if ($this->isHttpUrl($destination)) {
             $params['CALLBACKURL'] = $destination;
@@ -592,7 +593,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date
+     * @param        $date YY-MM or YY-MM-DD or array(startDate, endDate)
      * @param        $destination
      * @param        $compression
      * @param        $options
@@ -608,9 +609,10 @@ class Be2bill_Api_DirectLinkClient
 
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportChargebacks';
-        $params["DATE"]          = $date;
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
+
+        $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
         if ($this->isHttpUrl($destination)) {
             $params['CALLBACKURL'] = $destination;
@@ -628,7 +630,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date
+     * @param        $date YY-MM or YY-MM-DD
      * @param        $destination
      * @param        $compression
      * @param        $options
@@ -644,9 +646,49 @@ class Be2bill_Api_DirectLinkClient
 
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'export';
-        $params["DATE"]          = $date;
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
+        // Actually DATE interval are not available for this export
+        $params['DATE']          = $date;
+
+        $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
+
+        if ($this->isHttpUrl($destination)) {
+            $params['CALLBACKURL'] = $destination;
+        } else {
+            $params['MAILTO'] = $destination;
+        }
+
+        $params['HASH'] = $this->hash($params);
+
+        return $this->requests($this->getURLs($this->reconciliationPath), $params);
+    }
+
+    /**
+     * This method is used to get the reconciled transactions of a given month
+     * This method only ask for sending a report. The report will be sent by email or http request.
+     * This will return the result of the report creation request
+     *
+     * @param        $date YY-MM or YY-MM-DD
+     * @param        $destination
+     * @param string $compression
+     * @param array  $options
+     * @return bool|string
+     */
+    public function exportReconciledTransactions(
+        $date,
+        $destination,
+        $compression = 'GZIP',
+        $options = array()
+    ) {
+        $params = $options;
+
+        $params["COMPRESSION"]   = $compression;
+        $params["OPERATIONTYPE"] = 'exportReconciledTransactions';
+        $params['IDENTIFIER']    = $this->identifier;
+        $params['VERSION']       = self::API_VERSION;
+        // Actually DATE interval are not available for this export
+        $params['DATE']          = $date;
 
         if ($this->isHttpUrl($destination)) {
             $params['CALLBACKURL'] = $destination;
@@ -833,5 +875,25 @@ class Be2bill_Api_DirectLinkClient
     protected function getURL($path)
     {
         return current($this->getURLs($path));
+    }
+
+    /**
+     * Handle DATE or STARTDATE/ENDDATE parameters for export methods
+     * @param string|array $date
+     * @param              $params
+     * @return mixed
+     */
+    protected function getDateOrDateRangeParameter($date)
+    {
+        $result = array();
+
+        if (is_array($date) && sizeof($date) == 2) {
+            $result['STARTDATE'] = $date[0];
+            $result['ENDDATE']   = $date[1];
+        } else {
+            $result["DATE"] = $date;
+        }
+
+        return $result;
     }
 }
