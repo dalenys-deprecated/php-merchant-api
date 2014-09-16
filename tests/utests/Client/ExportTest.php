@@ -173,11 +173,11 @@ class Client_ExportTest extends PHPUnit_Framework_TestCase
             ->with(
                 'http://test/front/service/rest/reconciliation',
                 array(
-                    'method' => 'export',
+                    'method' => 'exportReconciliation',
                     'params' => array(
                         'IDENTIFIER'    => 'i',
                         'DATE'          => '2014-01-02',
-                        'OPERATIONTYPE' => 'export',
+                        'OPERATIONTYPE' => 'exportReconciliation',
                         'COMPRESSION'   => 'GZIP',
                         'MAILTO'        => 'test@test.com',
                         'VERSION'       => '2.0',
