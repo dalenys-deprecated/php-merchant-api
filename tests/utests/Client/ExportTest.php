@@ -1,6 +1,6 @@
 <?php
 
-class Client_ExportLinkTest extends PHPUnit_Framework_TestCase
+class Client_ExportTest extends PHPUnit_Framework_TestCase
 {
     protected $hashStub = null;
     protected $senderMock = null;
