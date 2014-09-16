@@ -556,7 +556,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YY-MM or YY-MM-DD or array(startDate, endDate)
+     * @param        $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param        $destination
      * @param string $compression
      * @param        $options
@@ -593,7 +593,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YY-MM or YY-MM-DD or array(startDate, endDate)
+     * @param        $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param        $destination
      * @param        $compression
      * @param        $options
@@ -630,7 +630,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YY-MM or YY-MM-DD
+     * @param        $date YYYY-MM or YYYY-MM-DD
      * @param        $destination
      * @param        $compression
      * @param        $options
@@ -645,7 +645,7 @@ class Be2bill_Api_DirectLinkClient
         $params = $options;
 
         $params["COMPRESSION"]   = $compression;
-        $params["OPERATIONTYPE"] = 'export';
+        $params["OPERATIONTYPE"] = 'exportReconciliation';
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
         // Actually DATE interval are not available for this export
@@ -669,7 +669,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YY-MM or YY-MM-DD
+     * @param        $date YYYY-MM or YYYY-MM-DD
      * @param        $destination
      * @param string $compression
      * @param array  $options
