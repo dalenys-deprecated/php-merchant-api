@@ -1,18 +1,12 @@
 <?php
 
-class ExportClientTest extends PHPUnit_Framework_TestCase
+class ExportClientTest extends Be2bill_Api_Test_FCase
 {
     public function testGetTransactionsByTransactionId()
     {
-        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
-            BE2BILL_TEST_IDENTIFIER,
-            BE2BILL_TEST_PASSWORD
-        );
-        $tools = new Be2bill_Api_Test_Tools();
-
-        $result = $api->payment(
+        $result = $this->api->payment(
             '5555556778250000',
-            $tools->getFutureValidityDate(),
+            $this->tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -24,23 +18,17 @@ class ExportClientTest extends PHPUnit_Framework_TestCase
             'firefox'
         );
 
-        $result = $api->getTransactionsByTransactionId($result['TRANSACTIONID'], 'no-reply@be2bill.com');
+        $result = $this->api->getTransactionsByTransactionId($result['TRANSACTIONID'], 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testGetTransactionsByTransactionOrderId()
     {
-        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
-            BE2BILL_TEST_IDENTIFIER,
-            BE2BILL_TEST_PASSWORD
-        );
-        $tools = new Be2bill_Api_Test_Tools();
-
         $orderId = 'order-' . time();
-        $result  = $api->payment(
+        $result  = $this->api->payment(
             '5555556778250000',
-            $tools->getFutureValidityDate(),
+            $this->tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -52,49 +40,46 @@ class ExportClientTest extends PHPUnit_Framework_TestCase
             'firefox'
         );
 
-        $result = $api->getTransactionsByOrderId($orderId, 'no-reply@be2bill.com');
+        $result = $this->api->getTransactionsByOrderId($orderId, 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportTransactions()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-
-        $result = $api->exportTransactions('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportTransactions('2014-01-05', 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportChargebacks()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-
-        $result = $api->exportChargebacks('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportChargebacks('2014-01-05', 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportReconciliation()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-
-        $result = $api->exportReconciliation('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportReconciliation('2014-01-05', 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportReconciledTransactions()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-
-        $result = $api->exportReconciledTransactions('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportReconciledTransactions('2014-01-05', 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
-    protected function assertTransactionSucceeded(array $params = array())
+    protected function getIdentifier()
     {
-        $this->assertEquals($params['EXECCODE'], '0000', 'Transaction failed with message ' . $params['MESSAGE']);
+        return BE2BILL_TEST_IDENTIFIER;
+    }
+
+    protected function getPassword()
+    {
+        return BE2BILL_TEST_PASSWORD;
     }
 }

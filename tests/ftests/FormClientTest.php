@@ -4,9 +4,9 @@ class FormClientTest extends PHPUnit_Framework_TestCase
 {
     public function testPaymentFormDisplay()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $formApi = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
-        $html = $api->buildPaymentFormButton('1000', 'order-' . time(), 'ident', 'desc');
+        $html = $formApi->buildPaymentFormButton('1000', 'order-' . time(), 'ident', 'desc');
 
         $inputs = $this->getInputsFromHtml($html);
         $action = $this->getFormActionFromHtml($html);
@@ -20,9 +20,9 @@ class FormClientTest extends PHPUnit_Framework_TestCase
 
     public function testAuthorizationFormDisplay()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $formApi = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
 
-        $html = $api->buildAuthorizationFormButton('1000', 'order-' . time(), 'ident', 'desc');
+        $html = $formApi->buildAuthorizationFormButton('1000', 'order-' . time(), 'ident', 'desc');
 
         $inputs = $this->getInputsFromHtml($html);
         $action = $this->getFormActionFromHtml($html);
