@@ -4,11 +4,15 @@ class ExportClientTest extends PHPUnit_Framework_TestCase
 {
     public function testGetTransactionsByTransactionId()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -27,12 +31,16 @@ class ExportClientTest extends PHPUnit_Framework_TestCase
 
     public function testGetTransactionsByTransactionOrderId()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $orderId = 'order-' . time();
-        $result = $api->payment(
+        $result  = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -88,10 +96,5 @@ class ExportClientTest extends PHPUnit_Framework_TestCase
     protected function assertTransactionSucceeded(array $params = array())
     {
         $this->assertEquals($params['EXECCODE'], '0000', 'Transaction failed with message ' . $params['MESSAGE']);
-    }
-
-    protected function getFutureValidityDate()
-    {
-        return date('m-y', time() + 365 * 24 * 3600);
     }
 }

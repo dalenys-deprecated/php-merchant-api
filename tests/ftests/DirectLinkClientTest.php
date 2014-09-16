@@ -4,12 +4,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 {
     public function testPayment()
     {
-        $api  = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-        $date = $this->getFutureValidityDate();
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -26,12 +29,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 
     public function testAuthorization()
     {
-        $api  = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-        $date = $this->getFutureValidityDate();
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->authorization(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -48,12 +54,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 
     public function testCapture()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
-        $date =
         $result = $api->authorization(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -71,12 +80,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 
     public function testOneClickPayment()
     {
-        $api  = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-        $date = $this->getFutureValidityDate();
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -107,12 +119,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 
     public function testSubscriptionPayment()
     {
-        $api  = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-        $date = $this->getFutureValidityDate();
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -143,12 +158,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 
     public function testOneClickAuthorization()
     {
-        $api  = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-        $date = $this->getFutureValidityDate();
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -179,12 +197,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 
     public function testSubscriptionAuthorization()
     {
-        $api  = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
-        $date = $this->getFutureValidityDate();
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -215,11 +236,15 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 
     public function testRefund()
     {
-        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            BE2BILL_TEST_IDENTIFIER,
+            BE2BILL_TEST_PASSWORD
+        );
+        $tools = new Be2bill_Api_Test_Tools();
 
         $result = $api->payment(
             '5555556778250000',
-            $this->getFutureValidityDate(),
+            $tools->getFutureValidityDate(),
             132,
             'john doe',
             '1000',
@@ -239,11 +264,11 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
 //    public function testCredit()
 //    {
 //        $api = Be2bill_Api_ClientBuilder::buildSandboxDirectlinkClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+//        $tools = new Be2bill_Api_Test_Tools();
 //
-//        $date =
 //        $result = $api->credit(
 //            '5555556778250000',
-//            $this->getFutureValidityDate(),
+//            $tools->getFutureValidityDate(),
 //            132,
 //            'john doe',
 //            '1000',
@@ -261,10 +286,5 @@ class DirectLinkClientTest extends PHPUnit_Framework_TestCase
     protected function assertTransactionSucceeded(array $params = array())
     {
         $this->assertEquals($params['EXECCODE'], '0000', 'Transaction failed with message ' . $params['MESSAGE']);
-    }
-
-    protected function getFutureValidityDate()
-    {
-        return date('m-y', time() + 365 * 24 * 3600);
     }
 }
