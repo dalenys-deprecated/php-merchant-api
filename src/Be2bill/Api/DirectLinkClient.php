@@ -78,7 +78,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $description
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function payment(
         $cardPan,
@@ -134,7 +134,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $description
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function authorization(
         $cardPan,
@@ -185,7 +185,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $description
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function credit(
         $cardPan,
@@ -234,7 +234,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $description
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|mixed
+     * @return array
      */
     public function oneClickPayment(
         $alias,
@@ -272,7 +272,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $orderId
      * @param       $description
      * @param array $options
-     * @return bool|mixed
+     * @return array
      */
     public function refund($transactionId, $orderId, $description, array $options = array())
     {
@@ -297,7 +297,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $orderId
      * @param       $description
      * @param array $options
-     * @return bool|mixed
+     * @return array
      */
     public function capture($transactionId, $orderId, $description, array $options = array())
     {
@@ -328,7 +328,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $description
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function oneClickAuthorization(
         $alias,
@@ -372,7 +372,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $clientIP
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function subscriptionAuthorization(
         $alias,
@@ -416,7 +416,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $description
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function subscriptionPayment(
         $alias,
@@ -452,7 +452,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * @param       $scheduleId
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function stopNTimes($scheduleId, array $options = array())
     {
@@ -484,7 +484,7 @@ class Be2bill_Api_DirectLinkClient
      * @param       $description
      * @param       $clientUserAgent
      * @param array $options
-     * @return bool|string
+     * @return array
      */
     public function redirectForPayment(
         $amount,
@@ -524,7 +524,7 @@ class Be2bill_Api_DirectLinkClient
      * @param        $transactionId
      * @param        $destination
      * @param string $compression
-     * @return bool|mixed
+     * @return array
      */
     public function getTransactionsByTransactionId(
         $transactionId,
@@ -541,7 +541,7 @@ class Be2bill_Api_DirectLinkClient
      * @param        $orderId
      * @param        $destination
      * @param string $compression
-     * @return bool|mixed
+     * @return array
      */
     public function getTransactionsByOrderId(
         $orderId,
@@ -560,7 +560,7 @@ class Be2bill_Api_DirectLinkClient
      * @param        $destination
      * @param string $compression
      * @param        $options
-     * @return bool|mixed
+     * @return array
      */
     public function exportTransactions(
         $date,
@@ -597,7 +597,7 @@ class Be2bill_Api_DirectLinkClient
      * @param        $destination
      * @param        $compression
      * @param        $options
-     * @return bool|mixed
+     * @return array
      */
     public function exportChargebacks(
         $date,
@@ -634,7 +634,7 @@ class Be2bill_Api_DirectLinkClient
      * @param        $destination
      * @param        $compression
      * @param        $options
-     * @return bool|mixed
+     * @return array
      */
     public function exportReconciliation(
         $date,
@@ -673,7 +673,7 @@ class Be2bill_Api_DirectLinkClient
      * @param        $destination
      * @param string $compression
      * @param array  $options
-     * @return bool|string
+     * @return array
      */
     public function exportReconciledTransactions(
         $date,
