@@ -25,7 +25,7 @@ echo $be2bill->buildPaymentFormButton(10000, 'order_123', 'user_123456', 'Paymen
 ## Payment options
 You can specify some additional options to the buildPaymentFormButton method.
 The most useful options are:
-- ALIAS = yes/no => Ask for the creation of a rebilling alias (allowing one click payments or subscription like payments)
+- CREATEALIAS = yes/no => Ask for the creation of a rebilling alias (allowing one click payments or subscription like payments)
 - 3DSECURE = yes/no => Ask for 3DSECURE authentication
 - CARDFULLNAME => When set the card holder inputs will be filled with specified data
 
