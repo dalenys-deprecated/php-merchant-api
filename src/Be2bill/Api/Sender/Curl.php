@@ -32,7 +32,7 @@ class Be2bill_Api_Sender_Curl implements Be2bill_Api_Sender_Sendable
         $result = curl_exec($ch);
 
         if ($result === false) {
-            trigger_error(E_USER_WARNING, 'Unable to process request: ' . curl_error($ch));
+            trigger_error('Unable to process request: ' . curl_error($ch), E_USER_WARNING);
 
             //Retry for all cases but timeout
             if (curl_errno($ch) == self::CURLE_OPERATION_TIMEDOUT) {
