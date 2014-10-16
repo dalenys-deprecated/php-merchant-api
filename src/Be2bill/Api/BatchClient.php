@@ -33,17 +33,16 @@ class Be2bill_Api_BatchClient
 
     public function run()
     {
-        $headers = $this->getCsvHeaders();
+        $urls = $this->api->getDirectLinkUrls();
 
+        $headers = $this->getCsvHeaders();
         $this->validateFileHeaders($headers);
 
         while (!$this->inputFile->eof()) {
             $params = $this->getCsvLine($headers);
+            $params = $this->prepareTransactionParameters($params);
 
-            $params['IDENTIFIER'] = $this->api->getIdentifier();
-            $params['HASH']       = $this->api->hash($params);
-
-            $this->api->requests($this->api->getDirectLinkUrls(), $params);
+            $this->api->requests($urls, $params);
         }
 
         return true;
@@ -78,5 +77,19 @@ class Be2bill_Api_BatchClient
         if (in_array('IDENTIFIER', $headers)) {
             throw new Be2bill_Api_Exception_InvalidBatchFile('IDENTIFIER is not allowed in batch file');
         }
+    }
+
+    /**
+     * @param $params
+     * @return array
+     */
+    protected function prepareTransactionParameters($params)
+    {
+        $params['IDENTIFIER'] = $this->api->getIdentifier();
+        $params['HASH']       = $this->api->hash($params);
+
+        $params = array_filter($params);
+
+        return $params;
     }
 }

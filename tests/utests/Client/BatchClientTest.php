@@ -104,6 +104,39 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
         $batchClient->run();
     }
 
+    public function testDoNotSendEmptyColumns()
+    {
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+
+        $apiMock->expects($this->exactly(1))
+            ->method('requestOne')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'IDENTIFIER'      => 'i',
+                    'ALIAS'           => 'A1',
+                    'ALIASMODE'       => 'SUBSCRIPTION',
+                    'OPERATIONTYPE'   => 'payment',
+                    'ORDERID'         => 'oid',
+                    'AMOUNT'          => 100,
+                    'CLIENTIDENT'     => 'jdoe',
+                    'CLIENTEMAIL'     => 'john.doe@mail.com',
+                    'CLIENTIP'        => '1.2.3.4',
+                    'CLIENTUSERAGENT' => 'firefox',
+                    'DESCRIPTION'     => 'rebill',
+                    'VERSION'         => '2.0',
+                    'HASH'            => 'dummy',
+                )
+            )
+            ->will($this->returnValue(array('EXECCODE' => '0000', 'MESSAGE' => 'OK')));
+
+        $file = $this->generateCsv(1, array('k0' => array('CACA' => '')));
+
+        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient->setInputFile($file);
+        $batchClient->run();
+    }
+
     /**
      * Generate Nb line of CSV
      * @param $nb
