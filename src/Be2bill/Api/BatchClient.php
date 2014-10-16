@@ -4,11 +4,17 @@
  * Implements batch mode (cli side)
  * @version 1.2.0
  */
-class Be2bill_Api_BatchClient
+class Be2bill_Api_BatchClient implements SplSubject
 {
     protected $delimiter = ';';
     protected $enclosure = '"';
     protected $escape = '\\';
+
+    protected $observers = array();
+
+    protected $currentLine = 0;
+    protected $currentTransactionParams;
+    protected $currentTransactionResult;
 
     /**
      * @var Be2bill_Api_DirectLinkClient
@@ -42,10 +48,59 @@ class Be2bill_Api_BatchClient
             $params = $this->getCsvLine($headers);
             $params = $this->prepareTransactionParameters($params);
 
-            $this->api->requests($urls, $params);
+            $result = $this->api->requests($urls, $params);
+
+            $this->currentLine++;
+            $this->currentTransactionParams = $params;
+            $this->currentTransactionResult = $result;
+
+            $this->notify();
         }
 
         return true;
+    }
+
+    // Observer design pattern
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Attach an SplObserver
+     * @link http://php.net/manual/en/splsubject.attach.php
+     * @param SplObserver $observer <p>
+     * The <b>SplObserver</b> to attach.
+     * </p>
+     * @return void
+     */
+    public function attach(SplObserver $observer)
+    {
+        $this->observers[spl_object_hash($observer)] = $observer;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Detach an observer
+     * @link http://php.net/manual/en/splsubject.detach.php
+     * @param SplObserver $observer <p>
+     * The <b>SplObserver</b> to detach.
+     * </p>
+     * @return void
+     */
+    public function detach(SplObserver $observer)
+    {
+        unset($this->observers[spl_object_hash($observer)]);
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Notify an observer
+     * @link http://php.net/manual/en/splsubject.notify.php
+     * @return void
+     */
+    public function notify()
+    {
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
     }
 
     /**
