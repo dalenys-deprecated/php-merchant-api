@@ -17,8 +17,8 @@ class Be2bill_Api_DirectLinkClient
     protected $reconciliationPath = '/front/service/rest/reconciliation';
 
     // Credentials
-    protected $identifier = null;
-    protected $password = null;
+    protected $identifier;
+    protected $password;
 
     // Internals
 
@@ -35,9 +35,9 @@ class Be2bill_Api_DirectLinkClient
     /**
      * @param                                 $identifier
      * @param                                 $password
-     * @param array                           $urls
-     * @param Be2bill_Api_Sender_Sendable     $sender
-     * @param Be2bill_Api_Hash_Hashable       $hash
+     * @param array $urls
+     * @param Be2bill_Api_Sender_Sendable $sender
+     * @param Be2bill_Api_Hash_Hashable $hash
      */
     public function __construct(
         $identifier,
@@ -287,7 +287,7 @@ class Be2bill_Api_DirectLinkClient
 
         $params['HASH'] = $this->hash($params);
 
-        return $this->requests($this->getURLs($this->directLinkPath), $params);
+        return $this->requests($this->getDirectLinkUrls(), $params);
     }
 
     /**
@@ -312,7 +312,7 @@ class Be2bill_Api_DirectLinkClient
 
         $params['HASH'] = $this->hash($params);
 
-        return $this->requests($this->getURLs($this->directLinkPath), $params);
+        return $this->requests($this->getDirectLinkUrls(), $params);
     }
 
     /**
@@ -465,7 +465,7 @@ class Be2bill_Api_DirectLinkClient
 
         $params['HASH'] = $this->hash($params);
 
-        return $this->requests($this->getURLs($this->directLinkPath), $params);
+        return $this->requests($this->getDirectLinkUrls(), $params);
     }
 
     // Redirection
@@ -649,7 +649,7 @@ class Be2bill_Api_DirectLinkClient
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
         // Actually DATE interval are not available for this export
-        $params['DATE']          = $date;
+        $params['DATE'] = $date;
 
         $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
@@ -672,7 +672,7 @@ class Be2bill_Api_DirectLinkClient
      * @param        $date YYYY-MM or YYYY-MM-DD
      * @param        $destination
      * @param string $compression
-     * @param array  $options
+     * @param array $options
      * @return array
      */
     public function exportReconciledTransactions(
@@ -688,7 +688,7 @@ class Be2bill_Api_DirectLinkClient
         $params['IDENTIFIER']    = $this->identifier;
         $params['VERSION']       = self::API_VERSION;
         // Actually DATE interval are not available for this export
-        $params['DATE']          = $date;
+        $params['DATE'] = $date;
 
         if ($this->isHttpUrl($destination)) {
             $params['CALLBACKURL'] = $destination;
@@ -737,11 +737,10 @@ class Be2bill_Api_DirectLinkClient
 
     /**
      * Send requests with a fallback system
-     * @param       $urls
      * @param array $params
      * @return bool|string
      */
-    protected function requests($urls, array $params = array())
+    public function requests($urls, array $params = array())
     {
         foreach ($urls as $url) {
             $result = $this->requestOne($url, $params);
@@ -754,6 +753,31 @@ class Be2bill_Api_DirectLinkClient
         }
 
         return false;
+    }
+
+    /**
+     * Return directlink url with path
+     * @return array
+     */
+    public function getDirectLinkUrls()
+    {
+        return $this->getUrls($this->directLinkPath);
+    }
+
+    /**
+     * @return string $identifier
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @return string $password
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 
     /**
@@ -816,7 +840,7 @@ class Be2bill_Api_DirectLinkClient
 
         $params['HASH'] = $this->hash($params);
 
-        return $this->requests($this->getURLs($this->directLinkPath), $params);
+        return $this->requests($this->getDirectLinkUrls(), $params);
     }
 
     /**
