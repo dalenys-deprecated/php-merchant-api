@@ -50,11 +50,12 @@ class Be2bill_Api_BatchClient implements SplSubject
 
             $result = $this->api->requests($urls, $params);
 
-            $this->currentLine++;
             $this->currentTransactionParameters = $params;
             $this->currentTransactionResult = $result;
 
             $this->notify();
+
+            $this->currentLine++;
         }
 
         return true;
