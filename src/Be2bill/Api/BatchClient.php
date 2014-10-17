@@ -12,8 +12,8 @@ class Be2bill_Api_BatchClient implements SplSubject
 
     protected $observers = array();
 
-    protected $currentLine = 0;
-    protected $currentTransactionParams;
+    protected $currentLine = 1;
+    protected $currentTransactionParameters;
     protected $currentTransactionResult;
 
     /**
@@ -51,7 +51,7 @@ class Be2bill_Api_BatchClient implements SplSubject
             $result = $this->api->requests($urls, $params);
 
             $this->currentLine++;
-            $this->currentTransactionParams = $params;
+            $this->currentTransactionParameters = $params;
             $this->currentTransactionResult = $result;
 
             $this->notify();
@@ -101,6 +101,30 @@ class Be2bill_Api_BatchClient implements SplSubject
         foreach ($this->observers as $observer) {
             $observer->update($this);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrentLine()
+    {
+        return $this->currentLine;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentTransactionParameters()
+    {
+        return $this->currentTransactionParameters;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentTransactionResult()
+    {
+        return $this->currentTransactionResult;
     }
 
     /**
