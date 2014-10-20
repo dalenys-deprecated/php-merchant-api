@@ -50,6 +50,13 @@ abstract class Be2bill_Api_ClientBuilder
         return $api;
     }
 
+    public static function buildProductionBatchClient($identifier, $password)
+    {
+        $api = self::buildProductionDirectLinkClient($identifier, $password);
+
+        return new Be2bill_Api_BatchClient($api);
+    }
+
     /**
      * Build a sandbox form builder (transactions are fake)
      * @param $identifier
@@ -86,6 +93,13 @@ abstract class Be2bill_Api_ClientBuilder
         );
 
         return $api;
+    }
+
+    public static function buildSandboxBatchClient($identifier, $password)
+    {
+        $api = self::buildSandboxDirectLinkClient($identifier, $password);
+
+        return new Be2bill_Api_BatchClient($api);
     }
 
     /**
