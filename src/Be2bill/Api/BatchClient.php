@@ -12,7 +12,7 @@ class Be2bill_Api_BatchClient implements SplSubject
 
     protected $observers = array();
 
-    protected $currentLine = 1;
+    protected $currentLine = 0;
     protected $currentTransactionParameters;
     protected $currentTransactionResult;
 
@@ -166,9 +166,9 @@ class Be2bill_Api_BatchClient implements SplSubject
     protected function prepareTransactionParameters($params)
     {
         $params['IDENTIFIER'] = $this->api->getIdentifier();
-        $params['HASH']       = $this->api->hash($params);
-
         $params = array_filter($params);
+        
+        $params['HASH']       = $this->api->hash($params);
 
         return $params;
     }
