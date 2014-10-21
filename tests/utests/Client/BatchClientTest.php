@@ -176,6 +176,39 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
         $batchClient->run();
     }
 
+    public function testSkipEmptyLine()
+    {
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+
+        $apiMock->expects($this->exactly(3))
+            ->method('requestOne');
+
+        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+
+        $observerMock = $this->getMock('SplObserver');
+        $observerMock->expects($this->exactly(3))
+            ->method('update')
+            ->with($batchClient);
+
+        $file = new SplTempFileObject();
+        $file->setCsvControl(';');
+        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
+        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
+        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
+        $file->fwrite("\n");
+        $file->fwrite("\n");
+        $file->fwrite("\n");
+        $file->fwrite("\n");
+        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
+        $file->fwrite("\n");
+        $file->fwrite("\n");
+        $file->rewind();
+
+        $batchClient->setInputFile($file);
+        $batchClient->attach($observerMock);
+        $batchClient->run();
+    }
+
     /**
      * Generate Nb line of CSV
      * @param $nb

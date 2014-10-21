@@ -15,6 +15,7 @@ class Be2bill_Api_BatchClient implements SplSubject
     protected $currentLine = 0;
     protected $currentTransactionParameters;
     protected $currentTransactionResult;
+    protected $headers;
 
     /**
      * @var Be2bill_Api_DirectLinkClient
@@ -41,19 +42,22 @@ class Be2bill_Api_BatchClient implements SplSubject
     {
         $urls = $this->api->getDirectLinkUrls();
 
-        $headers = $this->getCsvHeaders();
-        $this->validateFileHeaders($headers);
+        $this->headers = $this->getCsvHeaders();
+        $this->validateFileHeaders($this->headers);
 
         while (!$this->inputFile->eof()) {
-            $params = $this->getCsvLine($headers);
-            $params = $this->prepareTransactionParameters($params);
+            $rawParams = $this->getCsvLine($this->headers);
 
-            $result = $this->api->requests($urls, $params);
+            if ($rawParams) {
+                $params = $this->prepareTransactionParameters($rawParams);
 
-            $this->currentTransactionParameters = $params;
-            $this->currentTransactionResult = $result;
+                $result = $this->api->requests($urls, $params);
 
-            $this->notify();
+                $this->currentTransactionParameters = $rawParams;
+                $this->currentTransactionResult     = $result;
+
+                $this->notify();
+            }
 
             $this->currentLine++;
         }
@@ -143,7 +147,15 @@ class Be2bill_Api_BatchClient implements SplSubject
      */
     protected function getCsvLine($headers)
     {
-        $line   = $this->inputFile->fgetcsv();
+        $line = $this->inputFile->fgetcsv();
+
+        // Empty line
+        if ($line[0] === null) {
+            return false;
+        } elseif ($this->headers && sizeof($line) != sizeof($this->headers)) {
+            throw new Be2bill_Api_Exception_InvalidBatchFile("Invalid line");
+        }
+
         $params = array_combine($headers, $line);
         return $params;
     }
@@ -166,9 +178,9 @@ class Be2bill_Api_BatchClient implements SplSubject
     protected function prepareTransactionParameters($params)
     {
         $params['IDENTIFIER'] = $this->api->getIdentifier();
-        $params = array_filter($params);
-        
-        $params['HASH']       = $this->api->hash($params);
+        $params               = array_filter($params);
+
+        $params['HASH'] = $this->api->hash($params);
 
         return $params;
     }

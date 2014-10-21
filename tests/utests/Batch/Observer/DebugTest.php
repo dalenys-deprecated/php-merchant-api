@@ -13,7 +13,7 @@ class Batch_Observer_DebugTest extends PHPUnit_Framework_TestCase
         $this->subjectMock->expects($this->once())
             ->method('getCurrentLine')
             ->will(
-                $this->returnValue(1)
+                $this->returnValue(0)
             );
 
         $this->subjectMock->expects($this->once())

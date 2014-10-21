@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Be2bill_Api_Batch_Observer_Debug
+ * Will display on console output some debug data
+ */
 class Be2bill_Api_Batch_Observer_Debug implements SplObserver
 {
     /**
@@ -13,7 +17,7 @@ class Be2bill_Api_Batch_Observer_Debug implements SplObserver
      */
     public function update(SplSubject $subject)
     {
-        $line = $subject->getCurrentLine();
+        $line = $subject->getCurrentLine() + 1;
         $params = $subject->getCurrentTransactionParameters();
         $result = $subject->getCurrentTransactionResult();
 

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Be2bill_Api_Batch_Observer_FileReport
+ * Will write a CSV output based on the CSV input
+ */
 class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
 {
     protected $file;
