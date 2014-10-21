@@ -165,7 +165,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testNotifyRealTimeTransactions()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne', 'notify'), $this->directLinkMockArguments);
         $apiMock->expects($this->exactly(5))
             ->method('requestOne')
             ->with(
@@ -204,7 +204,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testSkipEmptyLine()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne', 'notify'), $this->directLinkMockArguments);
 
         $apiMock->expects($this->exactly(3))
             ->method('requestOne');

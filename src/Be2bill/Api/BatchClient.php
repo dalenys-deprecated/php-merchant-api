@@ -205,8 +205,7 @@ class Be2bill_Api_BatchClient implements SplSubject
     {
         $params['IDENTIFIER'] = $this->api->getIdentifier();
         $params               = array_filter($params);
-
-        $params['HASH'] = $this->api->hash($params);
+        $params['HASH']       = $this->api->hash($params);
 
         return $params;
     }
