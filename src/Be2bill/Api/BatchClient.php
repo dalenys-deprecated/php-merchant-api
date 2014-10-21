@@ -8,7 +8,6 @@ class Be2bill_Api_BatchClient implements SplSubject
 {
     protected $delimiter = ';';
     protected $enclosure = '"';
-    protected $escape = '\\';
 
     protected $observers = array();
 
@@ -163,7 +162,7 @@ class Be2bill_Api_BatchClient implements SplSubject
      */
     protected function getCsvHeaders()
     {
-        $headers = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure, $this->escape);
+        $headers = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure);
         return $headers;
     }
 
@@ -174,7 +173,7 @@ class Be2bill_Api_BatchClient implements SplSubject
      */
     protected function getCsvLine($headers)
     {
-        $line = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure, $this->escape);
+        $line = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure);
 
         // Empty line
         if ($line[0] === null) {
@@ -210,5 +209,11 @@ class Be2bill_Api_BatchClient implements SplSubject
         $params['HASH'] = $this->api->hash($params);
 
         return $params;
+    }
+
+    // Special methods
+    public function __destruct()
+    {
+        fclose($this->inputFd);
     }
 }

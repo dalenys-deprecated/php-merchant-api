@@ -89,4 +89,10 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
             fputcsv($this->file, $newLine, $subject->getDelimiter(), $subject->getEnclosure());
         }
     }
+
+    // Special methods
+    public function __destruct()
+    {
+        fclose($this->file);
+    }
 }
