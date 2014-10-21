@@ -19,5 +19,8 @@
         "psr-0": {
             "Be2bill_Api_": "src/"
         }
+    },
+    "scripts": {
+        "post-install-cmd": "chmod +x bin/batch"
     }
 }

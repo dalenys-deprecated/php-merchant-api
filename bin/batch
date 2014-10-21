@@ -1,0 +1,76 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * This is a simple batch file example.
+ * you can try php batch.php -f file.csv
+ * It will generate a file.csv.out
+ *
+ * Don't hesitate to copy and build your own batch script
+ */
+
+require dirname(__FILE__) . '/../scripts/autoload.php';
+
+// Expect -f file argument
+$args = getopt('f:i:p:s:');
+
+// Script arguments handling (simple version)
+if (!isset($args['f']) || !isset($args['i']) || !isset($args['p'])) {
+    $help = <<<HELP
+Usage: bin/batch -f file.csv -i IDENTIFIER -p PASSWORD [-s time]
+
+Arguments:
+    -f CSV file (mandatory)
+    -i Be2bill IDENTIFIER (mandatory)
+    -p Be2bill PASSWORD (mandatory)
+    -s Time in milliseconds to wait between each transactions (optionnal)\n
+HELP;
+
+    echo $help;
+    exit(1);
+} else {
+    // Get full path of file
+    $file = realpath(getcwd() . DIRECTORY_SEPARATOR . $args['f']);
+
+    if (!file_exists($file)) {
+        echo "File {$file} does not exists";
+        exit(1);
+    } else {
+        if (!is_readable($file)) {
+            echo "File {$file} is not readable";
+            exit(1);
+        }
+    }
+
+    $identifier = $args['i'];
+    $password   = $args['p'];
+}
+
+// Input file
+$inputFile = new SplFileObject($file);
+
+// Output file = input_file.out.csv
+$outputFileName = preg_replace('/(.*)\.csv/', '$1.out.csv', $file);
+$outputFile = new SplFileObject($outputFileName, 'w+');
+
+echo "Output file name: {$outputFileName}\n";
+
+// Instantiate (sandbox one)
+$batchApi = Be2bill_Api_ClientBuilder::buildSandboxBatchClient($identifier, $password);
+$batchApi->setInputFile($inputFile);
+
+// Console log
+$batchApi->attach(new Be2bill_Api_Batch_Observer_Debug());
+
+// File report (file.out.csv)
+$batchApi->attach(new Be2bill_Api_Batch_Observer_FileReport($outputFile));
+
+if (isset($args['s'])) {
+    echo "Sleep time: {$args['s']} msec\n";
+
+    // Wait some milliseconds between each calls.
+    $batchApi->attach(new Be2bill_Api_Batch_Observer_Sleep(intval($args['s'])));
+}
+
+$batchApi->run();
+
