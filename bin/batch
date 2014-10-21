@@ -17,12 +17,12 @@ $args = getopt('f:i:p:s:');
 // Script arguments handling (simple version)
 if (!isset($args['f']) || !isset($args['i']) || !isset($args['p'])) {
     $help = <<<HELP
-Usage: bin/batch -f file.csv -i IDENTIFIER -p PASSWORD [-s time]
+Usage: bin/batch -f file.csv -i IDENTIFIER -p 'PASSWORD' [-s time]
 
 Arguments:
     -f CSV file (mandatory)
     -i Be2bill IDENTIFIER (mandatory)
-    -p Be2bill PASSWORD (mandatory)
+    -p Be2bill PASSWORD (mandatory). Use single quotes if your password contains special chars
     -s Time in milliseconds to wait between each transactions (optionnal)\n
 HELP;
 
