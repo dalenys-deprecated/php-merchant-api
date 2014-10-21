@@ -9,11 +9,8 @@ class BatchClientTest extends PHPUnit_Framework_TestCase
 
     public function test5Transactions()
     {
-        $inputFile = new SplTempFileObject();
-        $inputFile->setCsvControl(';');
-
-        $outputFile = new SplTempFileObject();
-        $outputFile->setCsvControl(';');
+        $inputFile = fopen('php://memory', 'w+');
+        $outputFile = fopen('php://memory', 'w+');
 
         $csv = array(
             array(
@@ -84,13 +81,13 @@ class BatchClientTest extends PHPUnit_Framework_TestCase
             ),
         );
 
-        $inputFile->fputcsv(array_keys(current($csv)));
+        fputcsv($inputFile, array_keys(current($csv)), ';');
 
         foreach ($csv as $line) {
-            $inputFile->fputcsv($line);
+            fputcsv($inputFile, $line, ';');
         }
 
-        $inputFile->rewind();
+        rewind($inputFile);
 
         $batchApi = Be2bill_Api_ClientBuilder::buildSandboxBatchClient($this->getIdentifier(), $this->getPassword());
         $batchApi->setInputFile($inputFile);
@@ -100,10 +97,10 @@ class BatchClientTest extends PHPUnit_Framework_TestCase
 
         $batchApi->run();
 
-        $outputFile->rewind();
+        rewind($outputFile);
 
-        for ($i = 0; !$outputFile->eof(); $i++) {
-            $outputFile->fgetcsv();
+        for ($i = 0; !feof($outputFile); $i++) {
+            fgetcsv($outputFile, null, ';');
         }
 
         $this->expectOutputRegex('/Line 1.+\nLine 2.+\nLine 3.+\nLine 4.+\n/');

@@ -24,6 +24,32 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSetInputFileAcceptFilePath()
+    {
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array(), $this->directLinkMockArguments);
+
+        $file = 'php://memory';
+
+        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient->setInputFile($file);
+
+        $this->assertNotEmpty($batchClient->getFile());
+        $this->assertInternalType('resource', $batchClient->getInputFileDescriptor());
+    }
+
+    public function testSetInputFileAcceptFileDescriptor()
+    {
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array(), $this->directLinkMockArguments);
+
+        $file = fopen('php://memory', 'w+');
+
+        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient->setInputFile($file);
+
+        $this->assertNotEmpty($batchClient->getFile());
+        $this->assertInternalType('resource', $batchClient->getInputFileDescriptor());
+    }
+
     public function test1Transaction()
     {
         $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
@@ -190,19 +216,18 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
             ->method('update')
             ->with($batchClient);
 
-        $file = new SplTempFileObject();
-        $file->setCsvControl(';');
-        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
-        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
-        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
-        $file->fwrite("\n");
-        $file->fwrite("\n");
-        $file->fwrite("\n");
-        $file->fwrite("\n");
-        $file->fwrite("AMOUNT;ORDERID;CARDCPDE\n");
-        $file->fwrite("\n");
-        $file->fwrite("\n");
-        $file->rewind();
+        $file = fopen('php://memory', 'w+');
+        fwrite($file, "AMOUNT;ORDERID;CARDCPDE\n");
+        fwrite($file, "AMOUNT;ORDERID;CARDCPDE\n");
+        fwrite($file, "AMOUNT;ORDERID;CARDCPDE\n");
+        fwrite($file, "\n");
+        fwrite($file, "\n");
+        fwrite($file, "\n");
+        fwrite($file, "\n");
+        fwrite($file, "AMOUNT;ORDERID;CARDCPDE\n");
+        fwrite($file, "\n");
+        fwrite($file, "\n");
+        rewind($file);
 
         $batchClient->setInputFile($file);
         $batchClient->attach($observerMock);
@@ -213,7 +238,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
      * Generate Nb line of CSV
      * @param $nb
      * @param array $array useful to overload some lines
-     * @return SplTempFileObject
+     * @return ressource
      */
     protected function generateCsv($nb, array $array = array())
     {
@@ -239,16 +264,15 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
         $params = array_merge_recursive($params, $array);
 
-        $file = new SplTempFileObject();
-        $file->setCsvControl(';');
+        $file = fopen('php://memory', 'w+');
 
-        $file->fputcsv(array_keys(current($params)));
+        fputcsv($file, array_keys(current($params)), ';');
 
         foreach ($params as $line) {
-            $file->fputcsv($line);
+            fputcsv($file, $line, ';');
         }
 
-        $file->rewind();
+        rewind($file);
 
         return $file;
     }

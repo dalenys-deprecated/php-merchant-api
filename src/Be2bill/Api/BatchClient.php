@@ -21,21 +21,24 @@ class Be2bill_Api_BatchClient implements SplSubject
      * @var Be2bill_Api_DirectLinkClient
      */
     protected $api;
-
-    /**
-     * @var SplFileObject
-     */
     protected $inputFile;
+    protected $inputFd;
 
     public function __construct(Be2bill_Api_DirectLinkClient $api)
     {
         $this->api = $api;
     }
 
-    public function setInputFile(SplFileObject $file)
+    public function setInputFile($file)
     {
-        $this->inputFile = $file;
-        $this->inputFile->setCsvControl($this->delimiter, $this->enclosure, $this->escape);
+        if (is_resource($file)) {
+            $data = stream_get_meta_data($file);
+            $this->inputFile = $data['uri'];
+            $this->inputFd = $file;
+        } else {
+            $this->inputFile = $file;
+            $this->inputFd   = fopen($file, 'r');
+        }
     }
 
     public function run()
@@ -45,7 +48,7 @@ class Be2bill_Api_BatchClient implements SplSubject
         $this->headers = $this->getCsvHeaders();
         $this->validateFileHeaders($this->headers);
 
-        while (!$this->inputFile->eof()) {
+        while (!feof($this->inputFd)) {
             $rawParams = $this->getCsvLine($this->headers);
 
             if ($rawParams) {
@@ -104,6 +107,9 @@ class Be2bill_Api_BatchClient implements SplSubject
     public function notify()
     {
         foreach ($this->observers as $observer) {
+            /**
+             * @var SplObserver
+             */
             $observer->update($this);
         }
     }
@@ -132,22 +138,43 @@ class Be2bill_Api_BatchClient implements SplSubject
         return $this->currentTransactionResult;
     }
 
+    public function getFile()
+    {
+        return $this->inputFile;
+    }
+
+    public function getInputFileDescriptor()
+    {
+        return $this->inputFd;
+    }
+
+    public function getDelimiter()
+    {
+        return $this->delimiter;
+    }
+
+    public function getEnclosure()
+    {
+        return $this->enclosure;
+    }
+
     /**
      * @return array
      */
     protected function getCsvHeaders()
     {
-        $headers = $this->inputFile->fgetcsv();
+        $headers = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure, $this->escape);
         return $headers;
     }
 
     /**
      * @param $headers
+     * @throws Be2bill_Api_Exception_InvalidBatchFile
      * @return array
      */
     protected function getCsvLine($headers)
     {
-        $line = $this->inputFile->fgetcsv();
+        $line = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure, $this->escape);
 
         // Empty line
         if ($line[0] === null) {

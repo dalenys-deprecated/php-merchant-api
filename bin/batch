@@ -50,7 +50,7 @@ HELP;
 }
 
 // Input file
-$inputFile = new SplFileObject($file);
+$inputFd = fopen($file, 'r');
 
 // Output file
 if (isset($args['o'])) {
@@ -60,7 +60,7 @@ if (isset($args['o'])) {
     $outputFileName = preg_replace('/(.*)\.csv/', '$1.out.csv', $file);
 }
 
-$outputFile = new SplFileObject($outputFileName, 'w+');
+$outputFd = fopen($outputFileName, 'w+');
 
 echo "Output file name: {$outputFileName}\n";
 
@@ -72,13 +72,13 @@ if (isset($args['e']) && $args['e'] = 'sandbox') {
 }
 
 // Input file
-$batchApi->setInputFile($inputFile);
+$batchApi->setInputFile($inputFd);
 
 // Console log
 $batchApi->attach(new Be2bill_Api_Batch_Observer_Debug());
 
 // File report (file.out.csv)
-$batchApi->attach(new Be2bill_Api_Batch_Observer_FileReport($outputFile));
+$batchApi->attach(new Be2bill_Api_Batch_Observer_FileReport($outputFd));
 
 if (isset($args['s'])) {
     echo "Sleep time: {$args['s']} msec\n";
@@ -88,4 +88,7 @@ if (isset($args['s'])) {
 }
 
 $batchApi->run();
+
+fclose($inputFd);
+fclose($outputFd);
 

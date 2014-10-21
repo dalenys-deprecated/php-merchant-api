@@ -17,11 +17,11 @@ class Be2bill_Api_Batch_Observer_Debug implements SplObserver
      */
     public function update(SplSubject $subject)
     {
-        $line = $subject->getCurrentLine() + 1;
+        $line   = $subject->getCurrentLine() + 1;
         $params = $subject->getCurrentTransactionParameters();
         $result = $subject->getCurrentTransactionResult();
 
-        $output =  "Line {$line}";
+        $output = "Line {$line}";
 
         if (isset($params['ORDERID'])) {
             $output .= " (ORDERID={$params['ORDERID']})";

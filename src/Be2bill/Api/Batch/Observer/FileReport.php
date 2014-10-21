@@ -11,9 +11,13 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
     protected $knownResultHeaders;
     protected $inMemoryImage;
 
-    public function __construct(SplFileObject $file)
+    public function __construct($file)
     {
-        $this->file = $file;
+        if (is_resource($file)) {
+            $this->file = $file;
+        } else {
+            $this->file = fopen($file, 'w+');
+        }
     }
 
     /**
@@ -38,7 +42,7 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
             sort($this->headers);
 
             // Write headers
-            $this->file->fputcsv($this->headers);
+            fputcsv($this->file, $this->headers, $subject->getDelimiter(), $subject->getEnclosure());
         }
 
         $newLine               = array_merge($params, $result);
@@ -57,7 +61,7 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
 
         // Rewrite full memory image and file
         if ($newKeys) {
-            $this->file->rewind();
+            rewind($this->file);
 
             // Add new headers
             $this->headers            = array_unique(array_merge($this->headers, $newKeys));
@@ -65,7 +69,7 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
 
             // Rewrite headers
             sort($this->headers);
-            $this->file->fputcsv($this->headers);
+            fputcsv($this->file, $this->headers, $subject->getDelimiter(), $subject->getEnclosure());
 
             // Re -dump top file from in memory image
             foreach ($this->inMemoryImage as $newLine) {
@@ -78,11 +82,11 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
                 }
 
                 ksort($newLine);
-                $this->file->fputcsv($newLine);
+                fputcsv($this->file, $newLine, $subject->getDelimiter(), $subject->getEnclosure());
             }
         } else {
             ksort($newLine);
-            $this->file->fputcsv($newLine);
+            fputcsv($this->file, $newLine, $subject->getDelimiter(), $subject->getEnclosure());
         }
     }
 }

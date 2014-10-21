@@ -29,13 +29,12 @@ class Batch_Observer_FileReportTest extends PHPUnit_Framework_TestCase
             )
         );
 
-        $file = new SplTempFileObject();
-        $file->setCsvControl(';');
+        $file = fopen('php://memory', 'w+');
 
         $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
         $debug->update($this->subjectMock);
 
-        $file->rewind();
+        rewind($file);
 
         $expected = <<<RESULT
 AMOUNT;EXECCODE;MESSAGE;ORDERID;TRANSACTIONID
@@ -82,15 +81,14 @@ RESULT;
             )
         );
 
-        $file = new SplTempFileObject();
-        $file->setCsvControl(';');
+        $file = fopen('php://memory', 'w+');
 
         $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
 
-        $file->rewind();
+        rewind($file);
 
         $result = <<<RESULT
 AMOUNT;EXECCODE;MESSAGE;ORDERID;TRANSACTIONID
@@ -158,8 +156,7 @@ RESULT;
             )
         );
 
-        $file = new SplTempFileObject();
-        $file->setCsvControl(';');
+        $file = fopen('php://memory', 'w+');
 
         $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
 
@@ -169,7 +166,7 @@ RESULT;
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
 
-        $file->rewind();
+        rewind($file);
 
         $result = <<<RESULT
 AMOUNT;EXECCODE;MESSAGE;NEWFIELD;ORDERID;TRANSACTIONID
@@ -239,8 +236,7 @@ RESULT;
             )
         );
 
-        $file = new SplTempFileObject();
-        $file->setCsvControl(';');
+        $file = fopen('php://memory', 'w+');
 
         $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
 
@@ -250,7 +246,7 @@ RESULT;
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
 
-        $file->rewind();
+        rewind($file);
 
         $result = <<<RESULT
 AMOUNT;EXECCODE;MESSAGE;NEWFIELD;ORDERID;TRANSACTIONID
@@ -285,13 +281,12 @@ RESULT;
             )
         );
 
-        $file = new SplTempFileObject();
-        $file->setCsvControl(';');
+        $file = fopen('php://memory', 'w+');
 
         $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
         $debug->update($this->subjectMock);
 
-        $file->rewind();
+        rewind($file);
 
         $expected = <<<RESULT
 AMOUNT;EXECCODE;MESSAGE;ORDERID;TRANSACTIONID
@@ -318,14 +313,23 @@ RESULT;
         $this->subjectMock->expects($this->exactly($nbCalls))
             ->method('getCurrentLine')
             ->will(call_user_func_array(array($this, 'onConsecutiveCalls'), range(0, $nbCalls)));
+
+        $this->subjectMock->expects($this->any())
+            ->method('getDelimiter')
+            ->will($this->returnValue(';'));
+
+        $this->subjectMock->expects($this->any())
+            ->method('getEnclosure')
+            ->will($this->returnValue('"'));
     }
 
     protected function readFile($file)
     {
         $content = '';
-        while (!$file->eof()) {
-            $content .= $file->fgets();
+        while (!feof($file)) {
+            $content .= fgets($file);
         }
+
         return $content;
     }
 }

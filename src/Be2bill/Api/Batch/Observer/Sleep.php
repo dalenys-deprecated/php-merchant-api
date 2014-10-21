@@ -9,7 +9,7 @@ class Be2bill_Api_Batch_Observer_Sleep implements SplObserver
     protected $sleep;
 
     /**
-     * @param $msec Miliseconds
+     * @param integer $msec Milliseconds
      */
     public function __construct($msec)
     {
