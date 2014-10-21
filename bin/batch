@@ -12,18 +12,21 @@
 require dirname(__FILE__) . '/../scripts/autoload.php';
 
 // Expect -f file argument
-$args = getopt('f:i:p:s:');
+$args = getopt('f:i:p:s:e:o:');
 
 // Script arguments handling (simple version)
 if (!isset($args['f']) || !isset($args['i']) || !isset($args['p'])) {
     $help = <<<HELP
-Usage: bin/batch -f file.csv -i IDENTIFIER -p 'PASSWORD' [-s time]
+Usage: bin/batch -f file.csv -i IDENTIFIER -p 'PASSWORD' [-s time] [-e production|sandbox] [-o output_file]
 
 Arguments:
-    -f CSV file (mandatory)
+    -f CSV input file (mandatory)
     -i Be2bill IDENTIFIER (mandatory)
-    -p Be2bill PASSWORD (mandatory). Use single quotes if your password contains special chars
-    -s Time in milliseconds to wait between each transactions (optionnal)\n
+    -p Be2bill PASSWORD. Use single quotes if your password contains special chars (mandatory)
+    -s Time in milliseconds to wait between each transactions (optional)
+    -e Environment: production or sandbox (default=production) (optional)
+    -o Output file. Default: file.out.csv (optional)
+
 HELP;
 
     echo $help;
@@ -49,14 +52,26 @@ HELP;
 // Input file
 $inputFile = new SplFileObject($file);
 
-// Output file = input_file.out.csv
-$outputFileName = preg_replace('/(.*)\.csv/', '$1.out.csv', $file);
+// Output file
+if (isset($args['o'])) {
+    $outputFileName = $args['o'];
+} else {
+    // Output file = input_file.out.csv
+    $outputFileName = preg_replace('/(.*)\.csv/', '$1.out.csv', $file);
+}
+
 $outputFile = new SplFileObject($outputFileName, 'w+');
 
 echo "Output file name: {$outputFileName}\n";
 
-// Instantiate (sandbox one)
-$batchApi = Be2bill_Api_ClientBuilder::buildSandboxBatchClient($identifier, $password);
+// Instantiate
+if (isset($args['e']) && $args['e'] = 'sandbox') {
+    $batchApi = Be2bill_Api_ClientBuilder::buildSandboxBatchClient($identifier, $password);
+} else {
+    $batchApi = Be2bill_Api_ClientBuilder::buildProductionBatchClient($identifier, $password);
+}
+
+// Input file
 $batchApi->setInputFile($inputFile);
 
 // Console log
