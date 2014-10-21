@@ -31,9 +31,9 @@ class Be2bill_Api_BatchClient implements SplSubject
     public function setInputFile($file)
     {
         if (is_resource($file)) {
-            $data = stream_get_meta_data($file);
+            $data            = stream_get_meta_data($file);
             $this->inputFile = $data['uri'];
-            $this->inputFd = $file;
+            $this->inputFd   = $file;
         } else {
             $this->inputFile = $file;
             $this->inputFd   = fopen($file, 'r');
@@ -214,6 +214,8 @@ class Be2bill_Api_BatchClient implements SplSubject
     // Special methods
     public function __destruct()
     {
-        fclose($this->inputFd);
+        if (is_resource($this->inputFd)) {
+            fclose($this->inputFd);
+        }
     }
 }

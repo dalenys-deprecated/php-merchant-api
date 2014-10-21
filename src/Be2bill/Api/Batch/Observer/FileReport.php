@@ -93,6 +93,8 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
     // Special methods
     public function __destruct()
     {
-        fclose($this->file);
+        if (is_resource($this->file)) {
+            fclose($this->file);
+        }
     }
 }

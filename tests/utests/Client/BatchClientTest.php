@@ -190,7 +190,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
         $batchClient = new Be2bill_Api_BatchClient($apiMock);
 
-        $observerMock = $this->getMock('SplObserver');
+        $observerMock = $this->getMock('SplObserver', array('update'));
         $observerMock->expects($this->exactly(5))
             ->method('update')
             ->with($batchClient);
@@ -211,7 +211,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
         $batchClient = new Be2bill_Api_BatchClient($apiMock);
 
-        $observerMock = $this->getMock('SplObserver');
+        $observerMock = $this->getMock('SplObserver', array('update'));
         $observerMock->expects($this->exactly(3))
             ->method('update')
             ->with($batchClient);
