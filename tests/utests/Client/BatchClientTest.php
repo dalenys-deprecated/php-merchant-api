@@ -165,7 +165,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testNotifyRealTimeTransactions()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne', 'notify'), $this->directLinkMockArguments);
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
         $apiMock->expects($this->exactly(5))
             ->method('requestOne')
             ->with(
@@ -190,10 +190,10 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
         $batchClient = new Be2bill_Api_BatchClient($apiMock);
 
-        $observerMock = $this->getMock('SplObserver', array('update'));
+        $observerMock = $this->getMock('SplObserver');
         $observerMock->expects($this->exactly(5))
             ->method('update')
-            ->with($batchClient);
+            ->with($this->isInstanceOf('Be2bill_Api_BatchClient'));
 
         $file = $this->generateCsv(5);
 
@@ -204,17 +204,17 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testSkipEmptyLine()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne', 'notify'), $this->directLinkMockArguments);
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
 
         $apiMock->expects($this->exactly(3))
             ->method('requestOne');
 
         $batchClient = new Be2bill_Api_BatchClient($apiMock);
 
-        $observerMock = $this->getMock('SplObserver', array('update'));
+        $observerMock = $this->getMock('SplObserver');
         $observerMock->expects($this->exactly(3))
             ->method('update')
-            ->with($batchClient);
+            ->with($this->isInstanceOf('Be2bill_Api_BatchClient'));
 
         $file = fopen('php://memory', 'w+');
         fwrite($file, "AMOUNT;ORDERID;CARDCPDE\n");
