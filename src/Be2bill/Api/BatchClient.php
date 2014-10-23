@@ -194,6 +194,8 @@ class Be2bill_Api_BatchClient implements SplSubject
     {
         if (in_array('IDENTIFIER', $headers)) {
             throw new Be2bill_Api_Exception_InvalidBatchFile('IDENTIFIER is not allowed in batch file');
+        } elseif (in_array('HASH', $headers)) {
+            throw new Be2bill_Api_Exception_InvalidBatchFile('HASH is not allowed in batch file');
         }
     }
 

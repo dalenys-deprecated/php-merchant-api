@@ -119,6 +119,20 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException Be2bill_Api_Exception_InvalidBatchFile
      */
+    public function testHashNotAllowedAsCsvColumn()
+    {
+        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+
+        $file = $this->generateCsv(1, array('k0' => array('HASH' => 'toto')));
+
+        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient->setInputFile($file);
+        $batchClient->run();
+    }
+
+    /**
+     * @expectedException Be2bill_Api_Exception_InvalidBatchFile
+     */
     public function testIdentifierNotAllowedAsCsvColumn()
     {
         $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);

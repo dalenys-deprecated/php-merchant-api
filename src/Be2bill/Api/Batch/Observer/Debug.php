@@ -37,7 +37,6 @@ class Be2bill_Api_Batch_Observer_Debug implements SplObserver
             $output .= " MESSAGE={$result['MESSAGE']}";
         }
 
-
         if (isset($result['TRANSACTIONID'])) {
             $output .= " TRANSACTIONID={$result['TRANSACTIONID']}";
         }
