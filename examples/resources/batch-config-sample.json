@@ -1,0 +1,20 @@
+{
+    "accounts": [
+        {
+            "IDENTIFIER": "IDENTIFIER1",
+            "PASSWORD": "p1"
+        },
+        {
+            "IDENTIFIER": "IDENTIFIER2",
+            "PASSWORD": "p2"
+        },
+        {
+            "IDENTIFIER": "IDENTIFIER3",
+            "PASSWORD": "p3"
+        },
+        {
+            "IDENTIFIER": "IDENTIFIER4",
+            "PASSWORD": "p4"
+        }
+    ]
+}

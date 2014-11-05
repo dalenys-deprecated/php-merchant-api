@@ -11,18 +11,16 @@
 
 require dirname(__FILE__) . '/../scripts/autoload.php';
 
-// Expect -f file argument
-$args = getopt('f:i:p:s:e:o:');
-
-// Script arguments handling (simple version)
-if (!isset($args['f']) || !isset($args['i']) || !isset($args['p'])) {
+function displayManual()
+{
     $help = <<<HELP
 Usage: bin/batch -f file.csv -i IDENTIFIER -p 'PASSWORD' [-s time] [-e production|sandbox] [-o output_file]
 
 Arguments:
     -f CSV input file (mandatory)
     -i Be2bill IDENTIFIER (mandatory)
-    -p Be2bill PASSWORD. Use single quotes if your password contains special chars (mandatory)
+    -p Be2bill PASSWORD. Use single quotes if your password contains special chars (mandatory if configuration file not set)
+    -c Configuration file (mandatory if password not set)
     -s Time in milliseconds to wait between each transactions (optional)
     -e Environment: production or sandbox (default=production) (optional)
     -o Output file. Default: file.out.csv (optional)
@@ -31,10 +29,18 @@ HELP;
 
     echo $help;
     exit(1);
-} else {
-    // Get full path of file
-    $file = realpath(getcwd() . DIRECTORY_SEPARATOR . $args['f']);
+}
 
+/**
+ * @param $file
+ * @return string
+ */
+function validateFile($file)
+{
+// Get full path of file
+    $file = realpath(getcwd() . DIRECTORY_SEPARATOR . $file);
+
+    // Validate file
     if (!file_exists($file)) {
         echo "File {$file} does not exists";
         exit(1);
@@ -43,11 +49,66 @@ HELP;
             echo "File {$file} is not readable";
             exit(1);
         }
+        return $file;
+    }
+}
+
+function getPasswordFromConfigurationFile($identifier, $file)
+{
+    $password = null;
+
+    // Parse configuration file
+    $configFile        = validateFile($file);
+    $configFileContent = file_get_contents($configFile);
+    $config            = json_decode($configFileContent, true);
+    
+    if (!$config || !isset($config['accounts'][0])) {
+        echo "Configuration file is not a well formed JSON file\n";
+        exit(1);
+    } else {
+        foreach ($config['accounts'] as $account) {
+            if (!isset($account['IDENTIFIER']) || !isset($account['PASSWORD'])) {
+                echo "Configuration file is not a well formed JSON file\n";
+                exit(1);
+            }
+            if ($account['IDENTIFIER'] == $identifier) {
+                $password = $account['PASSWORD'];
+            }
+        }
+
+        if ($password === null) {
+            echo "Configuration file does not contains a \"{$identifier}\" record\n";
+            exit(1);
+        }
     }
 
-    $identifier = $args['i'];
-    $password   = $args['p'];
+    return $password;
 }
+
+// Expect -f file argument
+$args = getopt('f:i:p::s:e:o:c:');
+
+// Script arguments handling (simple version)
+
+if (!isset($args['f']) || !isset($args['i'])) {
+    displayManual();
+} elseif (!isset($args['p']) && !isset($args['c'])) {
+    displayManual();
+} else {
+    $identifier = $args['i'];
+
+    // Password handling
+    if (isset($args['p'])) {
+        $password = $args['p'];
+    } else {
+        $password = getPasswordFromConfigurationFile($identifier, $args['c']);
+    }
+
+    $file = validateFile($args['f']);
+}
+
+echo $password;
+exit();
 
 // Output file
 if (isset($args['o'])) {
