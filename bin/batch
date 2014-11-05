@@ -86,11 +86,11 @@ function getPasswordFromConfigurationFile($identifier, $file)
 }
 
 // Expect -f file argument
-$args = getopt('f:i:p::s:e:o:c:');
+$args = getopt('f:i:p:s:e:o:c:');
 
 // Script arguments handling (simple version)
-
 if (!isset($args['f']) || !isset($args['i'])) {
+    var_dump($args);
     displayManual();
 } elseif (!isset($args['p']) && !isset($args['c'])) {
     displayManual();
@@ -106,9 +106,6 @@ if (!isset($args['f']) || !isset($args['i'])) {
 
     $file = validateFile($args['f']);
 }
-
-echo $password;
-exit();
 
 // Output file
 if (isset($args['o'])) {
