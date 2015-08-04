@@ -90,7 +90,6 @@ $args = getopt('f:i:p:s:e:o:c:');
 
 // Script arguments handling (simple version)
 if (!isset($args['f']) || !isset($args['i'])) {
-    var_dump($args);
     displayManual();
 } elseif (!isset($args['p']) && !isset($args['c'])) {
     displayManual();
