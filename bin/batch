@@ -38,7 +38,7 @@ HELP;
 function validateFile($file)
 {
 // Get full path of file
-    $file = realpath(getcwd() . DIRECTORY_SEPARATOR . $file);
+    $file = realpath($file);
 
     // Validate file
     if (!file_exists($file)) {
