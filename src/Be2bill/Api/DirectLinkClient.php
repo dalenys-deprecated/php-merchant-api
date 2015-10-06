@@ -249,10 +249,15 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params = $options;
 
+        if (is_array($amount)) {
+            $params["AMOUNTS"] = $amount;
+        } else {
+            $params["AMOUNT"] = $amount;
+        }
+
         $params['OPERATIONTYPE'] = 'payment';
         $params['ALIAS']         = $alias;
         $params['ALIASMODE']     = 'oneclick';
-        $params["AMOUNT"]        = $amount;
 
         return $this->transaction(
             $orderId,
