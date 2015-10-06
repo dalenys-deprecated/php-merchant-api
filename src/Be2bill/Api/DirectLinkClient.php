@@ -95,12 +95,7 @@ class Be2bill_Api_DirectLinkClient
         array $options = array()
     ) {
         $params = $options;
-
-        if (is_array($amount)) {
-            $params["AMOUNTS"] = $amount;
-        } else {
-            $params["AMOUNT"] = $amount;
-        }
+        $params = $this->amountOrAmounts($amount, $params);
 
         $params['OPERATIONTYPE']    = 'payment';
         $params['CARDCODE']         = $cardPan;
@@ -248,12 +243,7 @@ class Be2bill_Api_DirectLinkClient
         array $options = array()
     ) {
         $params = $options;
-
-        if (is_array($amount)) {
-            $params["AMOUNTS"] = $amount;
-        } else {
-            $params["AMOUNT"] = $amount;
-        }
+        $params = $this->amountOrAmounts($amount, $params);
 
         $params['OPERATIONTYPE'] = 'payment';
         $params['ALIAS']         = $alias;
@@ -435,11 +425,11 @@ class Be2bill_Api_DirectLinkClient
         array $options = array()
     ) {
         $params = $options;
+        $params = $this->amountOrAmounts($amount, $params);
 
         $params['OPERATIONTYPE'] = 'payment';
         $params['ALIASMODE']     = 'subscription';
         $params['ALIAS']         = $alias;
-        $params["AMOUNT"]        = $amount;
 
         return $this->transaction(
             $orderId,
@@ -924,5 +914,21 @@ class Be2bill_Api_DirectLinkClient
         }
 
         return $result;
+    }
+
+    /**
+     * @param $amount
+     * @param $params
+     * @return mixed
+     */
+    protected function amountOrAmounts($amount, $params)
+    {
+        if (is_array($amount)) {
+            $params["AMOUNTS"] = $amount;
+        } else {
+            $params["AMOUNT"] = $amount;
+        }
+
+        return $params;
     }
 }

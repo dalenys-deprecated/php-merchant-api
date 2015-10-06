@@ -209,6 +209,44 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
         $this->api->oneClickPayment('A1', 100, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
+    public function testOneClickPaymentWithNTime()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'method' => 'payment',
+                    'params' => array(
+                        'ALIAS'           => 'A1',
+                        'ALIASMODE'       => 'oneclick',
+                        'AMOUNTS'         => [
+                            '2015-01-01' => 100,
+                            '2015-02-01' => 100,
+                            '2015-03-01' => 100,
+                        ],
+                        'IDENTIFIER'      => 'i',
+                        'OPERATIONTYPE'   => 'payment',
+                        'ORDERID'         => 42,
+                        'CLIENTIDENT'     => 'ident',
+                        'CLIENTEMAIL'     => 'test@test.com',
+                        'CLIENTIP'        => '1.1.1.1',
+                        'CLIENTUSERAGENT' => 'Firefox',
+                        'VERSION'         => '2.0',
+                        'HASH'            => 'dummy',
+                        'DESCRIPTION'     => 'desc'
+                    )
+                )
+            );
+
+        $amounts = [
+            '2015-01-01' => 100,
+            '2015-02-01' => 100,
+            '2015-03-01' => 100,
+        ];
+        $this->api->oneClickPayment('A1', $amounts, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
+    }
+
     public function testSubscriptionPayment()
     {
         $this->senderMock->expects($this->once())
@@ -236,6 +274,44 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
             );
 
         $this->api->subscriptionPayment('A1', 100, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
+    }
+
+    public function testSubscriptionPaymentWithNTime()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'method' => 'payment',
+                    'params' => array(
+                        'ALIAS'           => 'A1',
+                        'ALIASMODE'       => 'subscription',
+                        'AMOUNTS'         => [
+                            '2015-01-01' => 100,
+                            '2015-02-01' => 100,
+                            '2015-03-01' => 100,
+                        ],
+                        'IDENTIFIER'      => 'i',
+                        'OPERATIONTYPE'   => 'payment',
+                        'ORDERID'         => 42,
+                        'CLIENTIDENT'     => 'ident',
+                        'CLIENTEMAIL'     => 'test@test.com',
+                        'CLIENTIP'        => '1.1.1.1',
+                        'CLIENTUSERAGENT' => 'Firefox',
+                        'VERSION'         => '2.0',
+                        'HASH'            => 'dummy',
+                        'DESCRIPTION'     => 'desc'
+                    )
+                )
+            );
+
+        $amounts = [
+            '2015-01-01' => 100,
+            '2015-02-01' => 100,
+            '2015-03-01' => 100,
+        ];
+        $this->api->subscriptionPayment('A1', $amounts, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
     public function testOneClickAuthorization()
