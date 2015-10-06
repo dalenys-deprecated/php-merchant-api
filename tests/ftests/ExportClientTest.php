@@ -61,14 +61,14 @@ class ExportClientTest extends Be2bill_Api_Test_FCase
 
     public function testExportReconciliation()
     {
-        $result = $this->api->exportReconciliation('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportReconciliation('2015-10-05', 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportReconciledTransactions()
     {
-        $result = $this->api->exportReconciledTransactions('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportReconciledTransactions('2015-10-05', 'no-reply@be2bill.com');
 
         $this->assertTransactionSucceeded($result);
     }

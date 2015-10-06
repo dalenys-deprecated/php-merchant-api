@@ -220,11 +220,11 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                     'params' => array(
                         'ALIAS'           => 'A1',
                         'ALIASMODE'       => 'oneclick',
-                        'AMOUNTS'         => [
+                        'AMOUNTS'         => array(
                             '2015-01-01' => 100,
                             '2015-02-01' => 100,
                             '2015-03-01' => 100,
-                        ],
+                        ),
                         'IDENTIFIER'      => 'i',
                         'OPERATIONTYPE'   => 'payment',
                         'ORDERID'         => 42,
@@ -239,11 +239,11 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $amounts = [
+        $amounts = array(
             '2015-01-01' => 100,
             '2015-02-01' => 100,
             '2015-03-01' => 100,
-        ];
+        );
         $this->api->oneClickPayment('A1', $amounts, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
@@ -287,11 +287,11 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                     'params' => array(
                         'ALIAS'           => 'A1',
                         'ALIASMODE'       => 'subscription',
-                        'AMOUNTS'         => [
+                        'AMOUNTS'         => array(
                             '2015-01-01' => 100,
                             '2015-02-01' => 100,
                             '2015-03-01' => 100,
-                        ],
+                        ),
                         'IDENTIFIER'      => 'i',
                         'OPERATIONTYPE'   => 'payment',
                         'ORDERID'         => 42,
@@ -306,11 +306,11 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
                 )
             );
 
-        $amounts = [
+        $amounts = array(
             '2015-01-01' => 100,
             '2015-02-01' => 100,
             '2015-03-01' => 100,
-        ];
+        );
         $this->api->subscriptionPayment('A1', $amounts, 42, 'ident', 'test@test.com', '1.1.1.1', 'desc', 'Firefox');
     }
 
