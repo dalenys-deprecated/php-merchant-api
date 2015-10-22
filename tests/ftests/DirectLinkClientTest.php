@@ -218,25 +218,24 @@ class DirectLinkClientTest extends Be2bill_Api_Test_FCase
         $this->assertTransactionSucceeded($result);
     }
 
-    // Actually doesn't work since CLIENTREFERER is still mandatory in CREDIT method
-//    public function testCredit()
-//    {
-//        $result = $this->api->credit(
-//            '5555556778250000',
-//            $this->tools->getFutureValidityDate(),
-//            132,
-//            'john doe',
-//            '1000',
-//            'order-' . time(),
-//            'john doe',
-//            'johndoe@test.com',
-//            '1.2.3.4',
-//            'desc',
-//            'firefox'
-//        );
-//
-//        $this->assertTransactionSucceeded($result);
-//    }
+    public function testCredit()
+    {
+        $result = $this->api->credit(
+            '5555556778250000',
+            $this->tools->getFutureValidityDate(),
+            132,
+            'john doe',
+            '1000',
+            'order-' . time(),
+            'john doe',
+            'johndoe@test.com',
+            '1.2.3.4',
+            'desc',
+            'firefox'
+        );
+
+        $this->assertTransactionSucceeded($result);
+    }
 
     protected function getIdentifier()
     {
