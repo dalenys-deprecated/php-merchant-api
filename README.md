@@ -1,8 +1,11 @@
 [Be2bill Merchant API] (http://developer.be2bill.com/)
 
-[![Build Status](https://travis-ci.org/be2bill/php-merchant-api.svg?branch=master)](https://travis-ci.org/be2bill/php-merchant-api)
-
 A simple PHP implementation of the Be2bill payment platform API.
+
+[![Build Status](https://travis-ci.org/be2bill/php-merchant-api.svg?branch=master)](https://travis-ci.org/be2bill/php-merchant-api)
+[![Latest Stable Version](https://poser.pugx.org/be2bill/php-merchant-api/v/stable)](https://packagist.org/packages/be2bill/php-merchant-api) 
+[![Total Downloads](https://poser.pugx.org/be2bill/php-merchant-api/downloads)](https://packagist.org/packages/be2bill/php-merchant-api) 
+[![License](https://poser.pugx.org/be2bill/php-merchant-api/license)](https://packagist.org/packages/be2bill/php-merchant-api)
 
 ## Using a simple payment form
 
