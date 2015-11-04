@@ -1,33 +1,83 @@
 <?php
 
 /**
+ * Batch client
+ *
+ * @package Be2bill
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
  * Implements batch mode (cli side)
  * @version 1.2.0
  */
 class Be2bill_Api_BatchClient implements SplSubject
 {
+    /**
+     * @var string CSV delimiter
+     */
     protected $delimiter = ';';
+
+    /**
+     * @var string CSV enclosure
+     */
     protected $enclosure = '"';
 
+    /**
+     * @var array Observer list
+     */
     protected $observers = array();
 
+    /**
+     * @var int Processed line
+     */
     protected $currentLine = 0;
+
+    /**
+     * @var array Current transaction parameters
+     */
     protected $currentTransactionParameters;
+
+    /**
+     * @var array Current transaction result
+     */
     protected $currentTransactionResult;
+
+    /**
+     * @var CSV headers
+     */
     protected $headers;
 
     /**
-     * @var Be2bill_Api_DirectLinkClient
+     * @var Be2bill_Api_DirectLinkClient Be2bill API
      */
     protected $api;
+
+    /**
+     * @var string Input file
+     */
     protected $inputFile;
+
+    /**
+     * @var resource Input file descriptor
+     */
     protected $inputFd;
 
+    /**
+     * Instanciate
+     *
+     * @param Be2bill_Api_DirectLinkClient $api
+     */
     public function __construct(Be2bill_Api_DirectLinkClient $api)
     {
         $this->api = $api;
     }
 
+    /**
+     * Set input file
+     *
+     * @param resource|string $file
+     */
     public function setInputFile($file)
     {
         if (is_resource($file)) {
@@ -40,6 +90,11 @@ class Be2bill_Api_BatchClient implements SplSubject
         }
     }
 
+    /**
+     * Process the batch
+     *
+     * @return bool
+     */
     public function run()
     {
         $urls = $this->api->getDirectLinkUrls();
@@ -114,6 +169,8 @@ class Be2bill_Api_BatchClient implements SplSubject
     }
 
     /**
+     * Return current line
+     *
      * @return int
      */
     public function getCurrentLine()
@@ -122,6 +179,8 @@ class Be2bill_Api_BatchClient implements SplSubject
     }
 
     /**
+     * Return current transaction parameters
+     *
      * @return mixed
      */
     public function getCurrentTransactionParameters()
@@ -130,6 +189,8 @@ class Be2bill_Api_BatchClient implements SplSubject
     }
 
     /**
+     * Return current transaction result
+     *
      * @return mixed
      */
     public function getCurrentTransactionResult()
@@ -137,27 +198,49 @@ class Be2bill_Api_BatchClient implements SplSubject
         return $this->currentTransactionResult;
     }
 
+    /**
+     * Return input file name
+     *
+     * @return string
+     */
     public function getFile()
     {
         return $this->inputFile;
     }
 
+    /**
+     * Return input file descriptor
+     *
+     * @return resource
+     */
     public function getInputFileDescriptor()
     {
         return $this->inputFd;
     }
 
+    /**
+     * Return CSV delimiter
+     *
+     * @return string
+     */
     public function getDelimiter()
     {
         return $this->delimiter;
     }
 
+    /**
+     * Return CSV enclosure
+     *
+     * @return string
+     */
     public function getEnclosure()
     {
         return $this->enclosure;
     }
 
     /**
+     * Return CSV headers
+     *
      * @return array
      */
     protected function getCsvHeaders()
@@ -167,11 +250,13 @@ class Be2bill_Api_BatchClient implements SplSubject
     }
 
     /**
-     * @param $headers
+     * Return CSV line
+     *
+     * @param array $headers
      * @throws Be2bill_Api_Exception_InvalidBatchFile
      * @return array
      */
-    protected function getCsvLine($headers)
+    protected function getCsvLine(array $headers)
     {
         $line = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure);
 
@@ -187,10 +272,13 @@ class Be2bill_Api_BatchClient implements SplSubject
     }
 
     /**
+     * Validate headers
+     *
+     * Should not contains IDENTIFIER and HASH
      * @param $headers
      * @throws Be2bill_Api_Exception_InvalidBatchFile
      */
-    protected function validateFileHeaders($headers)
+    protected function validateFileHeaders(array $headers)
     {
         if (in_array('IDENTIFIER', $headers)) {
             throw new Be2bill_Api_Exception_InvalidBatchFile('IDENTIFIER is not allowed in batch file');
@@ -200,6 +288,9 @@ class Be2bill_Api_BatchClient implements SplSubject
     }
 
     /**
+     * Prepare transaction parameters before sending
+     *
+     * Calculate hash and append identifier
      * @param $params
      * @return array
      */
@@ -213,6 +304,9 @@ class Be2bill_Api_BatchClient implements SplSubject
     }
 
     // Special methods
+    /**
+     * Reset resources
+     */
     public function __destruct()
     {
         if (is_resource($this->inputFd)) {

@@ -1,14 +1,29 @@
 <?php
 
 /**
- * Class Be2bill_Api_Batch_Observer_Sleep
+ * Observer time delayer
+ *
+ * @package Be2bill
+ * @subpackage Batch
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
  * Use it for configuring some sleep time between each transactions
+ * @package batch
  */
 class Be2bill_Api_Batch_Observer_Sleep implements SplObserver
 {
+    /**
+     * The sleep value in msec
+     *
+     * @var int
+     */
     protected $sleep;
 
     /**
+     * Instanciate
+     *
      * @param integer $msec Milliseconds
      */
     public function __construct($msec)

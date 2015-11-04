@@ -1,36 +1,53 @@
 <?php
 
 /**
+ * Form client
+ *
+ * @package Be2bill
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
  * Implements Be2bill payment API
  * @version 1.0.0
  */
 class Be2bill_Api_FormClient
 {
+    /**
+     * API version
+     */
     const API_VERSION = '2.0';
 
     // Credentials
-    protected $identifier = null;
-    protected $password = null;
+    /**
+     * @var string Be2bill identifier
+     */
+    protected $identifier;
+
+    /**
+     * @var string Be2bill password
+     */
+    protected $password;
 
     // Internals
 
     /**
-     * @var Be2bill_Api_Renderer_Renderable
+     * @var Be2bill_Api_Renderer_Renderable How to render the payment form
      */
     protected $renderer = null;
 
     /**
-     * @var Be2bill_Api_Hash_Hashable
+     * @var Be2bill_Api_Hash_Hashable How to hash the payment form
      */
     protected $hash = null;
 
     /**
-     * @param                                 $identifier
-     * @param                                 $password
-     * @param array                           $urls
-     * @param Be2bill_Api_Renderer_Renderable $renderer
-     * @param Be2bill_Api_Sender_Sendable     $sender
-     * @param Be2bill_Api_Hash_Hashable       $sender
+     * Instanciate
+     *
+     * @param string $identifier The Be2bill identifier
+     * @param string $password The Be2bill password
+     * @param Be2bill_Api_Renderer_Renderable $renderer How to render the form
+     * @param Be2bill_Api_Hash_Hashable $hash
      */
     public function __construct(
         $identifier,
@@ -45,8 +62,10 @@ class Be2bill_Api_FormClient
     }
 
     /**
-     * @param $identifier
-     * @param $password
+     * Configure credentials
+     *
+     * @param string $identifier
+     * @param string $password
      */
     public function setCredentials($identifier, $password)
     {
@@ -55,27 +74,29 @@ class Be2bill_Api_FormClient
     }
 
     /**
-     * Build form payment and submit button
+     * Build payment form and submit button
      *
-     * This method will return the form payment and all hidden input configuring the be2bill transaction.
+     * Return the payment form and all hidden input configuring the be2bill transaction.
      * @param integer|array $amount The transaction amount in cents.
      *  If $amount is an array it will be used as NTime transaction (fragmented payment).
-     *  In this case, the array should be formatted this way:
-     *  <code>
-     *      $amounts = array('2014-01-01' => 100, '2014-02-01' => 200, '2014-03-01' => 100)
-     *  </code>
-     *  The first entry's date should be the current date (today)
-     * @param string        $orderId
-     * @param string        $clientIdentifier
-     * @param string        $description
-     * @param array         $htmlOptions An array of HTML attributes to add to the submit or form button
+     *
+     * In this case, the array should be formatted this way:
+     * ```php
+     * $amounts = array('2014-01-01' => 100, '2014-02-01' => 200, '2014-03-01' => 100)
+     * ```
+     *
+     * The first entry's date should be the current date (today)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $description The transaction description
+     * @param array $htmlOptions An array of HTML attributes to add to the submit or form button
      * (allowing to change name, style, class attribute etc.).
      * Example:
-     * <code>
+     * ```php
      * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
      * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
-     * </code>
-     * @param array         $options Others be2bill options. See Be2bill documentation for more information
+     * ```
+     * @param array $options Others be2bill options. See Be2bill documentation for more information
      * (3DS, CREATEALIAS, etc.)
      * @return string The HTML output to display
      */
@@ -100,24 +121,30 @@ class Be2bill_Api_FormClient
     }
 
     /**
-     * Build form authorization and submit button
+     * Build authorization form and submit button
      *
-     * This method will return the form authorization and all hidden input configuring the be2bill transaction.
-     * You will have to call the {@link capture} method to confirm this authorization
-     * @param int          $amount
-     * @param int          $orderId
-     * @param string       $clientIdentifier
-     * @param string       $description
-     * @param array        $htmlOptions An array of HTML attributes to add to the submit or form button
+     * Return the authorization form and all hidden input configuring the be2bill transaction.
+     * @param integer|array $amount The transaction amount in cents.
+     *  If $amount is an array it will be used as NTime transaction (fragmented payment).
+     *
+     * In this case, the array should be formatted this way:
+     * ```php
+     * $amounts = array('2014-01-01' => 100, '2014-02-01' => 200, '2014-03-01' => 100)
+     * ```
+     *
+     * The first entry's date should be the current date (today)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $description The transaction description
+     * @param array $htmlOptions An array of HTML attributes to add to the submit or form button
      * (allowing to change name, style, class attribute etc.).
      * Example:
-     * <code>
+     * ```php
      * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
      * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
-     * </code>
-     * @param        array $options Others be2bill options. See Be2bill documentation for more information
-     * (3DS, CREATEALIAS etc.)
-     * @see capture
+     * ```
+     * @param array $options Others be2bill options. See Be2bill documentation for more information
+     * (3DS, CREATEALIAS, etc.)
      * @return string The HTML output to display
      */
     public function buildAuthorizationFormButton(
@@ -145,6 +172,8 @@ class Be2bill_Api_FormClient
     // Be2bill toolkit methods
 
     /**
+     * Compute form hash
+     *
      * @param array $params
      * @return string
      */
@@ -167,10 +196,12 @@ class Be2bill_Api_FormClient
     // Internals
 
     /**
-     * @param       $operationType
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $description
+     * Return process button html
+     *
+     * @param string $operationType
+     * @param string $orderId
+     * @param string $clientIdentifier
+     * @param string $description
      * @param array $htmlOptions
      * @param array $options
      * @return string

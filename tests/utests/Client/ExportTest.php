@@ -51,6 +51,27 @@ class Client_ExportTest extends PHPUnit_Framework_TestCase
         $this->api->getTransactionsByTransactionId('A1', 'test@test.com');
     }
 
+    public function testGetTransactionsByTransactionIdWithDirectReturn()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/export',
+                array(
+                    'method' => 'getTransactions',
+                    'params' => array(
+                        'IDENTIFIER'    => 'i',
+                        'TRANSACTIONID' => 'A1',
+                        'OPERATIONTYPE' => 'getTransactions',
+                        'VERSION'       => '2.0',
+                        'HASH'          => 'dummy'
+                    )
+                )
+            );
+
+        $this->api->getTransactionsByTransactionId('A1');
+    }
+
     public function testGetTransactionsByTransactionIdWithCallback()
     {
         $this->senderMock->expects($this->once())

@@ -1,24 +1,52 @@
 <?php
 
+/**
+ * Curl sender
+ *
+ * @package Be2bill
+ * @subpackage Sender
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
+ * Send a HTTP request with curl
+ */
 class Be2bill_Api_Sender_Curl implements Be2bill_Api_Sender_Sendable
 {
     const CURLE_OPERATION_TIMEDOUT = 28;
-
     const REQUEST_TIMEOUT = 30;
 
-    protected $timeout = null;
+    /**
+     * The timeout in seconds
+     *
+     * @var int
+     */
+    protected $timeout = self::REQUEST_TIMEOUT;
+
+    /**
+     * Indicate if should retry depending on failing cases
+     *
+     * @var bool
+     */
     protected $shouldRetry = false;
 
-    public function __construct()
-    {
-        $this->timeout = self::REQUEST_TIMEOUT;
-    }
-
+    /**
+     * Override the default timeout
+     *
+     * @param $timeout
+     */
     public function setTimeout($timeout)
     {
         $this->timeout = $timeout;
     }
 
+    /**
+     * Send the HTTP request with curl
+     *
+     * @param string $url
+     * @param array $params
+     * @return boolean|string
+     */
     public function send($url, array $params)
     {
         $ch = curl_init();
@@ -47,6 +75,11 @@ class Be2bill_Api_Sender_Curl implements Be2bill_Api_Sender_Sendable
         return $result;
     }
 
+    /**
+     * Tells if the request should be retried on a different URL if a previous send failed
+     *
+     * @return boolean
+     */
     public function shouldRetry()
     {
         return $this->shouldRetry;

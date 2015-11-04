@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Autoloader
+ *
+ * @package Be2bill
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
+ * Handle autoloading
+ */
 class Be2bill_Api_Autoloader
 {
     /**
@@ -11,6 +21,8 @@ class Be2bill_Api_Autoloader
     }
 
     /**
+     * The autoload method
+     *
      * @param $className string The class name
      */
     public static function autoloader($className)

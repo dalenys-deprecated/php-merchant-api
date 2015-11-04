@@ -1,13 +1,37 @@
 <?php
 
+/**
+ * HTML renderer
+ *
+ * @package Be2bill
+ * @subpackage Renderer
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
+ * Render a payment form in HTML
+ */
 class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
 {
-    protected $url = null;
+    /**
+     * @var string The form action URL
+     */
+    protected $url;
+
+    /**
+     * @var string The form charset encoding
+     */
     protected $encoding = 'UTF-8';
+
+    /**
+     * @var string The form action path
+     */
     protected $formPath = '/front/form/process';
 
     /**
-     * @param $url The URL for payment form to submit
+     * Instanciate
+     *
+     * @param string $url The URL for payment form to submit
      */
     public function __construct($url)
     {
@@ -15,24 +39,16 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
     }
 
     /**
-     * @param       $params
-     * @param array $options
-     * @return string
+     * Render the HTML form
+     *
+     * @param       $params Transaction parameters
+     * @param array $options Transaction options
+     * @return string The HTML
      */
-    public function render($params, $options = array())
+    public function render(array $params, array $options = array())
     {
-        return $this->buildFormHtml($params, $options);
-    }
-
-    /**
-     * @param       $params
-     * @param array $htmlOptions
-     * @return string
-     */
-    public function buildFormHtml($params, $htmlOptions = array())
-    {
-        if (isset($htmlOptions['FORM'])) {
-            $attributes = $this->buildAttributes($htmlOptions['FORM']);
+        if (isset($options['FORM'])) {
+            $attributes = $this->buildAttributes($options['FORM']);
         } else {
             $attributes = '';
         }
@@ -41,7 +57,7 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
         $html = '<form method="post" action="' . $this->url . '" ' . $attributes . '>';
 
         $html .= $this->buildHiddenInputs($params);
-        $html .= $this->buildSubmitInput($htmlOptions);
+        $html .= $this->buildSubmitInput($options);
 
         $html .= '</form>';
 
@@ -49,10 +65,12 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
     }
 
     /**
-     * @param $fields
-     * @return string
+     * Render hidden inputs
+     *
+     * @param array $fields The input list to validate
+     * @return string The HTML
      */
-    public function buildHiddenInputs($fields)
+    public function buildHiddenInputs(array $fields)
     {
         $html = '';
         foreach ($fields as $key => $value) {
@@ -70,9 +88,11 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
     }
 
     /**
-     * @param $key
-     * @param $value
-     * @return string
+     * Render 1 hidden input
+     *
+     * @param $key The input name
+     * @param $value The input value
+     * @return string the HTML
      */
     public function buildHiddenInput($key, $value)
     {
@@ -80,8 +100,10 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
     }
 
     /**
-     * @param $options
-     * @return string
+     * Render the submit button
+     *
+     * @param array $options The submit options
+     * @return string The HTML
      */
     public function buildSubmitInput(array $options = array())
     {
@@ -96,11 +118,22 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
         return $html;
     }
 
+    /**
+     * Set form encoding
+     *
+     * @param $encoding The encoding
+     */
     public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
     }
 
+    /**
+     * Render HTML attributes
+     *
+     * @param array $options The attributes to render
+     * @return string The HTML
+     */
     protected function buildAttributes(array $options = array())
     {
         $attributes = '';
@@ -113,8 +146,10 @@ class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
     }
 
     /**
-     * @param $mixed
-     * @return string
+     * Escape a variable against XSS
+     *
+     * @param string $mixed The variable
+     * @return string The escaped value
      */
     protected function escape($mixed)
     {

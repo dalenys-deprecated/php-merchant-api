@@ -23,6 +23,15 @@ class ExportClientTest extends Be2bill_Api_Test_FCase
         $this->assertTransactionSucceeded($result);
     }
 
+    public function testGetTransactionsByTransactionIdWithDirectReturn()
+    {
+        // HACK: use a TRANSACTIONID (because of ETL delay)
+        $result = $this->api->getTransactionsByTransactionId("A1440894");
+
+        $this->assertTransactionSucceeded($result);
+        $this->assertEquals(1, sizeof($result['DATA']));
+    }
+
     public function testGetTransactionsByTransactionOrderId()
     {
         $orderId = 'order-' . time();

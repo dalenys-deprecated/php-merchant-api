@@ -1,14 +1,24 @@
 <?php
 
 /**
- * Interface Be2bill_Api_Renderer_Renderable
+ * Render interface
+ *
+ * @package Be2bill
+ * @subpackage Render
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
+ * Render a payment form
  */
 interface Be2bill_Api_Renderer_Renderable
 {
     /**
-     * @param       $params
+     * Display a payment form
+     *
+     * @param array $params
      * @param array $options
      * @return string
      */
-    public function render($params, $options = array());
+    public function render(array $params, array $options = array());
 }

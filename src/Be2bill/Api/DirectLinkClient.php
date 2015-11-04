@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Directlink client
+ *
+ * @package Be2bill
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
  * Implements Be2bill payment API
  * @version 1.2.0
  */
@@ -8,36 +15,60 @@ class Be2bill_Api_DirectLinkClient
 {
     const API_VERSION = '2.0';
 
-    // API urls
+    /**
+     * @var array The API urls (with fallback)
+     */
     protected $urls = array();
 
     // Paths
+
+    /**
+     * @var string The directlink part
+     */
     protected $directLinkPath = '/front/service/rest/process';
+
+    /**
+     * @var string The export part
+     */
     protected $exportPath = '/front/service/rest/export';
+
+    /**
+     * @var string The reconciliation part
+     */
     protected $reconciliationPath = '/front/service/rest/reconciliation';
 
     // Credentials
+
+    /**
+     * @var string The Be2bill identifier
+     */
     protected $identifier;
+
+    /**
+     * @var string The Be2bill password
+     */
     protected $password;
 
     // Internals
 
     /**
-     * @var Be2bill_Api_Sender_Sendable
+     * @var Be2bill_Api_Sender_Sendable The sender object
      */
     protected $sender = null;
 
     /**
-     * @var Be2bill_Api_Hash_Hashable
+     * @var Be2bill_Api_Hash_Hashable The hashing object
      */
     protected $hash = null;
 
     /**
-     * @param                                 $identifier
-     * @param                                 $password
-     * @param array $urls
-     * @param Be2bill_Api_Sender_Sendable $sender
-     * @param Be2bill_Api_Hash_Hashable $hash
+     * Instanciate
+     *
+     * @param string $identifier Be2bill identifier
+     * @param string $password Be2bill password
+     * @param array $urls Be2bill URLS
+     * @param Be2bill_Api_Sender_Sendable $sender The sender object to use
+     * @param Be2bill_Api_Hash_Hashable $hash The hashing object to use
      */
     public function __construct(
         $identifier,
@@ -54,8 +85,10 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * @param $identifier
-     * @param $password
+     * Configurate API credentials
+     *
+     * @param string $identifier The Be2bill identifier
+     * @param string $password The Be2bill password
      */
     public function setCredentials($identifier, $password)
     {
@@ -64,21 +97,58 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * Directlink payment. You have to specify SENSIBLE payment data (card, cryptogramm...)
+     * Directlink payment
+     *
+     * You have to specify SENSIBLE payment data (card, cryptogramm...)
+     *
+     * Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR payment
+     * $result = $api->payment(
+     *  '1111222233334444',
+     *  '04-15',
+     *  132,
+     *  'john doe',
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     * );
+     *
+     * print_r($result);
+     * ```
+     *
      * @see http://fr.pcisecuritystandards.org/minisite/en/
-     * @param       $cardPan
-     * @param       $cardDate
-     * @param       $cardCryptogram
-     * @param       $cardFullName
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $clientIP
-     * @param       $description
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return array
+     * @param string $cardPan The card number (sensible)
+     * @param string $cardDate The card validity date (sensible) Format mm-yy
+     * @param string $cardCryptogram The card cryptogram (sensible)
+     * @param string $cardFullName The card full name
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier (ex: login)
+     * @param string $clientEmail The client email
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction descrtiption
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (@see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'payment',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
      */
     public function payment(
         $cardPan,
@@ -115,21 +185,58 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * Directlink authorization. You have to specify SENSIBLE payment data (card, cryptogramm...)
+     * Directlink authorization
+     *
+     * You have to specify SENSIBLE payment data (card, cryptogramm...)
+     *
+     * Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR payment
+     * $result = $api->authorization(
+     *  '1111222233334444',
+     *  '04-15',
+     *  132,
+     *  'john doe',
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     * );
+     *
+     * print_r($result);
+     * ```
+     *
      * @see http://fr.pcisecuritystandards.org/minisite/en/
-     * @param       $cardPan
-     * @param       $cardDate
-     * @param       $cardCryptogram
-     * @param       $cardFullName
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $clientIP
-     * @param       $description
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return array
+     * @param string $cardPan The card number (sensible)
+     * @param string $cardDate The card validity date (sensible) Format mm-yy
+     * @param string $cardCryptogram The card cryptogram (sensible)
+     * @param string $cardFullName The card full name
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier (ex: login)
+     * @param string $clientEmail The client email
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction descrtiption
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'authorization',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
      */
     public function authorization(
         $cardPan,
@@ -166,21 +273,58 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * Directlink credit. You have to specify SENSIBLE payment data (card, cryptogramm...)
+     * Directlink credit
+     *
+     * You have to specify SENSIBLE card data (card, cryptogramm...)
+     *
+     * Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR credit
+     * $result = $api->credit(
+     *  '1111222233334444',
+     *  '04-15',
+     *  132,
+     *  'john doe',
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     * );
+     *
+     * print_r($result);
+     * ```
+     *
      * @see http://fr.pcisecuritystandards.org/minisite/en/
-     * @param       $cardPan
-     * @param       $cardDate
-     * @param       $cardCryptogram
-     * @param       $cardFullName
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $clientIP
-     * @param       $description
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return array
+     * @param string $cardPan The card number (sensible)
+     * @param string $cardDate The card validity date (sensible) Format mm-yy
+     * @param string $cardCryptogram The card cryptogram (sensible)
+     * @param string $cardFullName The card full name
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier (ex: login)
+     * @param string $clientEmail The client email
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction descrtiption
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'credit',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
      */
     public function credit(
         $cardPan,
@@ -217,19 +361,65 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result
-     * formatted as an array.
+     * This method is used to initiate a oneClick transaction using an ALIAS
      *
-     * @param       $alias
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $clientIP
-     * @param       $description
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return array
+     * You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS
+     *
+     * Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR standard payment (with alias creation)
+     * $result = $api->payment(
+     *  '1111222233334444',
+     *  '04-15',
+     *  132,
+     *  'john doe',
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     *  ['CREATEALIAS' => 'yes']
+     * );
+     *
+     * $result2 = $api->oneClickPayment(
+     *  $result['ALIAS'],
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     * );
+     *
+     * ```
+     *
+     * @param string $alias The card ALIAS
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $clientEmail The client EMAIL
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction description
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'payment',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
      */
     public function oneClickPayment(
         $alias,
@@ -261,69 +451,65 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to refund a transaction and will return the result formatted as an array.
+     * This method is used to initiate a oneClick transaction using an ALIAS
      *
-     * @param       $transactionId
-     * @param       $orderId
-     * @param       $description
-     * @param array $options
-     * @return array
-     */
-    public function refund($transactionId, $orderId, $description, array $options = array())
-    {
-        $params = $options;
-
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['OPERATIONTYPE'] = 'refund';
-        $params['DESCRIPTION']   = $description;
-        $params['TRANSACTIONID'] = $transactionId;
-        $params['VERSION']       = self::API_VERSION;
-        $params['ORDERID']       = $orderId;
-
-        $params['HASH'] = $this->hash($params);
-
-        return $this->requests($this->getDirectLinkUrls(), $params);
-    }
-
-    /**
-     * This method is used to capture an authorization and will return the result formatted as an array.
+     * You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS
      *
-     * @param       $transactionId
-     * @param       $orderId
-     * @param       $description
-     * @param array $options
-     * @return array
-     */
-    public function capture($transactionId, $orderId, $description, array $options = array())
-    {
-        $params = $options;
-
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['OPERATIONTYPE'] = 'capture';
-        $params['VERSION']       = self::API_VERSION;
-        $params['DESCRIPTION']   = $description;
-        $params['TRANSACTIONID'] = $transactionId;
-        $params['ORDERID']       = $orderId;
-
-        $params['HASH'] = $this->hash($params);
-
-        return $this->requests($this->getDirectLinkUrls(), $params);
-    }
-
-    /**
-     * This method is used to initiate a oneClick transaction using an ALIAS and will return the result
-     * formatted as an array.
+     * Usage example:
      *
-     * @param       $alias
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $clientIP
-     * @param       $description
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return array
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR standard payment (with alias creation)
+     * $result = $api->payment(
+     *  '1111222233334444',
+     *  '04-15',
+     *  132,
+     *  'john doe',
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     *  ['CREATEALIAS' => 'yes']
+     * );
+     *
+     * $result2 = $api->oneClickAuthorization(
+     *  $result['ALIAS'],
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     * );
+     *
+     * ```
+     *
+     * @param string $alias The card ALIAS
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $clientEmail The client EMAIL
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction description
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'authorization',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
      */
     public function oneClickAuthorization(
         $alias,
@@ -355,19 +541,159 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to initiate a subscription transaction using an ALIAS and will return the result
-     * formatted as an array.
+     * This method is used to refund a transaction
      *
-     * @param       $alias
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $description
-     * @param       $clientIP
-     * @param       $clientUserAgent
+     * Usage example:
+     * * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * $result = $api->refund(
+     *  'A123',
+     *  'order_123',
+     *  'sample refund'
+     * );
+     *
+     * ```
+     *
+     * @param string $transactionId The transaction id to refund
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $description The transaction description
      * @param array $options
-     * @return array
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'refund',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
+     */
+    public function refund($transactionId, $orderId, $description, array $options = array())
+    {
+        $params = $options;
+
+        $params['IDENTIFIER']    = $this->identifier;
+        $params['OPERATIONTYPE'] = 'refund';
+        $params['DESCRIPTION']   = $description;
+        $params['TRANSACTIONID'] = $transactionId;
+        $params['VERSION']       = self::API_VERSION;
+        $params['ORDERID']       = $orderId;
+
+        $params['HASH'] = $this->hash($params);
+
+        return $this->requests($this->getDirectLinkUrls(), $params);
+    }
+
+    /**
+     * This method is used to capture an authorization
+     *
+     * Usage example:
+     * * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * $result = $api->capture(
+     *  'A123',
+     *  'order_123',
+     *  'sample refund'
+     * );
+     *
+     * ```
+     *
+     * @param string $transactionId The authorization id to capture
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $description The transaction description
+     * @param array $options
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'capture',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
+     */
+    public function capture($transactionId, $orderId, $description, array $options = array())
+    {
+        $params = $options;
+
+        $params['IDENTIFIER']    = $this->identifier;
+        $params['OPERATIONTYPE'] = 'capture';
+        $params['VERSION']       = self::API_VERSION;
+        $params['DESCRIPTION']   = $description;
+        $params['TRANSACTIONID'] = $transactionId;
+        $params['ORDERID']       = $orderId;
+
+        $params['HASH'] = $this->hash($params);
+
+        return $this->requests($this->getDirectLinkUrls(), $params);
+    }
+
+    /**
+     * This method is used to initiate a subscription transaction using an ALIAS
+     *
+     * You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS
+     *
+     * Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR standard payment (with alias creation)
+     * $result = $api->payment(
+     *  '1111222233334444',
+     *  '04-15',
+     *  132,
+     *  'john doe',
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     *  ['CREATEALIAS' => 'yes']
+     * );
+     *
+     * $result2 = $api->subscriptionAuthorization(
+     *  $result['ALIAS'],
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     * );
+     *
+     * ```
+     *
+     * @param string $alias The card ALIAS
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $clientEmail The client EMAIL
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction description
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'payment',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
      */
     public function subscriptionAuthorization(
         $alias,
@@ -399,19 +725,65 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to initiate a subscription transaction using an ALIAS and will return the result
-     * formatted as an array.
+     * This method is used to initiate a oneClick transaction using an ALIAS
      *
-     * @param       $alias
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $clientIP
-     * @param       $description
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return array
+     * You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS
+     *
+     * Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR standard payment (with alias creation)
+     * $result = $api->payment(
+     *  '1111222233334444',
+     *  '04-15',
+     *  132,
+     *  'john doe',
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     *  ['CREATEALIAS' => 'yes']
+     * );
+     *
+     * $result2 = $api->subscriptionPayment(
+     *  $result['ALIAS'],
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     * );
+     *
+     * ```
+     *
+     * @param string $alias The card ALIAS
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $clientEmail The client EMAIL
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction description
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array. Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Transaction succeded',
+     *  'OPERATIONTYPE' => 'payment',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     * ]
+     * ```
      */
     public function subscriptionPayment(
         $alias,
@@ -443,10 +815,20 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to stop a N times transaction and will return the result formatted as an array.
+     * This method is used to stop a N times scheduling
      *
-     * @param       $scheduleId
-     * @param array $options
+     *  Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR standard payment (with alias creation)
+     * $result = $api->stopNTimes('A123');
+     * ```
+     *
+     * @param string $scheduleId The schedule id
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
      * @return array
      */
     public function stopNTimes($scheduleId, array $options = array())
@@ -466,20 +848,54 @@ class Be2bill_Api_DirectLinkClient
     // Redirection
 
     /**
-     * This method is used to redirect a cardholder to an alternative payment provider (like wallets) and will
-     * return the result formatted as an array.
-     * In case of success, you will have to display the $result[REDIRECTHTML] code with a base64_decode to redirect
+     * Redirect a cardholder to a hosted payment page (wallet or direct debit payment methods)
+     *
+     * In case of success, you will have to display the REDIRECTHTML code with a base64_decode to redirect
      * the user to the payment page.
      *
-     * @param       $amount
-     * @param       $orderId
-     * @param       $clientIdentifier
-     * @param       $clientEmail
-     * @param       $clientIP
-     * @param       $description
-     * @param       $clientUserAgent
-     * @param array $options
-     * @return array
+     * Usage example:
+     *
+     * ```php
+     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     *
+     * // 10 EUR standard payment
+     * $result = $api->redirectForPayment(
+     *  1000,
+     *  'order_123',
+     *  'john_doe42',
+     *  'john.doe@mail.com',
+     *  '178.152.42.44',
+     *  'sample transaction',
+     *  'firefox'
+     *  ['CREATEALIAS' => 'yes']
+     * );
+     *
+     * echo base64_decode($result['REDIRECTHTML']);
+     * ```
+     *
+     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $clientEmail The client EMAIL
+     * @param string $clientIP The client public IP
+     * @param string $description The transaction description
+     * @param string $clientUserAgent The client user agent
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
+     * @return array The result array.
+     * It will contains a REDIRECTHTML wich contains a base64 redirection code for the payment supplier page.
+     * Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0002',
+     *  'MESSAGE' => 'Waiting for redirection',
+     *  'OPERATIONTYPE' => 'payment',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     *  'REDIRECTHTML' => 'ksdjfkldsjfkldjsklfjdsfklds'
+     * ]
+     * ```
      */
     public function redirectForPayment(
         $amount,
@@ -513,34 +929,72 @@ class Be2bill_Api_DirectLinkClient
     // Export methods
 
     /**
-     * This method is used to recover one or several transactions using the TRANSACTIONID.
-     * This will return the result formatted as a compressed CSV file.
+     * Get a transaction by this ID
      *
-     * @param        $transactionId
-     * @param        $destination
-     * @param string $compression
-     * @return array
+     * @param string $transactionId The transaction ID
+     * @param string $destination This parameter accept 3 possibilities:
+     * - url > will throw the report to the specified URL (csv)
+     * - email > will throw the report to the specified email (csv)
+     * - null > will return the transaction data directly
+     * @param string $compression ZIP / GZIP or BZIP
+     * @return array The result array.
+     * It will contains a DATA parameters wich contains the transaction
+     * Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Operation succeeded',
+     *  'OPERATIONTYPE' => 'payment',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     *  'DATA' => [
+     *      0 => [
+     *          'IDENTIFIER' => 'IDENTIFIER',
+     *          // ...
+     *      ]
+     * ]
+     * ```
      */
     public function getTransactionsByTransactionId(
         $transactionId,
-        $destination,
+        $destination = null,
         $compression = 'GZIP'
     ) {
         return $this->getTransactions('TRANSACTIONID', $transactionId, $destination, $compression);
     }
 
     /**
-     * This method is used to recover one or several transactions using the ORDERID.
-     * This will return the result formatted as a compressed CSV file.
+     * Get a transaction by order ID
      *
-     * @param        $orderId
-     * @param        $destination
-     * @param string $compression
-     * @return array
+     * @param string $orderId The transaction orderid ID
+     * @param string $destination This parameter accept 3 possibilities:
+     * - url > will throw the report to the specified URL (csv)
+     * - email > will throw the report to the specified email (csv)
+     * - null > will return the transaction data directly
+     * @param string $compression ZIP / GZIP or BZIP
+     * @return array The result array.
+     * It will contains a DATA parameters wich contains the transaction
+     * Will look like:
+     * ```php
+     * [
+     *  'CODE' => '0000',
+     *  'MESSAGE' => 'Operation succeeded',
+     *  'OPERATIONTYPE' => 'payment',
+     *  'ORDERID' => 'order_13213',
+     *  'TRANSACTIONID' => 'A123',
+     *  'DESCRIPTOR' => 'shop'
+     *  'DATA' => [
+     *      0 => [
+     *          'IDENTIFIER' => 'IDENTIFIER',
+     *          // ...
+     *      ]
+     * ]
+     * ```
      */
     public function getTransactionsByOrderId(
         $orderId,
-        $destination,
+        $destination = null,
         $compression = 'GZIP'
     ) {
         return $this->getTransactions('ORDERID', $orderId, $destination, $compression);
@@ -548,13 +1002,17 @@ class Be2bill_Api_DirectLinkClient
 
     /**
      * This method is used to recover the list of transactions for a given day or month.
+     *
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
-     * @param        $destination
-     * @param string $compression
-     * @param        $options
+     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param string $destination This parameter accept 2 possibilities:
+     * - url > will throw the report to the specified URL (csv)
+     * - email > will throw the report to the specified email (csv)
+     * @param string $compression ZIP / GZIP or BZIP
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
      * @return array
      */
     public function exportTransactions(
@@ -584,14 +1042,18 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to recover the list of chargebacks for a given day or month.
+     * Export the list of chargebacked transactions for a given day or month.
+     *
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
-     * @param        $destination
-     * @param        $compression
-     * @param        $options
+     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param string $destination This parameter accept 2 possibilities:
+     * - url > will throw the report to the specified URL (csv)
+     * - email > will throw the report to the specified email (csv)
+     * @param string $compression ZIP / GZIP or BZIP
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
      * @return array
      */
     public function exportChargebacks(
@@ -621,14 +1083,18 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to recover the reconciliations for a given month.
+     * Export the reconciliation
+     *
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YYYY-MM or YYYY-MM-DD
-     * @param        $destination
-     * @param        $compression
-     * @param        $options
+     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param string $destination This parameter accept 2 possibilities:
+     * - url > will throw the report to the specified URL (csv)
+     * - email > will throw the report to the specified email (csv)
+     * @param string $compression ZIP / GZIP or BZIP
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
      * @return array
      */
     public function exportReconciliation(
@@ -660,14 +1126,18 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * This method is used to get the reconciled transactions of a given month
+     * Export the list of reconciled transactions for a given day or month.
+     *
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
-     * @param        $date YYYY-MM or YYYY-MM-DD
-     * @param        $destination
-     * @param string $compression
-     * @param array $options
+     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param string $destination This parameter accept 2 possibilities:
+     * - url > will throw the report to the specified URL (csv)
+     * - email > will throw the report to the specified email (csv)
+     * @param string $compression ZIP / GZIP or BZIP
+     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * the be2bill api reference for the full list)
      * @return array
      */
     public function exportReconciledTransactions(
@@ -699,6 +1169,8 @@ class Be2bill_Api_DirectLinkClient
     // Be2bill toolkit methods
 
     /**
+     * Hash parameters
+     *
      * @param array $params
      * @return string
      */
@@ -719,7 +1191,9 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * @param $urls
+     * Set be2bill base urls
+     *
+     * @param string|array $urls
      */
     public function setUrls($urls)
     {
@@ -732,6 +1206,8 @@ class Be2bill_Api_DirectLinkClient
 
     /**
      * Send requests with a fallback system
+     *
+     * @param array $urls The url list to request
      * @param array $params
      * @return bool|string
      */
@@ -751,7 +1227,8 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * Return directlink url with path
+     * Return directlink url with concatened path
+     *
      * @return array
      */
     public function getDirectLinkUrls()
@@ -760,6 +1237,8 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
+     * Return identifier
+     *
      * @return string $identifier
      */
     public function getIdentifier()
@@ -768,6 +1247,8 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
+     * Return password
+     *
      * @return string $password
      */
     public function getPassword()
@@ -777,6 +1258,7 @@ class Be2bill_Api_DirectLinkClient
 
     /**
      * Send one request
+     *
      * @param       $url
      * @param array $params
      * @return mixed
@@ -793,6 +1275,7 @@ class Be2bill_Api_DirectLinkClient
 
     /**
      * Add $path to each url in productionUrls
+     *
      * @param $path
      * @return array
      */
@@ -804,6 +1287,8 @@ class Be2bill_Api_DirectLinkClient
 
     // Internals
     /**
+     * Trigger a transaction
+     *
      * @param       $orderId
      * @param       $clientIdentifier
      * @param       $clientEmail
@@ -839,6 +1324,8 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
+     * Export a transaction
+     *
      * @param $searchBy
      * @param $id
      * @param $destination
@@ -865,12 +1352,12 @@ class Be2bill_Api_DirectLinkClient
             $params['TRANSACTIONID'] = $id;
         }
 
-        $params["COMPRESSION"] = $compression;
-
         if ($this->isHttpUrl($destination)) {
             $params['CALLBACKURL'] = $destination;
-        } else {
+            $params["COMPRESSION"] = $compression;
+        } elseif ($this->isMail($destination)) {
             $params['MAILTO'] = $destination;
+            $params["COMPRESSION"] = $compression;
         }
 
         $params['HASH'] = $this->hash($params);
@@ -879,6 +1366,8 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
+     * Return true if $url is a http/https url
+     *
      * @param $url
      * @return bool
      */
@@ -888,8 +1377,21 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
+     * Return true if $mail is a valid email
+     *
+     * @param $mail
+     * @return bool
+     */
+    protected function isMail($mail)
+    {
+        return preg_match('/.+@.+\..{2,}/', $mail) == 1;
+    }
+
+    /**
+     * Return the first url with path
+     *
      * @param $path
-     * @return mixed
+     * @return string
      */
     protected function getURL($path)
     {
@@ -898,8 +1400,8 @@ class Be2bill_Api_DirectLinkClient
 
     /**
      * Handle DATE or STARTDATE/ENDDATE parameters for export methods
+     *
      * @param string|array $date
-     * @param              $params
      * @return mixed
      */
     protected function getDateOrDateRangeParameter($date)
@@ -917,11 +1419,13 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * @param $amount
-     * @param $params
-     * @return mixed
+     * Handle amount or ntimes amounts parameter
+     *
+     * @param integer $amount
+     * @param array $params
+     * @return array Edited $params
      */
-    protected function amountOrAmounts($amount, $params)
+    protected function amountOrAmounts($amount, array $params)
     {
         if (is_array($amount)) {
             $params["AMOUNTS"] = $amount;

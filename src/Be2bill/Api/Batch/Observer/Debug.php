@@ -1,8 +1,16 @@
 <?php
 
 /**
- * Class Be2bill_Api_Batch_Observer_Debug
+ * Observer debugger
+ *
+ * @package Be2bill
+ * @subpackage Batch
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
  * Will display on console output some debug data
+ * @package batch
  */
 class Be2bill_Api_Batch_Observer_Debug implements SplObserver
 {

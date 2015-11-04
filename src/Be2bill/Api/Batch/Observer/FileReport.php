@@ -1,16 +1,43 @@
 <?php
 
 /**
- * Class Be2bill_Api_Batch_Observer_FileReport
- * Will write a CSV output based on the CSV input
+ * Observer file report
+ *
+ * @package Be2bill
+ * @subpackage Batch
+ * @author Jérémy Cohen Solal <jeremy@dalenys.com>
+ */
+
+/**
+ * Write a CSV output based on the CSV input
  */
 class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
 {
+    /**
+     * @var resource The output file
+     */
     protected $file;
+
+    /**
+     * @var array The CSV headers from requests
+     */
     protected $headers;
+
+    /**
+     * @var array The CSV headers for responses
+     */
     protected $knownResultHeaders;
+
+    /**
+     * @var array The CSV lines
+     */
     protected $inMemoryImage;
 
+    /**
+     * Instanciate
+     *
+     * @param string|resources$file
+     */
     public function __construct($file)
     {
         if (is_resource($file)) {
@@ -90,7 +117,9 @@ class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
         }
     }
 
-    // Special methods
+    /**
+     * Close file descriptors
+     */
     public function __destruct()
     {
         if (is_resource($this->file)) {
