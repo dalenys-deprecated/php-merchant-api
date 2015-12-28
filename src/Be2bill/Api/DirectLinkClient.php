@@ -12,7 +12,10 @@
  */
 class Be2bill_Api_DirectLinkClient
 {
-    const DEFAULT_API_VERSION = '2.0';
+    /**
+     * @var string API VERSION
+     */
+    protected $version = '2.0';
 
     /**
      * @var array The API urls (with fallback)
@@ -93,6 +96,16 @@ class Be2bill_Api_DirectLinkClient
     {
         $this->identifier = $identifier;
         $this->password   = $password;
+    }
+
+    /**
+     * Set default Be2bill VERSION parameter
+     *
+     * @param string $version The VERSION number (ex: 3.0)
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
     }
 
     /**
@@ -584,7 +597,7 @@ class Be2bill_Api_DirectLinkClient
         $params['OPERATIONTYPE'] = 'refund';
         $params['DESCRIPTION']   = $description;
         $params['TRANSACTIONID'] = $transactionId;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
         $params['ORDERID']       = $orderId;
 
         $params['HASH'] = $this->hash($params);
@@ -630,7 +643,7 @@ class Be2bill_Api_DirectLinkClient
 
         $params['IDENTIFIER']    = $this->identifier;
         $params['OPERATIONTYPE'] = 'capture';
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
         $params['DESCRIPTION']   = $description;
         $params['TRANSACTIONID'] = $transactionId;
         $params['ORDERID']       = $orderId;
@@ -847,7 +860,7 @@ class Be2bill_Api_DirectLinkClient
         $params['IDENTIFIER']    = $this->identifier;
         $params['OPERATIONTYPE'] = 'stopntimes';
         $params['SCHEDULEID']    = $scheduleId;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
 
         $params['HASH'] = $this->hash($params);
 
@@ -1039,7 +1052,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportTransactions';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
 
         $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
@@ -1081,7 +1094,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportChargebacks';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
 
         $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
@@ -1123,7 +1136,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportReconciliation';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
         // Actually DATE interval are not available for this export
         $params['DATE'] = $date;
 
@@ -1167,7 +1180,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportReconciledTransactions';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
         // Actually DATE interval are not available for this export
         $params['DATE'] = $date;
 
@@ -1332,7 +1345,7 @@ class Be2bill_Api_DirectLinkClient
         $params['CLIENTUSERAGENT'] = $clientUserAgent;
         $params['CLIENTIP']        = $clientIP;
         $params['IDENTIFIER']      = $this->identifier;
-        $params['VERSION']         = self::DEFAULT_API_VERSION;
+        $params['VERSION']         = $this->getVersion($options);
 
         $params['HASH'] = $this->hash($params);
 
@@ -1356,7 +1369,7 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params["OPERATIONTYPE"] = 'getTransactions';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->version;
 
         if (is_array($id)) {
             $id = implode(';', $id);
@@ -1372,7 +1385,7 @@ class Be2bill_Api_DirectLinkClient
             $params['CALLBACKURL'] = $destination;
             $params["COMPRESSION"] = $compression;
         } elseif ($this->isMail($destination)) {
-            $params['MAILTO'] = $destination;
+            $params['MAILTO']      = $destination;
             $params["COMPRESSION"] = $compression;
         }
 
@@ -1432,6 +1445,21 @@ class Be2bill_Api_DirectLinkClient
         }
 
         return $result;
+    }
+
+    /**
+     * Get Be2bill API VERSION
+     *
+     * @param array $options
+     * @return string The version number
+     */
+    protected function getVersion(array $options = array())
+    {
+        if (isset($options['VERSION'])) {
+            return $options['VERSION'];
+        } else {
+            return $this->version;
+        }
     }
 
     /**

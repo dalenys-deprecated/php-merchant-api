@@ -478,4 +478,93 @@ class Client_DirectLinkTest extends PHPUnit_Framework_TestCase
 
         $this->api->capture('A1', 42, 'desc');
     }
+
+    public function testApiVersionOverloading()
+    {
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'method' => 'payment',
+                    'params' => array(
+                        'AMOUNT'           => 100,
+                        'IDENTIFIER'       => 'i',
+                        'OPERATIONTYPE'    => 'payment',
+                        'ORDERID'          => 42,
+                        'CLIENTIDENT'      => 'ident',
+                        'CLIENTEMAIL'      => 'test@test.com',
+                        'CLIENTIP'         => '1.1.1.1',
+                        'CLIENTUSERAGENT'  => 'Firefox',
+                        'VERSION'          => '3.0',
+                        'HASH'             => 'dummy',
+                        'DESCRIPTION'      => 'desc',
+                        'CARDCODE'         => '1111222233334444',
+                        'CARDCVV'          => '123',
+                        'CARDVALIDITYDATE' => '01-12',
+                        'CARDFULLNAME'     => 'john doe'
+                    )
+                )
+            );
+
+        $this->api->payment(
+            '1111222233334444',
+            '01-12',
+            '123',
+            'john doe',
+            100,
+            42,
+            'ident',
+            'test@test.com',
+            '1.1.1.1',
+            'desc',
+            'Firefox',
+            array ('VERSION' => '3.0')
+        );
+    }
+
+    public function testSetDefaultApiVersion()
+    {
+        $this->api->setVersion('3.0');
+
+        $this->senderMock->expects($this->once())
+            ->method('send')
+            ->with(
+                'http://test/front/service/rest/process',
+                array(
+                    'method' => 'payment',
+                    'params' => array(
+                        'AMOUNT'           => 100,
+                        'IDENTIFIER'       => 'i',
+                        'OPERATIONTYPE'    => 'payment',
+                        'ORDERID'          => 42,
+                        'CLIENTIDENT'      => 'ident',
+                        'CLIENTEMAIL'      => 'test@test.com',
+                        'CLIENTIP'         => '1.1.1.1',
+                        'CLIENTUSERAGENT'  => 'Firefox',
+                        'VERSION'          => '3.0',
+                        'HASH'             => 'dummy',
+                        'DESCRIPTION'      => 'desc',
+                        'CARDCODE'         => '1111222233334444',
+                        'CARDCVV'          => '123',
+                        'CARDVALIDITYDATE' => '01-12',
+                        'CARDFULLNAME'     => 'john doe'
+                    )
+                )
+            );
+
+        $this->api->payment(
+            '1111222233334444',
+            '01-12',
+            '123',
+            'john doe',
+            100,
+            42,
+            'ident',
+            'test@test.com',
+            '1.1.1.1',
+            'desc',
+            'Firefox'
+        );
+    }
 }

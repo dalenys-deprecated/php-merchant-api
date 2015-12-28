@@ -15,7 +15,7 @@ class Be2bill_Api_FormClient
     /**
      * API version
      */
-    const DEFAULT_API_VERSION = '2.0';
+    protected $version = '2.0';
 
     // Credentials
     /**
@@ -70,6 +70,16 @@ class Be2bill_Api_FormClient
     {
         $this->identifier = $identifier;
         $this->password   = $password;
+    }
+
+    /**
+     * Set default Be2bill VERSION parameter
+     *
+     * @param string $version The VERSION number (ex: 3.0)
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
     }
 
     /**
@@ -222,12 +232,27 @@ class Be2bill_Api_FormClient
         $params['ORDERID']       = $orderId;
         $params['CLIENTIDENT']   = $clientIdentifier;
         $params['DESCRIPTION']   = $description;
-        $params['VERSION']       = self::DEFAULT_API_VERSION;
+        $params['VERSION']       = $this->getVersion($options);
 
         $params['HASH'] = $this->hash($params);
 
         $renderer = $this->renderer;
 
         return $renderer->render($params, $htmlOptions);
+    }
+
+    /**
+     * Get Be2bill API VERSION
+     *
+     * @param array $options
+     * @return string The version number
+     */
+    protected function getVersion(array $options = array())
+    {
+        if (isset($options['VERSION'])) {
+            return $options['VERSION'];
+        } else {
+            return $this->version;
+        }
     }
 }

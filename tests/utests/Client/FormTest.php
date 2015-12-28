@@ -91,4 +91,46 @@ class Client_FormTest extends PHPUnit_Framework_TestCase
 
         $this->api->buildAuthorizationFormButton(100, 42, 'ident', 'desc');
     }
+
+    public function testVersionOverloading()
+    {
+        $this->renderMock->expects($this->once())
+            ->method('render')
+            ->with(
+                array(
+                    'AMOUNT'        => 100,
+                    'IDENTIFIER'    => 'i',
+                    'OPERATIONTYPE' => 'payment',
+                    'ORDERID'       => 42,
+                    'CLIENTIDENT'   => 'ident',
+                    'VERSION'       => '3.0',
+                    'HASH'          => 'dummy',
+                    'DESCRIPTION'   => 'desc'
+                )
+            );
+
+        $this->api->buildPaymentFormButton(100, 42, 'ident', 'desc', array(), array('VERSION' => '3.0'));
+    }
+
+    public function testSetDefaultVersion()
+    {
+        $this->api->setVersion('3.0');
+
+        $this->renderMock->expects($this->once())
+            ->method('render')
+            ->with(
+                array(
+                    'AMOUNT'        => 100,
+                    'IDENTIFIER'    => 'i',
+                    'OPERATIONTYPE' => 'payment',
+                    'ORDERID'       => 42,
+                    'CLIENTIDENT'   => 'ident',
+                    'VERSION'       => '3.0',
+                    'HASH'          => 'dummy',
+                    'DESCRIPTION'   => 'desc'
+                )
+            );
+
+        $this->api->buildPaymentFormButton(100, 42, 'ident', 'desc', array());
+    }
 }

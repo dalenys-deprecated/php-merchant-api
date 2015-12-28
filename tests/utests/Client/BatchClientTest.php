@@ -117,7 +117,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Be2bill_Api_Exception_InvalidBatchFile
+     * @expectedException Be2bill_Api_Batch_Exception_InvalidBatchFile
      */
     public function testHashNotAllowedAsCsvColumn()
     {
@@ -131,7 +131,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Be2bill_Api_Exception_InvalidBatchFile
+     * @expectedException Be2bill_Api_Batch_Exception_InvalidBatchFile
      */
     public function testIdentifierNotAllowedAsCsvColumn()
     {
