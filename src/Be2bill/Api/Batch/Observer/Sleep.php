@@ -3,14 +3,12 @@
 /**
  * Observer time delayer
  *
- * @package Be2bill
- * @subpackage Batch
+ * @package Be2bill\Batch
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Use it for configuring some sleep time between each transactions
- * @package batch
  */
 class Be2bill_Api_Batch_Observer_Sleep implements SplObserver
 {

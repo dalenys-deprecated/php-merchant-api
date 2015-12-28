@@ -3,8 +3,7 @@
 /**
  * Hash parameters
  *
- * @package Be2bill
- * @subpackage Hash
+ * @package Be2bill\Hash
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 

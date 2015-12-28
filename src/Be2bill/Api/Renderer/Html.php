@@ -3,8 +3,7 @@
 /**
  * HTML renderer
  *
- * @package Be2bill
- * @subpackage Renderer
+ * @package Be2bill\Renderer
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 

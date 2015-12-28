@@ -34,6 +34,7 @@ abstract class Be2bill_Api_ClientBuilder
     /**
      * Build a production form builder
      *
+     * @api
      * @param string $identifier
      * @param string $password
      * @return Be2bill_Api_FormClient
@@ -53,6 +54,7 @@ abstract class Be2bill_Api_ClientBuilder
     /**
      * Build a direclink production client
      *
+     * @api
      * @param $identifier
      * @param $password
      * @return Be2bill_Api_DirectLinkClient
@@ -73,6 +75,7 @@ abstract class Be2bill_Api_ClientBuilder
     /**
      * Build a production batch client
      *
+     * @api
      * @param $identifier
      * @param $password
      * @return Be2bill_Api_BatchClient
@@ -87,6 +90,7 @@ abstract class Be2bill_Api_ClientBuilder
     /**
      * Build a sandbox form builder (transactions are fake)
      *
+     * @api
      * @param $identifier
      * @param $password
      * @return Be2bill_Api_FormClient
@@ -106,6 +110,7 @@ abstract class Be2bill_Api_ClientBuilder
     /**
      * Build a sandbox directlink client (transactions are fake)
      *
+     * @api
      * @param $identifier
      * @param $password
      * @return Be2bill_Api_DirectLinkClient
@@ -126,6 +131,7 @@ abstract class Be2bill_Api_ClientBuilder
     /**
      * Build a sandbox batch client (transactions are fake)
      *
+     * @api
      * @param $identifier
      * @param $password
      * @return Be2bill_Api_BatchClient
@@ -139,6 +145,7 @@ abstract class Be2bill_Api_ClientBuilder
 
     /**
      * Use another production URL
+     * @api
      */
     public static function switchProductionUrls()
     {

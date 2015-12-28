@@ -50,3 +50,4 @@ You should use the direct link AP:
 $be2bill = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 $be2bill->capture('A1234', 'order_42', 'capturing a transaction');
 ```
+

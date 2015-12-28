@@ -3,8 +3,7 @@
 /**
  * Functional test tools
  *
- * @package Be2bill
- * @subpackage Test tools
+ * @package Be2bill\Test
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 

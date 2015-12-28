@@ -76,6 +76,7 @@ class Be2bill_Api_BatchClient implements SplSubject
     /**
      * Set input file
      *
+     * @api
      * @param resource|string $file
      */
     public function setInputFile($file)
@@ -93,6 +94,7 @@ class Be2bill_Api_BatchClient implements SplSubject
     /**
      * Process the batch
      *
+     * @api
      * @return bool
      */
     public function run()
@@ -253,7 +255,7 @@ class Be2bill_Api_BatchClient implements SplSubject
      * Return CSV line
      *
      * @param array $headers
-     * @throws Be2bill_Api_Exception_InvalidBatchFile
+     * @throws Be2bill_Api_Batch_Exception_InvalidBatchFile
      * @return array
      */
     protected function getCsvLine(array $headers)
@@ -264,7 +266,7 @@ class Be2bill_Api_BatchClient implements SplSubject
         if ($line[0] === null) {
             return false;
         } elseif ($this->headers && sizeof($line) != sizeof($this->headers)) {
-            throw new Be2bill_Api_Exception_InvalidBatchFile("Invalid line");
+            throw new Be2bill_Api_Batch_Exception_InvalidBatchFile("Invalid line");
         }
 
         $params = array_combine($headers, $line);
@@ -276,14 +278,14 @@ class Be2bill_Api_BatchClient implements SplSubject
      *
      * Should not contains IDENTIFIER and HASH
      * @param $headers
-     * @throws Be2bill_Api_Exception_InvalidBatchFile
+     * @throws Be2bill_Api_Batch_Exception_InvalidBatchFile
      */
     protected function validateFileHeaders(array $headers)
     {
         if (in_array('IDENTIFIER', $headers)) {
-            throw new Be2bill_Api_Exception_InvalidBatchFile('IDENTIFIER is not allowed in batch file');
+            throw new Be2bill_Api_Batch_Exception_InvalidBatchFile('IDENTIFIER is not allowed in batch file');
         } elseif (in_array('HASH', $headers)) {
-            throw new Be2bill_Api_Exception_InvalidBatchFile('HASH is not allowed in batch file');
+            throw new Be2bill_Api_Batch_Exception_InvalidBatchFile('HASH is not allowed in batch file');
         }
     }
 

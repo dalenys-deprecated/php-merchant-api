@@ -3,8 +3,7 @@
 /**
  * Render interface
  *
- * @package Be2bill
- * @subpackage Render
+ * @package Be2bill\Renderer
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 

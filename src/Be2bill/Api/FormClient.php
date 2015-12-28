@@ -9,14 +9,13 @@
 
 /**
  * Implements Be2bill payment API
- * @version 1.0.0
  */
 class Be2bill_Api_FormClient
 {
     /**
      * API version
      */
-    const API_VERSION = '2.0';
+    const DEFAULT_API_VERSION = '2.0';
 
     // Credentials
     /**
@@ -74,53 +73,6 @@ class Be2bill_Api_FormClient
     }
 
     /**
-     * Build payment form and submit button
-     *
-     * Return the payment form and all hidden input configuring the be2bill transaction.
-     * @param integer|array $amount The transaction amount in cents.
-     *  If $amount is an array it will be used as NTime transaction (fragmented payment).
-     *
-     * In this case, the array should be formatted this way:
-     * ```php
-     * $amounts = array('2014-01-01' => 100, '2014-02-01' => 200, '2014-03-01' => 100)
-     * ```
-     *
-     * The first entry's date should be the current date (today)
-     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
-     * @param string $clientIdentifier The client identifier
-     * @param string $description The transaction description
-     * @param array $htmlOptions An array of HTML attributes to add to the submit or form button
-     * (allowing to change name, style, class attribute etc.).
-     * Example:
-     * ```php
-     * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
-     * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
-     * ```
-     * @param array $options Others be2bill options. See Be2bill documentation for more information
-     * (3DS, CREATEALIAS, etc.)
-     * @return string The HTML output to display
-     */
-    public function buildPaymentFormButton(
-        $amount,
-        $orderId,
-        $clientIdentifier,
-        $description,
-        array $htmlOptions = array(),
-        array $options = array()
-    ) {
-        $params = $options;
-
-        // Handle N-Time payments
-        if (is_array($amount)) {
-            $params["AMOUNTS"] = $amount;
-        } else {
-            $params["AMOUNT"] = $amount;
-        }
-
-        return $this->buildProcessButton('payment', $orderId, $clientIdentifier, $description, $htmlOptions, $params);
-    }
-
-    /**
      * Build authorization form and submit button
      *
      * Return the authorization form and all hidden input configuring the be2bill transaction.
@@ -133,6 +85,7 @@ class Be2bill_Api_FormClient
      * ```
      *
      * The first entry's date should be the current date (today)
+     * @api
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier
      * @param string $description The transaction description
@@ -170,6 +123,54 @@ class Be2bill_Api_FormClient
     }
 
     // Be2bill toolkit methods
+
+    /**
+     * Build payment form and submit button
+     *
+     * Return the payment form and all hidden input configuring the be2bill transaction.
+     * @param integer|array $amount The transaction amount in cents.
+     *  If $amount is an array it will be used as NTime transaction (fragmented payment).
+     *
+     * In this case, the array should be formatted this way:
+     * ```php
+     * $amounts = array('2014-01-01' => 100, '2014-02-01' => 200, '2014-03-01' => 100)
+     * ```
+     *
+     * The first entry's date should be the current date (today)
+     * @api
+     * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
+     * @param string $clientIdentifier The client identifier
+     * @param string $description The transaction description
+     * @param array $htmlOptions An array of HTML attributes to add to the submit or form button
+     * (allowing to change name, style, class attribute etc.).
+     * Example:
+     * ```php
+     * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
+     * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
+     * ```
+     * @param array $options Others be2bill options. See Be2bill documentation for more information
+     * (3DS, CREATEALIAS, etc.)
+     * @return string The HTML output to display
+     */
+    public function buildPaymentFormButton(
+        $amount,
+        $orderId,
+        $clientIdentifier,
+        $description,
+        array $htmlOptions = array(),
+        array $options = array()
+    ) {
+        $params = $options;
+
+        // Handle N-Time payments
+        if (is_array($amount)) {
+            $params["AMOUNTS"] = $amount;
+        } else {
+            $params["AMOUNT"] = $amount;
+        }
+
+        return $this->buildProcessButton('payment', $orderId, $clientIdentifier, $description, $htmlOptions, $params);
+    }
 
     /**
      * Compute form hash
@@ -221,7 +222,7 @@ class Be2bill_Api_FormClient
         $params['ORDERID']       = $orderId;
         $params['CLIENTIDENT']   = $clientIdentifier;
         $params['DESCRIPTION']   = $description;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
 
         $params['HASH'] = $this->hash($params);
 

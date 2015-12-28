@@ -3,8 +3,7 @@
 /**
  * Observer file report
  *
- * @package Be2bill
- * @subpackage Batch
+ * @package Be2bill\Batch
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 

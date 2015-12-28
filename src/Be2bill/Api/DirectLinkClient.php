@@ -9,11 +9,10 @@
 
 /**
  * Implements Be2bill payment API
- * @version 1.2.0
  */
 class Be2bill_Api_DirectLinkClient
 {
-    const API_VERSION = '2.0';
+    const DEFAULT_API_VERSION = '2.0';
 
     /**
      * @var array The API urls (with fallback)
@@ -124,6 +123,7 @@ class Be2bill_Api_DirectLinkClient
      * print_r($result);
      * ```
      *
+     * @api
      * @see http://fr.pcisecuritystandards.org/minisite/en/
      * @param string $cardPan The card number (sensible)
      * @param string $cardDate The card validity date (sensible) Format mm-yy
@@ -212,6 +212,7 @@ class Be2bill_Api_DirectLinkClient
      * print_r($result);
      * ```
      *
+     * @api
      * @see http://fr.pcisecuritystandards.org/minisite/en/
      * @param string $cardPan The card number (sensible)
      * @param string $cardDate The card validity date (sensible) Format mm-yy
@@ -300,6 +301,7 @@ class Be2bill_Api_DirectLinkClient
      * print_r($result);
      * ```
      *
+     * @api
      * @see http://fr.pcisecuritystandards.org/minisite/en/
      * @param string $cardPan The card number (sensible)
      * @param string $cardDate The card validity date (sensible) Format mm-yy
@@ -399,6 +401,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * ```
      *
+     * @api
      * @param string $alias The card ALIAS
      * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
@@ -489,6 +492,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * ```
      *
+     * @api
      * @param string $alias The card ALIAS
      * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
@@ -555,6 +559,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * ```
      *
+     * @api
      * @param string $transactionId The transaction id to refund
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $description The transaction description
@@ -579,7 +584,7 @@ class Be2bill_Api_DirectLinkClient
         $params['OPERATIONTYPE'] = 'refund';
         $params['DESCRIPTION']   = $description;
         $params['TRANSACTIONID'] = $transactionId;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
         $params['ORDERID']       = $orderId;
 
         $params['HASH'] = $this->hash($params);
@@ -602,6 +607,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * ```
      *
+     * @api
      * @param string $transactionId The authorization id to capture
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $description The transaction description
@@ -624,7 +630,7 @@ class Be2bill_Api_DirectLinkClient
 
         $params['IDENTIFIER']    = $this->identifier;
         $params['OPERATIONTYPE'] = 'capture';
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
         $params['DESCRIPTION']   = $description;
         $params['TRANSACTIONID'] = $transactionId;
         $params['ORDERID']       = $orderId;
@@ -673,6 +679,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * ```
      *
+     * @api
      * @param string $alias The card ALIAS
      * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
@@ -763,6 +770,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * ```
      *
+     * @api
      * @param string $alias The card ALIAS
      * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
@@ -826,6 +834,7 @@ class Be2bill_Api_DirectLinkClient
      * $result = $api->stopNTimes('A123');
      * ```
      *
+     * @api
      * @param string $scheduleId The schedule id
      * @param array $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
@@ -838,7 +847,7 @@ class Be2bill_Api_DirectLinkClient
         $params['IDENTIFIER']    = $this->identifier;
         $params['OPERATIONTYPE'] = 'stopntimes';
         $params['SCHEDULEID']    = $scheduleId;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
 
         $params['HASH'] = $this->hash($params);
 
@@ -873,6 +882,7 @@ class Be2bill_Api_DirectLinkClient
      * echo base64_decode($result['REDIRECTHTML']);
      * ```
      *
+     * @api
      * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier
@@ -931,6 +941,7 @@ class Be2bill_Api_DirectLinkClient
     /**
      * Get a transaction by this ID
      *
+     * @api
      * @param string $transactionId The transaction ID
      * @param string $destination This parameter accept 3 possibilities:
      * - url > will throw the report to the specified URL (csv)
@@ -967,6 +978,7 @@ class Be2bill_Api_DirectLinkClient
     /**
      * Get a transaction by order ID
      *
+     * @api
      * @param string $orderId The transaction orderid ID
      * @param string $destination This parameter accept 3 possibilities:
      * - url > will throw the report to the specified URL (csv)
@@ -1006,6 +1018,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
+     * @api
      * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
@@ -1026,7 +1039,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportTransactions';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
 
         $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
@@ -1047,6 +1060,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
+     * @api
      * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
@@ -1067,7 +1081,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportChargebacks';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
 
         $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
@@ -1088,6 +1102,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
+     * @api
      * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
@@ -1108,7 +1123,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportReconciliation';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
         // Actually DATE interval are not available for this export
         $params['DATE'] = $date;
 
@@ -1131,6 +1146,7 @@ class Be2bill_Api_DirectLinkClient
      * This method only ask for sending a report. The report will be sent by email or http request.
      * This will return the result of the report creation request
      *
+     * @api
      * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
@@ -1151,7 +1167,7 @@ class Be2bill_Api_DirectLinkClient
         $params["COMPRESSION"]   = $compression;
         $params["OPERATIONTYPE"] = 'exportReconciledTransactions';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
         // Actually DATE interval are not available for this export
         $params['DATE'] = $date;
 
@@ -1316,7 +1332,7 @@ class Be2bill_Api_DirectLinkClient
         $params['CLIENTUSERAGENT'] = $clientUserAgent;
         $params['CLIENTIP']        = $clientIP;
         $params['IDENTIFIER']      = $this->identifier;
-        $params['VERSION']         = self::API_VERSION;
+        $params['VERSION']         = self::DEFAULT_API_VERSION;
 
         $params['HASH'] = $this->hash($params);
 
@@ -1340,7 +1356,7 @@ class Be2bill_Api_DirectLinkClient
     ) {
         $params["OPERATIONTYPE"] = 'getTransactions';
         $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = self::API_VERSION;
+        $params['VERSION']       = self::DEFAULT_API_VERSION;
 
         if (is_array($id)) {
             $id = implode(';', $id);

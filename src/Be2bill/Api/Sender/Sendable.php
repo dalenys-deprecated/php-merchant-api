@@ -3,8 +3,7 @@
 /**
  * Sender interface
  *
- * @package Be2bill
- * @subpackage Sender
+ * @package Be2bill\Sender
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
