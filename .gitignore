@@ -3,3 +3,5 @@
 !.travis.yml
 phpdoc.xml
 docs
+vendor
+composer.lock
