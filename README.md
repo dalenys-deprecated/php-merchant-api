@@ -7,17 +7,38 @@ A simple PHP implementation of the Be2bill payment platform API.
 [![Total Downloads](https://poser.pugx.org/be2bill/php-merchant-api/downloads)](https://packagist.org/packages/be2bill/php-merchant-api) 
 [![License](https://poser.pugx.org/be2bill/php-merchant-api/license)](https://packagist.org/packages/be2bill/php-merchant-api)
 
+## Installing
+
+### Composer
+You can easily install this library by adding this lines to your composer.json file
+
+```json
+{
+  "require": {
+    "be2bill/php-merchant-api": "1.*"
+  }
+}
+```
+
+or by using this command line in a terminal at the root of your project
+
+```bash
+composer require be2bill/php-merchant-api 1.*
+```
+
+### Manual install
+You can install this library manually by simply cloning it to your project and using scripts/autoload.php
+
+
 ## Using a simple payment form
 
 Here is the code sample for implementing a simple 10€ payment form
 
 ```php
-require 'src/Client.php';
+<?php
 
 define('BE2BILL_IDENTIFIER', 'YOUR ACCOUNT IDENTIFIER');
 define('BE2BILL_PASSWORD', 'YOUR ACCOUNT PASSWORD');
-
-Be2bill_Api_Autoloader::registerAutoloader();
 
 // Just implement BE2BILL_IDENTIFIER and BE2BILL_PASSWORD as defined
 $be2bill = Be2bill_Api_ClientBuilder::buildProductionFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
@@ -39,6 +60,8 @@ You can easily test your integration with the sandbox environment. This environm
 You just have to use another builder method:
 
 ```php
+<?php
+
 $be2bill = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 ```
 
@@ -47,7 +70,10 @@ You can edit a transaction: capturing or refunding an authorization.
 You should use the direct link AP:
 
 ```php
+<?php
+
 $be2bill = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+
 $be2bill->capture('A1234', 'order_42', 'capturing a transaction');
 ```
 
