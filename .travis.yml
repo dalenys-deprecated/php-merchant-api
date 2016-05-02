@@ -10,4 +10,8 @@ php:
   - hhvm
 
 install: cp tests/ftests/config.php.dist tests/ftests/config.php
-script: phpunit --coverage-text tests/utests
+script: phpunit --coverage-text
+env:
+  matrix:
+  - secure: ISrXu7ll6+TGCpyOJUB+USDzFqiFMUs2Dyz66r1xVpEdp9wpdrF2vQ088mwHWPYJKjauu/dOi3yC7UOl2JqXmSc5gpxFODHsphAlRAugGyEiBdq4oYVX0scrAjD+nD3MqAHY0JQ02SHq+XAKT3kpvnpq6jLaBEOgSB8zyBOcbQI=
+  - secure: OqlFgkvcz/CNot/755lgYQkYbzLO+elZ1Iwxg+GCzTsYv+0by5+CPDtCeSbOmjzS7yGYF3R5S5I13q6oL+c2TB7PxZp5De6t//A8xwRVlTS2bllVkW+Jql6UOL7avzOjgkEDBOeYOcM5DPv6IrDWP9jQxB8Yfowa9Go2vBfH0Wg=

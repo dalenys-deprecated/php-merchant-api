@@ -2,14 +2,15 @@
 
 A simple PHP implementation of the Be2bill payment platform API.
 
-This library closely adheres to the official [Merchant API guidelines](https://github.com/be2bill/merchant-api-guidelines).
-
-You can read the API [apiGen generated documentation](https://codedoc.pub/be2bill/php-merchant-api/master/index.html)  
-
 [![Build Status](https://travis-ci.org/be2bill/php-merchant-api.svg?branch=master)](https://travis-ci.org/be2bill/php-merchant-api)
 [![Latest Stable Version](https://poser.pugx.org/be2bill/php-merchant-api/v/stable)](https://packagist.org/packages/be2bill/php-merchant-api) 
 [![Total Downloads](https://poser.pugx.org/be2bill/php-merchant-api/downloads)](https://packagist.org/packages/be2bill/php-merchant-api) 
 [![License](https://poser.pugx.org/be2bill/php-merchant-api/license)](https://packagist.org/packages/be2bill/php-merchant-api)
+
+This library closely adheres to the official [Merchant API guidelines](https://github.com/be2bill/merchant-api-guidelines).
+
+You can read the API [apiGen generated documentation](https://codedoc.pub/be2bill/php-merchant-api/master/index.html)  
+
 
 ## Installing
 
@@ -34,7 +35,9 @@ composer require be2bill/php-merchant-api 1.*
 You can install this library manually by simply cloning it to your project and including scripts/autoload.php
 
 
-## Using a simple payment form
+## Using
+ 
+### Building a simple payment form
 
 Here is the code sample for implementing a simple 10€ payment form
 
@@ -50,7 +53,7 @@ $be2bill = Be2bill_Api_ClientBuilder::buildProductionFormClient(BE2BILL_IDENTIFI
 echo $be2bill->buildPaymentFormButton(10000, 'order_123', 'user_123456', 'Payment sample');
 ```
 
-## Payment options
+### Payment options
 You can specify some additional options to the buildPaymentFormButton method.
 The most useful options are:
 - CREATEALIAS = yes/no => Ask for the creation of a rebilling alias (allowing one click payments or subscription like payments)
@@ -59,7 +62,7 @@ The most useful options are:
 
 For the full list of options you can read the Be2bill documentation
 
-## Sandbox environment
+### Sandbox environment
 You can easily test your integration with the sandbox environment. This environment will simulate payments without processing any real money move.
 You just have to use another builder method:
 
@@ -69,7 +72,7 @@ You just have to use another builder method:
 $be2bill = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
 ```
 
-## Transaction edition
+### Transaction edition
 You can edit a transaction: capturing or refunding an authorization.
 You should use the direct link AP:
 
@@ -81,3 +84,24 @@ $be2bill = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_IDENT
 $be2bill->capture('A1234', 'order_42', 'capturing a transaction');
 ```
 
+## Testing
+
+First you have to copy tests/ftests/config.php.dist to tests/ftests/config.php
+
+If you want to run the unit test suite you can run from the project root:
+
+```shell
+phpunit tests/utests
+```
+
+If you want to run the functional test suite (really send dummy payment requests to the Be2bill sandbox): edit the config.php and replace IDENTIFIER and PASSWORD with the provided one (sandbox)
+
+```shell
+phpunit tests/ftests
+```
+
+If you want to run all the tests, configure the functional test then simply:
+
+```shell
+phpunit
+```
