@@ -2,6 +2,10 @@
 
 A simple PHP implementation of the Be2bill payment platform API.
 
+This library closely adheres to the official [Merchant API guidelines](https://github.com/be2bill/merchant-api-guidelines).
+
+You can read the API [apiGen generated documentation](https://codedoc.pub/be2bill/php-merchant-api/master/index.html)  
+
 [![Build Status](https://travis-ci.org/be2bill/php-merchant-api.svg?branch=master)](https://travis-ci.org/be2bill/php-merchant-api)
 [![Latest Stable Version](https://poser.pugx.org/be2bill/php-merchant-api/v/stable)](https://packagist.org/packages/be2bill/php-merchant-api) 
 [![Total Downloads](https://poser.pugx.org/be2bill/php-merchant-api/downloads)](https://packagist.org/packages/be2bill/php-merchant-api) 
@@ -10,7 +14,7 @@ A simple PHP implementation of the Be2bill payment platform API.
 ## Installing
 
 ### Composer
-You can easily install this library by adding this lines to your composer.json file
+You can easily install this library by adding the following lines to your composer.json file
 
 ```json
 {
@@ -27,7 +31,7 @@ composer require be2bill/php-merchant-api 1.*
 ```
 
 ### Manual install
-You can install this library manually by simply cloning it to your project and using scripts/autoload.php
+You can install this library manually by simply cloning it to your project and including scripts/autoload.php
 
 
 ## Using a simple payment form
