@@ -99,8 +99,14 @@ class BatchClientTest extends PHPUnit_Framework_TestCase
 
         rewind($outputFile);
 
-        for ($i = 0; !feof($outputFile); $i++) {
-            fgetcsv($outputFile, null, ';');
+        $i = 0;
+        while (!feof($outputFile)) {
+            $line = fgetcsv($outputFile, null, ';');
+
+            // HACK for phpunit version >= 5.2
+            if ($line) {
+                $i++;
+            }
         }
 
         $this->expectOutputRegex('/Line 1.+\nLine 2.+\nLine 3.+\nLine 4.+\n/');
