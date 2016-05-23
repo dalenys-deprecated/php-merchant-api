@@ -5,3 +5,4 @@ phpdoc.xml
 docs
 vendor
 composer.lock
+composer.phar
