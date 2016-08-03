@@ -4,23 +4,26 @@ before_script:
   - curl -o ./phpunit https://phar.phpunit.de/phpunit-4.8.9.phar
   - chmod +x ./phpunit
 
-  
 php5.4:
+  image: dalenys/php:5.4
   script:
-    - php-choose-version 5.4 && php --version
+    - php --version
     - ./phpunit
 
 php5.5:
+  image: dalenys/php:5.5
   script:
-    - php-choose-version 5.5 && php --version
+    - php --version
     - ./phpunit
 
 php5.6:
+  image: dalenys/php:5.6
   script:
-    - php-choose-version 5.6 && php --version
+    - php --version
     - ./phpunit
 
 php7.0:
+  image: dalenys/php:7.0
   script:
-    - php-choose-version 7.0 && php --version
+    - php --version
     - ./phpunit
