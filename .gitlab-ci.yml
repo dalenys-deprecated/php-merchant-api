@@ -4,6 +4,12 @@ before_script:
   - curl -o ./phpunit https://phar.phpunit.de/phpunit-4.8.9.phar
   - chmod +x ./phpunit
 
+php5.3:
+  image: dalenys/php:5.3
+  script:
+    - php --version
+    - ./phpunit
+
 php5.4:
   image: dalenys/php:5.4
   script:
