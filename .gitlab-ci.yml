@@ -33,3 +33,9 @@ php7.0:
   script:
     - php --version
     - ./phpunit
+
+hhvm:
+  image: dalenys/php:hhvm
+  script:
+    - php --version
+    - ./phpunit
