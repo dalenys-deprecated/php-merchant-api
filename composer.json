@@ -1,27 +1,35 @@
 {
-    "name": "be2bill/php-merchant-api",
-    "type": "library",
-    "description": "Be2bill PHP merchant API",
-    "keywords": ["be2bill","payment","visa","mastercard","amex","american express","psp", "php"],
-    "homepage": "http://developer.be2bill.com/",
-    "license": "BSD-3-Clause",
-
-    "require": {
-        "php": ">=5.2.0",
-        "ext-curl": "*"
-    },
-
-    "require-dev": {
-        "phpunit/phpunit": ">=3.6.0",
-        "phpdocumentor/phpdocumentor": "2.*"
-    },
-
-    "autoload": {
-        "psr-0": {
-            "Be2bill_Api_": "src/"
-        }
-    },
-    "scripts": {
-        "post-install-cmd": "chmod +x bin/batch"
+  "name": "be2bill/php-merchant-api",
+  "type": "library",
+  "description": "Be2bill PHP merchant API",
+  "keywords": [
+    "be2bill",
+    "dalenys",
+    "dalenys payment",
+    "payment",
+    "visa",
+    "mastercard",
+    "amex",
+    "american express",
+    "psp",
+    "acquiring",
+    "php"
+  ],
+  "homepage": "http://developer.be2bill.com/",
+  "license": "BSD-3-Clause",
+  "require": {
+    "php": ">=5.2.0",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "7.*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Be2bill_Api_": "src/"
     }
+  },
+  "scripts": {
+    "post-install-cmd": "chmod +x bin/batch"
+  }
 }

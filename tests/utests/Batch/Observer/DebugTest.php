@@ -1,6 +1,8 @@
 <?php
 
-class Batch_Observer_DebugTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Batch_Observer_DebugTest extends TestCase
 {
     protected $subjectMock;
 

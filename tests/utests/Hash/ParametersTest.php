@@ -1,6 +1,8 @@
 <?php
 
-class Hash_ParametersTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Hash_ParametersTest extends TestCase
 {
     public function testSimpleHash()
     {

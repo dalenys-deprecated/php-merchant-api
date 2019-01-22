@@ -20,7 +20,7 @@ class Be2bill_Api_DirectLinkClient
     /**
      * @var array The API urls (with fallback)
      */
-    protected $urls = array();
+    protected $urls = [];
 
     // Paths
 
@@ -66,11 +66,11 @@ class Be2bill_Api_DirectLinkClient
     /**
      * Instanciate
      *
-     * @param string $identifier Be2bill identifier
-     * @param string $password Be2bill password
-     * @param array $urls Be2bill URLS
+     * @param string                      $identifier Be2bill identifier
+     * @param string                      $password Be2bill password
+     * @param array                       $urls Be2bill URLS
      * @param Be2bill_Api_Sender_Sendable $sender The sender object to use
-     * @param Be2bill_Api_Hash_Hashable $hash The hashing object to use
+     * @param Be2bill_Api_Hash_Hashable   $hash The hashing object to use
      */
     public function __construct(
         $identifier,
@@ -78,12 +78,13 @@ class Be2bill_Api_DirectLinkClient
         array $urls,
         Be2bill_Api_Sender_Sendable $sender,
         Be2bill_Api_Hash_Hashable $hash
-    ) {
+    )
+    {
         $this->setCredentials($identifier, $password);
         $this->setUrls($urls);
 
         $this->sender = $sender;
-        $this->hash   = $hash;
+        $this->hash = $hash;
     }
 
     /**
@@ -95,7 +96,7 @@ class Be2bill_Api_DirectLinkClient
     public function setCredentials($identifier, $password)
     {
         $this->identifier = $identifier;
-        $this->password   = $password;
+        $this->password = $password;
     }
 
     /**
@@ -142,14 +143,14 @@ class Be2bill_Api_DirectLinkClient
      * @param string $cardDate The card validity date (sensible) Format mm-yy
      * @param string $cardCryptogram The card cryptogram (sensible)
      * @param string $cardFullName The card full name
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier (ex: login)
      * @param string $clientEmail The client email
      * @param string $clientIP The client public IP
      * @param string $description The transaction descrtiption
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (@see http://developer.be2bill.com
+     * @param array  $options Some other payment options (@see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
@@ -175,16 +176,17 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
         $params = $this->amountOrAmounts($amount, $params);
 
-        $params['OPERATIONTYPE']    = 'payment';
-        $params['CARDCODE']         = $cardPan;
+        $params['OPERATIONTYPE'] = 'payment';
+        $params['CARDCODE'] = $cardPan;
         $params['CARDVALIDITYDATE'] = $cardDate;
-        $params['CARDCVV']          = $cardCryptogram;
-        $params['CARDFULLNAME']     = $cardFullName;
+        $params['CARDCVV'] = $cardCryptogram;
+        $params['CARDFULLNAME'] = $cardFullName;
 
         return $this->transaction(
             $orderId,
@@ -231,14 +233,14 @@ class Be2bill_Api_DirectLinkClient
      * @param string $cardDate The card validity date (sensible) Format mm-yy
      * @param string $cardCryptogram The card cryptogram (sensible)
      * @param string $cardFullName The card full name
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier (ex: login)
      * @param string $clientEmail The client email
      * @param string $clientIP The client public IP
      * @param string $description The transaction descrtiption
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
@@ -264,16 +266,17 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
-        $params['OPERATIONTYPE']    = 'authorization';
-        $params['CARDCODE']         = $cardPan;
+        $params['OPERATIONTYPE'] = 'authorization';
+        $params['CARDCODE'] = $cardPan;
         $params['CARDVALIDITYDATE'] = $cardDate;
-        $params['CARDCVV']          = $cardCryptogram;
-        $params['CARDFULLNAME']     = $cardFullName;
-        $params["AMOUNT"]           = $amount;
+        $params['CARDCVV'] = $cardCryptogram;
+        $params['CARDFULLNAME'] = $cardFullName;
+        $params["AMOUNT"] = $amount;
 
         return $this->transaction(
             $orderId,
@@ -320,14 +323,14 @@ class Be2bill_Api_DirectLinkClient
      * @param string $cardDate The card validity date (sensible) Format mm-yy
      * @param string $cardCryptogram The card cryptogram (sensible)
      * @param string $cardFullName The card full name
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier (ex: login)
      * @param string $clientEmail The client email
      * @param string $clientIP The client public IP
      * @param string $description The transaction descrtiption
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
@@ -353,16 +356,17 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
-        $params['OPERATIONTYPE']    = 'credit';
-        $params['CARDCODE']         = $cardPan;
+        $params['OPERATIONTYPE'] = 'credit';
+        $params['CARDCODE'] = $cardPan;
         $params['CARDVALIDITYDATE'] = $cardDate;
-        $params['CARDCVV']          = $cardCryptogram;
-        $params['CARDFULLNAME']     = $cardFullName;
-        $params["AMOUNT"]           = $amount;
+        $params['CARDCVV'] = $cardCryptogram;
+        $params['CARDFULLNAME'] = $cardFullName;
+        $params["AMOUNT"] = $amount;
 
         return $this->transaction(
             $orderId,
@@ -416,14 +420,14 @@ class Be2bill_Api_DirectLinkClient
      *
      * @api
      * @param string $alias The card ALIAS
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier
      * @param string $clientEmail The client EMAIL
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
@@ -446,14 +450,15 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
         $params = $this->amountOrAmounts($amount, $params);
 
         $params['OPERATIONTYPE'] = 'payment';
-        $params['ALIAS']         = $alias;
-        $params['ALIASMODE']     = 'oneclick';
+        $params['ALIAS'] = $alias;
+        $params['ALIASMODE'] = 'oneclick';
 
         return $this->transaction(
             $orderId,
@@ -507,14 +512,14 @@ class Be2bill_Api_DirectLinkClient
      *
      * @api
      * @param string $alias The card ALIAS
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier
      * @param string $clientEmail The client EMAIL
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
@@ -537,14 +542,15 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
         $params['OPERATIONTYPE'] = 'authorization';
-        $params['ALIAS']         = $alias;
-        $params['ALIASMODE']     = 'oneclick';
-        $params["AMOUNT"]        = $amount;
+        $params['ALIAS'] = $alias;
+        $params['ALIASMODE'] = 'oneclick';
+        $params["AMOUNT"] = $amount;
 
         return $this->transaction(
             $orderId,
@@ -576,7 +582,7 @@ class Be2bill_Api_DirectLinkClient
      * @param string $transactionId The transaction id to refund
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $description The transaction description
-     * @param array $options
+     * @param array  $options
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -589,16 +595,16 @@ class Be2bill_Api_DirectLinkClient
      * ]
      * ```
      */
-    public function refund($transactionId, $orderId, $description, array $options = array())
+    public function refund($transactionId, $orderId, $description, array $options = [])
     {
         $params = $options;
 
-        $params['IDENTIFIER']    = $this->identifier;
+        $params['IDENTIFIER'] = $this->identifier;
         $params['OPERATIONTYPE'] = 'refund';
-        $params['DESCRIPTION']   = $description;
+        $params['DESCRIPTION'] = $description;
         $params['TRANSACTIONID'] = $transactionId;
-        $params['VERSION']       = $this->getVersion($options);
-        $params['ORDERID']       = $orderId;
+        $params['VERSION'] = $this->getVersion($options);
+        $params['ORDERID'] = $orderId;
 
         $params['HASH'] = $this->hash($params);
 
@@ -624,7 +630,7 @@ class Be2bill_Api_DirectLinkClient
      * @param string $transactionId The authorization id to capture
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $description The transaction description
-     * @param array $options
+     * @param array  $options
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -637,16 +643,16 @@ class Be2bill_Api_DirectLinkClient
      * ]
      * ```
      */
-    public function capture($transactionId, $orderId, $description, array $options = array())
+    public function capture($transactionId, $orderId, $description, array $options = [])
     {
         $params = $options;
 
-        $params['IDENTIFIER']    = $this->identifier;
+        $params['IDENTIFIER'] = $this->identifier;
         $params['OPERATIONTYPE'] = 'capture';
-        $params['VERSION']       = $this->getVersion($options);
-        $params['DESCRIPTION']   = $description;
+        $params['VERSION'] = $this->getVersion($options);
+        $params['DESCRIPTION'] = $description;
         $params['TRANSACTIONID'] = $transactionId;
-        $params['ORDERID']       = $orderId;
+        $params['ORDERID'] = $orderId;
 
         $params['HASH'] = $this->hash($params);
 
@@ -694,14 +700,14 @@ class Be2bill_Api_DirectLinkClient
      *
      * @api
      * @param string $alias The card ALIAS
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier
      * @param string $clientEmail The client EMAIL
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
@@ -724,14 +730,15 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
         $params['OPERATIONTYPE'] = 'authorization';
-        $params['ALIASMODE']     = 'subscription';
-        $params['ALIAS']         = $alias;
-        $params["AMOUNT"]        = $amount;
+        $params['ALIASMODE'] = 'subscription';
+        $params['ALIAS'] = $alias;
+        $params["AMOUNT"] = $amount;
 
         return $this->transaction(
             $orderId,
@@ -785,14 +792,14 @@ class Be2bill_Api_DirectLinkClient
      *
      * @api
      * @param string $alias The card ALIAS
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier
      * @param string $clientEmail The client EMAIL
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
@@ -815,14 +822,15 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
         $params = $this->amountOrAmounts($amount, $params);
 
         $params['OPERATIONTYPE'] = 'payment';
-        $params['ALIASMODE']     = 'subscription';
-        $params['ALIAS']         = $alias;
+        $params['ALIASMODE'] = 'subscription';
+        $params['ALIAS'] = $alias;
 
         return $this->transaction(
             $orderId,
@@ -849,18 +857,18 @@ class Be2bill_Api_DirectLinkClient
      *
      * @api
      * @param string $scheduleId The schedule id
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array
      */
-    public function stopNTimes($scheduleId, array $options = array())
+    public function stopNTimes($scheduleId, array $options = [])
     {
         $params = $options;
 
-        $params['IDENTIFIER']    = $this->identifier;
+        $params['IDENTIFIER'] = $this->identifier;
         $params['OPERATIONTYPE'] = 'stopntimes';
-        $params['SCHEDULEID']    = $scheduleId;
-        $params['VERSION']       = $this->getVersion($options);
+        $params['SCHEDULEID'] = $scheduleId;
+        $params['VERSION'] = $this->getVersion($options);
 
         $params['HASH'] = $this->hash($params);
 
@@ -896,14 +904,14 @@ class Be2bill_Api_DirectLinkClient
      * ```
      *
      * @api
-     * @param int $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
+     * @param int    $amount The amount (in the currency smallest subdivision Ex: $amount = 100 > 1€)
      * @param string $orderId The orderid (should be unique by transaction, but no unicity check are performed)
      * @param string $clientIdentifier The client identifier
      * @param string $clientEmail The client EMAIL
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array The result array.
      * It will contains a REDIRECTHTML wich contains a base64 redirection code for the payment supplier page.
@@ -928,8 +936,9 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
         if (!isset($options['OPERATIONTYPE'])) {
@@ -984,7 +993,8 @@ class Be2bill_Api_DirectLinkClient
         $transactionId,
         $destination = null,
         $compression = 'GZIP'
-    ) {
+    )
+    {
         return $this->getTransactions('TRANSACTIONID', $transactionId, $destination, $compression);
     }
 
@@ -1021,7 +1031,8 @@ class Be2bill_Api_DirectLinkClient
         $orderId,
         $destination = null,
         $compression = 'GZIP'
-    ) {
+    )
+    {
         return $this->getTransactions('ORDERID', $orderId, $destination, $compression);
     }
 
@@ -1032,12 +1043,12 @@ class Be2bill_Api_DirectLinkClient
      * This will return the result of the report creation request
      *
      * @api
-     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param date   $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array
      */
@@ -1045,14 +1056,15 @@ class Be2bill_Api_DirectLinkClient
         $date,
         $destination,
         $compression = 'GZIP',
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
-        $params["COMPRESSION"]   = $compression;
+        $params["COMPRESSION"] = $compression;
         $params["OPERATIONTYPE"] = 'exportTransactions';
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = $this->getVersion($options);
+        $params['IDENTIFIER'] = $this->identifier;
+        $params['VERSION'] = $this->getVersion($options);
 
         $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
@@ -1074,12 +1086,12 @@ class Be2bill_Api_DirectLinkClient
      * This will return the result of the report creation request
      *
      * @api
-     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param date   $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array
      */
@@ -1087,14 +1099,15 @@ class Be2bill_Api_DirectLinkClient
         $date,
         $destination,
         $compression = 'GZIP',
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
-        $params["COMPRESSION"]   = $compression;
+        $params["COMPRESSION"] = $compression;
         $params["OPERATIONTYPE"] = 'exportChargebacks';
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = $this->getVersion($options);
+        $params['IDENTIFIER'] = $this->identifier;
+        $params['VERSION'] = $this->getVersion($options);
 
         $params = array_merge($params, $this->getDateOrDateRangeParameter($date));
 
@@ -1116,12 +1129,12 @@ class Be2bill_Api_DirectLinkClient
      * This will return the result of the report creation request
      *
      * @api
-     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param date   $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array
      */
@@ -1129,14 +1142,15 @@ class Be2bill_Api_DirectLinkClient
         $date,
         $destination,
         $compression = 'GZIP',
-        $options = array()
-    ) {
+        $options = []
+    )
+    {
         $params = $options;
 
-        $params["COMPRESSION"]   = $compression;
+        $params["COMPRESSION"] = $compression;
         $params["OPERATIONTYPE"] = 'exportReconciliation';
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = $this->getVersion($options);
+        $params['IDENTIFIER'] = $this->identifier;
+        $params['VERSION'] = $this->getVersion($options);
         // Actually DATE interval are not available for this export
         $params['DATE'] = $date;
 
@@ -1160,12 +1174,12 @@ class Be2bill_Api_DirectLinkClient
      * This will return the result of the report creation request
      *
      * @api
-     * @param date $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
+     * @param date   $date YYYY-MM or YYYY-MM-DD or array(startDate, endDate)
      * @param string $destination This parameter accept 2 possibilities:
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array $options Some other payment options (see http://developer.be2bill.com
+     * @param array  $options Some other payment options (see http://developer.be2bill.com
      * the be2bill api reference for the full list)
      * @return array
      */
@@ -1173,14 +1187,15 @@ class Be2bill_Api_DirectLinkClient
         $date,
         $destination,
         $compression = 'GZIP',
-        $options = array()
-    ) {
+        $options = []
+    )
+    {
         $params = $options;
 
-        $params["COMPRESSION"]   = $compression;
+        $params["COMPRESSION"] = $compression;
         $params["OPERATIONTYPE"] = 'exportReconciledTransactions';
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = $this->getVersion($options);
+        $params['IDENTIFIER'] = $this->identifier;
+        $params['VERSION'] = $this->getVersion($options);
         // Actually DATE interval are not available for this export
         $params['DATE'] = $date;
 
@@ -1203,7 +1218,7 @@ class Be2bill_Api_DirectLinkClient
      * @param array $params
      * @return string
      */
-    public function hash(array $params = array())
+    public function hash(array $params = [])
     {
         return $this->hash->compute($this->password, $params);
     }
@@ -1229,7 +1244,7 @@ class Be2bill_Api_DirectLinkClient
         if (is_array($urls)) {
             $this->urls = $urls;
         } else {
-            $this->urls = array($urls);
+            $this->urls = [$urls];
         }
     }
 
@@ -1240,7 +1255,7 @@ class Be2bill_Api_DirectLinkClient
      * @param array $params
      * @return bool|string
      */
-    public function requests($urls, array $params = array())
+    public function requests($urls, array $params = [])
     {
         foreach ($urls as $url) {
             $result = $this->requestOne($url, $params);
@@ -1292,9 +1307,9 @@ class Be2bill_Api_DirectLinkClient
      * @param array $params
      * @return mixed
      */
-    protected function requestOne($url, array $params = array())
+    protected function requestOne($url, array $params = [])
     {
-        $requestParams = array('method' => $params['OPERATIONTYPE'], 'params' => $params);
+        $requestParams = ['method' => $params['OPERATIONTYPE'], 'params' => $params];
 
         $sender = $this->sender;
         $result = $sender->send($url, $requestParams);
@@ -1311,10 +1326,13 @@ class Be2bill_Api_DirectLinkClient
     protected function getURLs($path)
     {
         // Add path to each urls
-        return array_map(create_function('$elm', 'return $elm . "' . $path . '";'), $this->urls);
+        return array_map(function ($elm) use ($path) {
+            return $elm . $path;
+        }, $this->urls);
     }
 
     // Internals
+
     /**
      * Trigger a transaction
      *
@@ -1334,18 +1352,19 @@ class Be2bill_Api_DirectLinkClient
         $clientIP,
         $description,
         $clientUserAgent,
-        array $options = array()
-    ) {
+        array $options = []
+    )
+    {
         $params = $options;
 
-        $params['ORDERID']         = $orderId;
-        $params['CLIENTIDENT']     = $clientIdentifier;
-        $params['CLIENTEMAIL']     = $clientEmail;
-        $params['DESCRIPTION']     = $description;
+        $params['ORDERID'] = $orderId;
+        $params['CLIENTIDENT'] = $clientIdentifier;
+        $params['CLIENTEMAIL'] = $clientEmail;
+        $params['DESCRIPTION'] = $description;
         $params['CLIENTUSERAGENT'] = $clientUserAgent;
-        $params['CLIENTIP']        = $clientIP;
-        $params['IDENTIFIER']      = $this->identifier;
-        $params['VERSION']         = $this->getVersion($options);
+        $params['CLIENTIP'] = $clientIP;
+        $params['IDENTIFIER'] = $this->identifier;
+        $params['VERSION'] = $this->getVersion($options);
 
         $params['HASH'] = $this->hash($params);
 
@@ -1366,10 +1385,11 @@ class Be2bill_Api_DirectLinkClient
         $id,
         $destination,
         $compression
-    ) {
+    )
+    {
         $params["OPERATIONTYPE"] = 'getTransactions';
-        $params['IDENTIFIER']    = $this->identifier;
-        $params['VERSION']       = $this->version;
+        $params['IDENTIFIER'] = $this->identifier;
+        $params['VERSION'] = $this->version;
 
         if (is_array($id)) {
             $id = implode(';', $id);
@@ -1385,7 +1405,7 @@ class Be2bill_Api_DirectLinkClient
             $params['CALLBACKURL'] = $destination;
             $params["COMPRESSION"] = $compression;
         } elseif ($this->isMail($destination)) {
-            $params['MAILTO']      = $destination;
+            $params['MAILTO'] = $destination;
             $params["COMPRESSION"] = $compression;
         }
 
@@ -1435,11 +1455,11 @@ class Be2bill_Api_DirectLinkClient
      */
     protected function getDateOrDateRangeParameter($date)
     {
-        $result = array();
+        $result = [];
 
         if (is_array($date) && sizeof($date) == 2) {
             $result['STARTDATE'] = $date[0];
-            $result['ENDDATE']   = $date[1];
+            $result['ENDDATE'] = $date[1];
         } else {
             $result["DATE"] = $date;
         }
@@ -1453,7 +1473,7 @@ class Be2bill_Api_DirectLinkClient
      * @param array $options
      * @return string The version number
      */
-    protected function getVersion(array $options = array())
+    protected function getVersion(array $options = [])
     {
         if (isset($options['VERSION'])) {
             return $options['VERSION'];
@@ -1466,7 +1486,7 @@ class Be2bill_Api_DirectLinkClient
      * Handle amount or ntimes amounts parameter
      *
      * @param integer $amount
-     * @param array $params
+     * @param array   $params
      * @return array Edited $params
      */
     protected function amountOrAmounts($amount, array $params)

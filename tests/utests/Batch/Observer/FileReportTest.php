@@ -1,6 +1,8 @@
 <?php
 
-class Batch_Observer_FileReportTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Batch_Observer_FileReportTest extends TestCase
 {
     protected $subjectMock;
 
@@ -43,6 +45,7 @@ AMOUNT;EXECCODE;MESSAGE;ORDERID;TRANSACTIONID
 RESULT;
 
         $content = $this->readFile($file);
+
         $this->assertEquals($expected, $content);
     }
 

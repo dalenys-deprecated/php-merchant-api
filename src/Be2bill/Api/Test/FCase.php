@@ -1,5 +1,7 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Functional test tools
  *
@@ -12,7 +14,7 @@
  *
  * Handle IDENTIFIER, PASSWORD, Client instanciation and test tools
  */
-abstract class Be2bill_Api_Test_FCase extends PHPUnit_Framework_TestCase
+abstract class Be2bill_Api_Test_FCase extends TestCase
 {
     /**
      * API Directlink client

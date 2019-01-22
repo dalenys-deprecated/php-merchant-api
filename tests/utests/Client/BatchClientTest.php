@@ -1,6 +1,8 @@
 <?php
 
-class Client_BatchTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Client_BatchTest extends TestCase
 {
     protected $senderDummy;
     protected $hashStub;
@@ -8,8 +10,8 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->senderDummy = $this->getMock('Be2bill_Api_Sender_Sendable');
-        $this->hashStub    = $this->getMock('Be2bill_Api_Hash_Hashable');
+        $this->senderDummy = $this->createMock('Be2bill_Api_Sender_Sendable');
+        $this->hashStub    = $this->createMock('Be2bill_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->any())
             ->method('compute')
@@ -26,7 +28,9 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testSetInputFileAcceptFilePath()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array(), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $file = 'php://memory';
 
@@ -39,7 +43,9 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testSetInputFileAcceptFileDescriptor()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array(), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $file = fopen('php://memory', 'w+');
 
@@ -52,7 +58,10 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function test1Transaction()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setMethods(['requestOne'])
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $apiMock->expects($this->once())
             ->method('requestOne')
@@ -85,7 +94,10 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function test2Transactions()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setMethods(['requestOne'])
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $apiMock->expects($this->exactly(2))
             ->method('requestOne')
@@ -121,7 +133,10 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
      */
     public function testHashNotAllowedAsCsvColumn()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setMethods(['requestOne'])
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $file = $this->generateCsv(1, array('k0' => array('HASH' => 'toto')));
 
@@ -135,7 +150,10 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
      */
     public function testIdentifierNotAllowedAsCsvColumn()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setMethods(['requestOne'])
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $file = $this->generateCsv(1, array('k0' => array('IDENTIFIER' => 'toto')));
 
@@ -146,7 +164,10 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testDoNotSendEmptyColumns()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setMethods(['requestOne'])
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $apiMock->expects($this->exactly(1))
             ->method('requestOne')
@@ -179,7 +200,11 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testNotifyRealTimeTransactions()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setMethods(['requestOne'])
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
+
         $apiMock->expects($this->exactly(5))
             ->method('requestOne')
             ->with(
@@ -204,7 +229,7 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
         $batchClient = new Be2bill_Api_BatchClient($apiMock);
 
-        $observerMock = $this->getMock('SplObserver');
+        $observerMock = $this->createMock('SplObserver');
         $observerMock->expects($this->exactly(5))
             ->method('update')
             ->with($this->isInstanceOf('Be2bill_Api_BatchClient'));
@@ -218,14 +243,17 @@ class Client_BatchTest extends PHPUnit_Framework_TestCase
 
     public function testSkipEmptyLine()
     {
-        $apiMock = $this->getMock('Be2bill_Api_DirectLinkClient', array('requestOne'), $this->directLinkMockArguments);
+        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+            ->setMethods(['requestOne'])
+            ->setConstructorArgs($this->directLinkMockArguments)
+            ->getMock();
 
         $apiMock->expects($this->exactly(3))
             ->method('requestOne');
 
         $batchClient = new Be2bill_Api_BatchClient($apiMock);
 
-        $observerMock = $this->getMock('SplObserver');
+        $observerMock = $this->createMock('SplObserver');
         $observerMock->expects($this->exactly(3))
             ->method('update')
             ->with($this->isInstanceOf('Be2bill_Api_BatchClient'));

@@ -1,6 +1,8 @@
 <?php
 
-class FormClientTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class FormClientTest extends TestCase
 {
     public function testPaymentFormDisplay()
     {

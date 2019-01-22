@@ -1,41 +1,30 @@
+#Help here: https://phpunit.de/supported-versions.html
+
 before_script:
   - cp tests/ftests/config.php.dist tests/ftests/config.php
-  #This version is supported by php 5.4
-  - curl -o ./phpunit https://phar.phpunit.de/phpunit-4.8.9.phar
-  - chmod +x ./phpunit
+  - curl -L -o phpunit https://phar.phpunit.de/phpunit-7.phar
+  - chmod +x phpunit
 
-php5.3:
-  image: dalenys/php:5.3
+php7.1:
+  image: php:7.1
   script:
+    - ls
     - php --version
-    - ./phpunit
+    - ./phpunit --version
+    - ./phpunit tests/utests
 
-php5.4:
-  image: dalenys/php:5.4
+php7.2:
+  image: php:7.2
   script:
+    - ls
     - php --version
-    - ./phpunit
+    - ./phpunit --version
+    - ./phpunit tests/utests
 
-php5.5:
-  image: dalenys/php:5.5
+php7.3:
+  image: php:7.3
   script:
+    - ls
     - php --version
-    - ./phpunit
-
-php5.6:
-  image: dalenys/php:5.6
-  script:
-    - php --version
-    - ./phpunit
-
-php7.0:
-  image: dalenys/php:7.0
-  script:
-    - php --version
-    - ./phpunit
-
-hhvm:
-  image: dalenys/php:hhvm
-  script:
-    - php --version
-    - ./phpunit
+    - ./phpunit --version
+    - ./phpunit tests/utests

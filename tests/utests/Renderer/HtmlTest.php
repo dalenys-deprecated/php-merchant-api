@@ -1,6 +1,8 @@
 <?php
 
-class Renderer_HtmlTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Renderer_HtmlTest extends TestCase
 {
     public function testBuildHiddenInput()
     {

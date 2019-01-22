@@ -1,6 +1,8 @@
 <?php
 
-class Client_FormTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Client_FormTest extends TestCase
 {
     protected $renderMock = null;
     protected $hashStub = null;
@@ -12,8 +14,8 @@ class Client_FormTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->renderMock  = $this->getMock('Be2bill_Api_Renderer_Renderable');
-        $this->hashStub    = $this->getMock('Be2bill_Api_Hash_Hashable');
+        $this->renderMock  = $this->createMock('Be2bill_Api_Renderer_Renderable');
+        $this->hashStub    = $this->createMock('Be2bill_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->once())
             ->method('compute')

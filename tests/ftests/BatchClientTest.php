@@ -1,6 +1,8 @@
 <?php
 
-class BatchClientTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class BatchClientTest extends TestCase
 {
     protected function setUp()
     {

@@ -1,6 +1,8 @@
 <?php
 
-class Client_ExportTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Client_ExportTest extends TestCase
 {
     protected $hashStub = null;
     protected $senderMock = null;
@@ -12,8 +14,8 @@ class Client_ExportTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->senderMock = $this->getMock('Be2bill_Api_Sender_Sendable');
-        $this->hashStub   = $this->getMock('Be2bill_Api_Hash_Hashable');
+        $this->senderMock = $this->createMock('Be2bill_Api_Sender_Sendable');
+        $this->hashStub   = $this->createMock('Be2bill_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->once())
             ->method('compute')
