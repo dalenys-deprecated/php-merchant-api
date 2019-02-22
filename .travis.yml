@@ -9,7 +9,7 @@ php:
 install:
   - composer install
   - cp tests/ftests/config.php.dist tests/ftests/config.php
-script: phpunit --coverage-text tests/utests
+script: vendor/bin/phpunit --coverage-text tests/utests
 env:
   secure: ekhDBZcfLatzXVYEumYKXWhQvA+eBP+RrVkNSrZ3tw33ZvfabmQtF5CNTmko5Ln4tv4eDjk5mxVICbfX3+4KpeE9YYvgrhSE7clHuabKKDmVJV2PYiT8vHsQqBZ0q0vQPC+mj0Bh+F6tXDfPJ0LRDKzwlKpGFzDUZjthQzzCKQ0=
 
