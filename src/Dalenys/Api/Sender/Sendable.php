@@ -3,14 +3,14 @@
 /**
  * Sender interface
  *
- * @package Be2bill\Sender
+ * @package Dalenys\Sender
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
- * Interface for sending be2bill requests
+ * Interface for sending dalenys requests
  */
-interface Be2bill_Api_Sender_Sendable
+interface Dalenys_Api_Sender_Sendable
 {
     /**
      * Send a request

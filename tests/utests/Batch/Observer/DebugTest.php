@@ -8,7 +8,7 @@ class Batch_Observer_DebugTest extends TestCase
 
     protected function setUp()
     {
-        $this->subjectMock = $this->getMockBuilder('Be2bill_Api_BatchClient')
+        $this->subjectMock = $this->getMockBuilder('Dalenys_Api_BatchClient')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -47,7 +47,7 @@ class Batch_Observer_DebugTest extends TestCase
             "Line 1 (ORDERID=42) : EXECCODE=0000 MESSAGE=Operation succeeded TRANSACTIONID=A1234\n"
         );
 
-        $debug = new Be2bill_Api_Batch_Observer_Debug();
+        $debug = new Dalenys_Api_Batch_Observer_Debug();
         $debug->update($this->subjectMock);
     }
 
@@ -66,7 +66,7 @@ class Batch_Observer_DebugTest extends TestCase
 
         $this->expectOutputString("Line 1 (ORDERID=42) : EXECCODE=1012 MESSAGE=Missing parameter\n");
 
-        $debug = new Be2bill_Api_Batch_Observer_Debug();
+        $debug = new Dalenys_Api_Batch_Observer_Debug();
         $debug->update($this->subjectMock);
     }
 }

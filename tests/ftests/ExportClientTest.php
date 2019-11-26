@@ -1,6 +1,6 @@
 <?php
 
-class ExportClientTest extends Be2bill_Api_Test_FCase
+class ExportClientTest extends Dalenys_Api_Test_FCase
 {
     public function testGetTransactionsByTransactionId()
     {
@@ -18,7 +18,7 @@ class ExportClientTest extends Be2bill_Api_Test_FCase
             'firefox'
         );
 
-        $result = $this->api->getTransactionsByTransactionId($result['TRANSACTIONID'], 'no-reply@be2bill.com');
+        $result = $this->api->getTransactionsByTransactionId($result['TRANSACTIONID'], 'no-reply@dalenys.com');
 
         $this->assertTransactionSucceeded($result);
     }
@@ -49,46 +49,46 @@ class ExportClientTest extends Be2bill_Api_Test_FCase
             'firefox'
         );
 
-        $result = $this->api->getTransactionsByOrderId($orderId, 'no-reply@be2bill.com');
+        $result = $this->api->getTransactionsByOrderId($orderId, 'no-reply@dalenys.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportTransactions()
     {
-        $result = $this->api->exportTransactions('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportTransactions('2014-01-05', 'no-reply@dalenys.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportChargebacks()
     {
-        $result = $this->api->exportChargebacks('2014-01-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportChargebacks('2014-01-05', 'no-reply@dalenys.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportReconciliation()
     {
-        $result = $this->api->exportReconciliation('2015-10-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportReconciliation('2015-10-05', 'no-reply@dalenys.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     public function testExportReconciledTransactions()
     {
-        $result = $this->api->exportReconciledTransactions('2015-10-05', 'no-reply@be2bill.com');
+        $result = $this->api->exportReconciledTransactions('2015-10-05', 'no-reply@dalenys.com');
 
         $this->assertTransactionSucceeded($result);
     }
 
     protected function getIdentifier()
     {
-        return BE2BILL_TEST_IDENTIFIER;
+        return DALENYS_TEST_IDENTIFIER;
     }
 
     protected function getPassword()
     {
-        return BE2BILL_TEST_PASSWORD;
+        return DALENYS_TEST_PASSWORD;
     }
 }

@@ -8,7 +8,7 @@ class Batch_Observer_FileReportTest extends TestCase
 
     protected function setUp()
     {
-        $this->subjectMock = $this->getMockBuilder('Be2bill_Api_BatchClient')
+        $this->subjectMock = $this->getMockBuilder('Dalenys_Api_BatchClient')
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -33,7 +33,7 @@ class Batch_Observer_FileReportTest extends TestCase
 
         $file = fopen('php://memory', 'w+');
 
-        $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
+        $debug = new Dalenys_Api_Batch_Observer_FileReport($file);
         $debug->update($this->subjectMock);
 
         rewind($file);
@@ -86,7 +86,7 @@ RESULT;
 
         $file = fopen('php://memory', 'w+');
 
-        $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
+        $debug = new Dalenys_Api_Batch_Observer_FileReport($file);
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
@@ -161,7 +161,7 @@ RESULT;
 
         $file = fopen('php://memory', 'w+');
 
-        $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
+        $debug = new Dalenys_Api_Batch_Observer_FileReport($file);
 
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
@@ -241,7 +241,7 @@ RESULT;
 
         $file = fopen('php://memory', 'w+');
 
-        $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
+        $debug = new Dalenys_Api_Batch_Observer_FileReport($file);
 
         $debug->update($this->subjectMock);
         $debug->update($this->subjectMock);
@@ -286,7 +286,7 @@ RESULT;
 
         $file = fopen('php://memory', 'w+');
 
-        $debug = new Be2bill_Api_Batch_Observer_FileReport($file);
+        $debug = new Dalenys_Api_Batch_Observer_FileReport($file);
         $debug->update($this->subjectMock);
 
         rewind($file);

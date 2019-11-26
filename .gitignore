@@ -6,3 +6,4 @@ phpdoc.xml
 docs
 vendor
 composer.phar
+composer.lock

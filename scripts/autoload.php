@@ -1,5 +1,5 @@
 <?php
 
-require __DIR__ . '/../src/Be2bill/Api/Autoloader.php';
+require __DIR__ . '/../src/Dalenys/Api/Autoloader.php';
 
-Be2bill_Api_Autoloader::registerAutoloader();
+Dalenys_Api_Autoloader::registerAutoloader();

@@ -3,14 +3,14 @@
 /**
  * Curl sender
  *
- * @package Be2bill\Sender
+ * @package Dalenys\Sender
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Send a HTTP request with curl
  */
-class Be2bill_Api_Sender_Curl implements Be2bill_Api_Sender_Sendable
+class Dalenys_Api_Sender_Curl implements Dalenys_Api_Sender_Sendable
 {
     const CURLE_OPERATION_TIMEDOUT = 28;
     const REQUEST_TIMEOUT = 30;

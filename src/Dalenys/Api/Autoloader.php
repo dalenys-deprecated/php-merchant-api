@@ -3,17 +3,17 @@
 /**
  * Autoloader
  *
- * @package Be2bill
+ * @package Dalenys
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Handle autoloading
  */
-class Be2bill_Api_Autoloader
+class Dalenys_Api_Autoloader
 {
     /**
-     * Register a standard autoloader for the Be2bill Client API
+     * Register a standard autoloader for the Dalenys Client API
      */
     public static function registerAutoloader()
     {
@@ -27,7 +27,7 @@ class Be2bill_Api_Autoloader
      */
     public static function autoloader($className)
     {
-        $prefix = 'Be2bill_Api';
+        $prefix = 'Dalenys_Api';
 
         $len = strlen($prefix);
         if (strncmp($prefix, $className, $len) !== 0) {

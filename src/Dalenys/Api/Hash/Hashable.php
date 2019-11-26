@@ -3,14 +3,14 @@
 /**
  * Hash interface
  *
- * @package Be2bill\Hash
+ * @package Dalenys\Hash
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Interface for hashing
  */
-interface Be2bill_Api_Hash_Hashable
+interface Dalenys_Api_Hash_Hashable
 {
     /**
      * Compute a hash

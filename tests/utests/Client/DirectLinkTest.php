@@ -8,20 +8,20 @@ class Client_DirectLinkTest extends TestCase
     protected $senderMock = null;
 
     /**
-     * @var Be2bill_Api_DirectLinkClient
+     * @var Dalenys_Api_DirectLinkClient
      */
     protected $api = null;
 
     public function setUp()
     {
-        $this->senderMock = $this->createMock('Be2bill_Api_Sender_Sendable');
-        $this->hashStub   = $this->createMock('Be2bill_Api_Hash_Hashable');
+        $this->senderMock = $this->createMock('Dalenys_Api_Sender_Sendable');
+        $this->hashStub   = $this->createMock('Dalenys_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->once())
             ->method('compute')
             ->will($this->returnValue('dummy'));
 
-        $this->api = new Be2bill_Api_DirectLinkClient(
+        $this->api = new Dalenys_Api_DirectLinkClient(
             'i',
             'p',
             array('http://test'),

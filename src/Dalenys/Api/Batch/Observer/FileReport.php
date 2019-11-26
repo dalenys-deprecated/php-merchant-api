@@ -3,14 +3,14 @@
 /**
  * Observer file report
  *
- * @package Be2bill\Batch
+ * @package Dalenys\Batch
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Write a CSV output based on the CSV input
  */
-class Be2bill_Api_Batch_Observer_FileReport implements SplObserver
+class Dalenys_Api_Batch_Observer_FileReport implements SplObserver
 {
     /**
      * @var resource The output file

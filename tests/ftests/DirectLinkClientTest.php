@@ -1,6 +1,6 @@
 <?php
 
-class DirectLinkClientTest extends Be2bill_Api_Test_FCase
+class DirectLinkClientTest extends Dalenys_Api_Test_FCase
 {
     public function testPayment()
     {
@@ -194,11 +194,11 @@ class DirectLinkClientTest extends Be2bill_Api_Test_FCase
 
     public function testRefund()
     {
-        $api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
-            BE2BILL_TEST_IDENTIFIER,
-            BE2BILL_TEST_PASSWORD
+        $api   = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient(
+            DALENYS_TEST_IDENTIFIER,
+            DALENYS_TEST_PASSWORD
         );
-        $tools = new Be2bill_Api_Test_Tools();
+        $tools = new Dalenys_Api_Test_Tools();
 
         $result = $this->api->payment(
             '5555556778250000',
@@ -239,11 +239,11 @@ class DirectLinkClientTest extends Be2bill_Api_Test_FCase
 
     protected function getIdentifier()
     {
-        return BE2BILL_TEST_IDENTIFIER;
+        return DALENYS_TEST_IDENTIFIER;
     }
 
     protected function getPassword()
     {
-        return BE2BILL_TEST_PASSWORD;
+        return DALENYS_TEST_PASSWORD;
     }
 }

@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Functional test tools
  *
- * @package Be2bill\Test
+ * @package Dalenys\Test
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
@@ -14,28 +14,28 @@ use PHPUnit\Framework\TestCase;
  *
  * Handle IDENTIFIER, PASSWORD, Client instanciation and test tools
  */
-abstract class Be2bill_Api_Test_FCase extends TestCase
+abstract class Dalenys_Api_Test_FCase extends TestCase
 {
     /**
      * API Directlink client
-     * @var Be2bill_Api_DirectLinkClient
+     * @var Dalenys_Api_DirectLinkClient
      */
     protected $api;
 
     /**
      * Test tools
-     * @var Be2bill_Api_Test_Tools
+     * @var Dalenys_Api_Test_Tools
      */
     protected $tools;
 
     /**
-     * Get Be2bill identifier
+     * Get Dalenys identifier
      * @return string identifier
      */
     abstract protected function getIdentifier();
 
     /**
-     * Get Be2bill password
+     * Get Dalenys password
      * @return mixed
      */
     abstract protected function getPassword();
@@ -47,11 +47,11 @@ abstract class Be2bill_Api_Test_FCase extends TestCase
     {
         parent::__construct();
 
-        $this->api   = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(
+        $this->api   = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient(
             $this->getIdentifier(),
             $this->getPassword()
         );
-        $this->tools = new Be2bill_Api_Test_Tools();
+        $this->tools = new Dalenys_Api_Test_Tools();
     }
 
     /**

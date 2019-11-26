@@ -3,14 +3,14 @@
 /**
  * Directlink client
  *
- * @package Be2bill
+ * @package Dalenys
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
- * Implements Be2bill payment API
+ * Implements Dalenys payment API
  */
-class Be2bill_Api_DirectLinkClient
+class Dalenys_Api_DirectLinkClient
 {
     /**
      * @var string API VERSION
@@ -42,42 +42,42 @@ class Be2bill_Api_DirectLinkClient
     // Credentials
 
     /**
-     * @var string The Be2bill identifier
+     * @var string The Dalenys identifier
      */
     protected $identifier;
 
     /**
-     * @var string The Be2bill password
+     * @var string The Dalenys password
      */
     protected $password;
 
     // Internals
 
     /**
-     * @var Be2bill_Api_Sender_Sendable The sender object
+     * @var Dalenys_Api_Sender_Sendable The sender object
      */
     protected $sender = null;
 
     /**
-     * @var Be2bill_Api_Hash_Hashable The hashing object
+     * @var Dalenys_Api_Hash_Hashable The hashing object
      */
     protected $hash = null;
 
     /**
      * Instanciate
      *
-     * @param string                      $identifier Be2bill identifier
-     * @param string                      $password Be2bill password
-     * @param array                       $urls Be2bill URLS
-     * @param Be2bill_Api_Sender_Sendable $sender The sender object to use
-     * @param Be2bill_Api_Hash_Hashable   $hash The hashing object to use
+     * @param string                      $identifier Dalenys identifier
+     * @param string                      $password Dalenys password
+     * @param array                       $urls Dalenys URLS
+     * @param Dalenys_Api_Sender_Sendable $sender The sender object to use
+     * @param Dalenys_Api_Hash_Hashable   $hash The hashing object to use
      */
     public function __construct(
         $identifier,
         $password,
         array $urls,
-        Be2bill_Api_Sender_Sendable $sender,
-        Be2bill_Api_Hash_Hashable $hash
+        Dalenys_Api_Sender_Sendable $sender,
+        Dalenys_Api_Hash_Hashable $hash
     )
     {
         $this->setCredentials($identifier, $password);
@@ -90,8 +90,8 @@ class Be2bill_Api_DirectLinkClient
     /**
      * Configurate API credentials
      *
-     * @param string $identifier The Be2bill identifier
-     * @param string $password The Be2bill password
+     * @param string $identifier The Dalenys identifier
+     * @param string $password The Dalenys password
      */
     public function setCredentials($identifier, $password)
     {
@@ -100,7 +100,7 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * Set default Be2bill VERSION parameter
+     * Set default Dalenys VERSION parameter
      *
      * @param string $version The VERSION number (ex: 3.0)
      */
@@ -117,7 +117,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR payment
      * $result = $api->payment(
@@ -150,8 +150,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction descrtiption
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (@see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (@see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -207,7 +207,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR payment
      * $result = $api->authorization(
@@ -240,8 +240,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction descrtiption
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -297,7 +297,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR credit
      * $result = $api->credit(
@@ -330,8 +330,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction descrtiption
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -387,7 +387,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR standard payment (with alias creation)
      * $result = $api->payment(
@@ -427,8 +427,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -479,7 +479,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR standard payment (with alias creation)
      * $result = $api->payment(
@@ -519,8 +519,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -568,7 +568,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * Usage example:
      * * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * $result = $api->refund(
      *  'A123',
@@ -616,7 +616,7 @@ class Be2bill_Api_DirectLinkClient
      *
      * Usage example:
      * * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * $result = $api->capture(
      *  'A123',
@@ -667,7 +667,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR standard payment (with alias creation)
      * $result = $api->payment(
@@ -707,8 +707,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -759,7 +759,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR standard payment (with alias creation)
      * $result = $api->payment(
@@ -799,8 +799,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array. Will look like:
      * ```php
      * [
@@ -849,7 +849,7 @@ class Be2bill_Api_DirectLinkClient
      *  Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR standard payment (with alias creation)
      * $result = $api->stopNTimes('A123');
@@ -857,8 +857,8 @@ class Be2bill_Api_DirectLinkClient
      *
      * @api
      * @param string $scheduleId The schedule id
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array
      */
     public function stopNTimes($scheduleId, array $options = [])
@@ -886,7 +886,7 @@ class Be2bill_Api_DirectLinkClient
      * Usage example:
      *
      * ```php
-     * $api = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+     * $api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
      *
      * // 10 EUR standard payment
      * $result = $api->redirectForPayment(
@@ -911,8 +911,8 @@ class Be2bill_Api_DirectLinkClient
      * @param string $clientIP The client public IP
      * @param string $description The transaction description
      * @param string $clientUserAgent The client user agent
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array The result array.
      * It will contains a REDIRECTHTML wich contains a base64 redirection code for the payment supplier page.
      * Will look like:
@@ -1048,8 +1048,8 @@ class Be2bill_Api_DirectLinkClient
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array
      */
     public function exportTransactions(
@@ -1091,8 +1091,8 @@ class Be2bill_Api_DirectLinkClient
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array
      */
     public function exportChargebacks(
@@ -1134,8 +1134,8 @@ class Be2bill_Api_DirectLinkClient
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array
      */
     public function exportReconciliation(
@@ -1179,8 +1179,8 @@ class Be2bill_Api_DirectLinkClient
      * - url > will throw the report to the specified URL (csv)
      * - email > will throw the report to the specified email (csv)
      * @param string $compression ZIP / GZIP or BZIP
-     * @param array  $options Some other payment options (see http://developer.be2bill.com
-     * the be2bill api reference for the full list)
+     * @param array  $options Some other payment options (see http://developer.dalenys.com
+     * the dalenys api reference for the full list)
      * @return array
      */
     public function exportReconciledTransactions(
@@ -1210,7 +1210,7 @@ class Be2bill_Api_DirectLinkClient
         return $this->requests($this->getURLs($this->reconciliationPath), $params);
     }
 
-    // Be2bill toolkit methods
+    // Dalenys toolkit methods
 
     /**
      * Hash parameters
@@ -1235,7 +1235,7 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * Set be2bill base urls
+     * Set dalenys base urls
      *
      * @param string|array $urls
      */
@@ -1468,7 +1468,7 @@ class Be2bill_Api_DirectLinkClient
     }
 
     /**
-     * Get Be2bill API VERSION
+     * Get Dalenys API VERSION
      *
      * @param array $options
      * @return string The version number
