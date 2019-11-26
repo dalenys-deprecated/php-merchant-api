@@ -6,7 +6,7 @@ class Hash_ParametersTest extends TestCase
 {
     public function testSimpleHash()
     {
-        $hash = new Be2bill_Api_Hash_Parameters();
+        $hash = new Dalenys_Api_Hash_Parameters();
         $this->assertEquals(
             $hash->compute('password', array('c' => 3, 'a' => '1', 'b' => '2')),
             '77c71c1e70ea28525cf078537d22d1932922e3741ed83287b0dc0a117bf77999'
@@ -15,7 +15,7 @@ class Hash_ParametersTest extends TestCase
 
     public function testHashWithHashParameterInData()
     {
-        $hash = new Be2bill_Api_Hash_Parameters();
+        $hash = new Dalenys_Api_Hash_Parameters();
         $this->assertEquals(
             $hash->compute('password', array('c' => 3, 'a' => '1', 'b' => '2', 'HASH' => 'shouldnotimpact')),
             '77c71c1e70ea28525cf078537d22d1932922e3741ed83287b0dc0a117bf77999'
@@ -24,7 +24,7 @@ class Hash_ParametersTest extends TestCase
 
     public function testHashWithSubData()
     {
-        $hash = new Be2bill_Api_Hash_Parameters();
+        $hash = new Dalenys_Api_Hash_Parameters();
         $this->assertEquals(
             $hash->compute(
                 'password',
@@ -44,7 +44,7 @@ class Hash_ParametersTest extends TestCase
 
     public function testCheckHash()
     {
-        $hash = new Be2bill_Api_Hash_Parameters();
+        $hash = new Dalenys_Api_Hash_Parameters();
         $this->assertTrue(
             $hash->checkHash(
                 'password',

@@ -3,14 +3,14 @@
 /**
  * Form client
  *
- * @package Be2bill
+ * @package Dalenys
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
- * Implements Be2bill payment API
+ * Implements Dalenys payment API
  */
-class Be2bill_Api_FormClient
+class Dalenys_Api_FormClient
 {
     /**
      * API version
@@ -19,40 +19,40 @@ class Be2bill_Api_FormClient
 
     // Credentials
     /**
-     * @var string Be2bill identifier
+     * @var string Dalenys identifier
      */
     protected $identifier;
 
     /**
-     * @var string Be2bill password
+     * @var string Dalenys password
      */
     protected $password;
 
     // Internals
 
     /**
-     * @var Be2bill_Api_Renderer_Renderable How to render the payment form
+     * @var Dalenys_Api_Renderer_Renderable How to render the payment form
      */
     protected $renderer = null;
 
     /**
-     * @var Be2bill_Api_Hash_Hashable How to hash the payment form
+     * @var Dalenys_Api_Hash_Hashable How to hash the payment form
      */
     protected $hash = null;
 
     /**
      * Instanciate
      *
-     * @param string $identifier The Be2bill identifier
-     * @param string $password The Be2bill password
-     * @param Be2bill_Api_Renderer_Renderable $renderer How to render the form
-     * @param Be2bill_Api_Hash_Hashable $hash
+     * @param string $identifier The Dalenys identifier
+     * @param string $password The Dalenys password
+     * @param Dalenys_Api_Renderer_Renderable $renderer How to render the form
+     * @param Dalenys_Api_Hash_Hashable $hash
      */
     public function __construct(
         $identifier,
         $password,
-        Be2bill_Api_Renderer_Renderable $renderer,
-        Be2bill_Api_Hash_Hashable $hash
+        Dalenys_Api_Renderer_Renderable $renderer,
+        Dalenys_Api_Hash_Hashable $hash
     ) {
         $this->setCredentials($identifier, $password);
 
@@ -73,7 +73,7 @@ class Be2bill_Api_FormClient
     }
 
     /**
-     * Set default Be2bill VERSION parameter
+     * Set default Dalenys VERSION parameter
      *
      * @param string $version The VERSION number (ex: 3.0)
      */
@@ -85,7 +85,7 @@ class Be2bill_Api_FormClient
     /**
      * Build authorization form and submit button
      *
-     * Return the authorization form and all hidden input configuring the be2bill transaction.
+     * Return the authorization form and all hidden input configuring the dalenys transaction.
      * @param integer|array $amount The transaction amount in cents.
      *  If $amount is an array it will be used as NTime transaction (fragmented payment).
      *
@@ -106,7 +106,7 @@ class Be2bill_Api_FormClient
      * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
      * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
      * ```
-     * @param array $options Others be2bill options. See Be2bill documentation for more information
+     * @param array $options Others dalenys options. See Dalenys documentation for more information
      * (3DS, CREATEALIAS, etc.)
      * @return string The HTML output to display
      */
@@ -132,12 +132,12 @@ class Be2bill_Api_FormClient
         );
     }
 
-    // Be2bill toolkit methods
+    // Dalenys toolkit methods
 
     /**
      * Build payment form and submit button
      *
-     * Return the payment form and all hidden input configuring the be2bill transaction.
+     * Return the payment form and all hidden input configuring the dalenys transaction.
      * @param integer|array $amount The transaction amount in cents.
      *  If $amount is an array it will be used as NTime transaction (fragmented payment).
      *
@@ -158,7 +158,7 @@ class Be2bill_Api_FormClient
      * $htmlOptions['SUBMIT'] = array('class' => 'my_class');
      * $htmlOptions['FORM'] = array('class' => 'my_form', 'target' => 'my_target');
      * ```
-     * @param array $options Others be2bill options. See Be2bill documentation for more information
+     * @param array $options Others dalenys options. See Dalenys documentation for more information
      * (3DS, CREATEALIAS, etc.)
      * @return string The HTML output to display
      */
@@ -242,7 +242,7 @@ class Be2bill_Api_FormClient
     }
 
     /**
-     * Get Be2bill API VERSION
+     * Get Dalenys API VERSION
      *
      * @param array $options
      * @return string The version number

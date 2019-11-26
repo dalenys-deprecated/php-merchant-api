@@ -1,9 +1,9 @@
 {
-  "name": "be2bill/php-merchant-api",
+  "name": "dalenys/php-merchant-api",
   "type": "library",
-  "description": "Be2bill PHP merchant API",
+  "description": "Dalenys PHP merchant API",
   "keywords": [
-    "be2bill",
+    "dalenys",
     "dalenys",
     "dalenys payment",
     "payment",
@@ -15,7 +15,7 @@
     "acquiring",
     "php"
   ],
-  "homepage": "http://developer.be2bill.com/",
+  "homepage": "http://developer.dalenys.com/",
   "license": "BSD-3-Clause",
   "require": {
     "php": ">=5.2.0",
@@ -26,7 +26,7 @@
   },
   "autoload": {
     "psr-0": {
-      "Be2bill_Api_": "src/"
+      "Dalenys_Api_": "src/"
     }
   },
   "scripts": {

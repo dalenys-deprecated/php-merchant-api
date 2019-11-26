@@ -3,16 +3,16 @@
 /**
  * Client builder
  *
- * @package Be2bill
+ * @package Dalenys
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Build API clients on different environments
  *
- * Usefull to simply create Be2bill_Api_Client object without managing dependencies
+ * Usefull to simply create Dalenys_Api_Client object without managing dependencies
  */
-abstract class Be2bill_Api_ClientBuilder
+abstract class Dalenys_Api_ClientBuilder
 {
     /**
      * Production URLS
@@ -20,8 +20,8 @@ abstract class Be2bill_Api_ClientBuilder
      * @var array
      */
     protected static $productionUrls = array(
-        'https://secure-magenta1.be2bill.com',
-        'https://secure-magenta2.be2bill.com'
+        'https://secure-magenta1.dalenys.com',
+        'https://secure-magenta2.dalenys.com'
     );
 
     /**
@@ -29,7 +29,7 @@ abstract class Be2bill_Api_ClientBuilder
      *
      * @var array
      */
-    protected static $sandboxUrls = array('https://secure-test.be2bill.com');
+    protected static $sandboxUrls = array('https://secure-test.be2bill.com'); // TODO: change to dalenys
 
     /**
      * Build a production form builder
@@ -37,15 +37,15 @@ abstract class Be2bill_Api_ClientBuilder
      * @api
      * @param string $identifier
      * @param string $password
-     * @return Be2bill_Api_FormClient
+     * @return Dalenys_Api_FormClient
      */
     public static function buildProductionFormClient($identifier, $password)
     {
-        $api = new Be2bill_Api_FormClient(
+        $api = new Dalenys_Api_FormClient(
             $identifier,
             $password,
-            new Be2bill_Api_Renderer_Html(current(self::$productionUrls)),
-            new Be2bill_Api_Hash_Parameters()
+            new Dalenys_Api_Renderer_Html(current(self::$productionUrls)),
+            new Dalenys_Api_Hash_Parameters()
         );
 
         return $api;
@@ -57,16 +57,16 @@ abstract class Be2bill_Api_ClientBuilder
      * @api
      * @param $identifier
      * @param $password
-     * @return Be2bill_Api_DirectLinkClient
+     * @return Dalenys_Api_DirectLinkClient
      */
     public static function buildProductionDirectLinkClient($identifier, $password)
     {
-        $api = new Be2bill_Api_DirectLinkClient(
+        $api = new Dalenys_Api_DirectLinkClient(
             $identifier,
             $password,
             self::$productionUrls,
-            new Be2bill_Api_Sender_Curl(),
-            new Be2bill_Api_Hash_Parameters()
+            new Dalenys_Api_Sender_Curl(),
+            new Dalenys_Api_Hash_Parameters()
         );
 
         return $api;
@@ -78,13 +78,13 @@ abstract class Be2bill_Api_ClientBuilder
      * @api
      * @param $identifier
      * @param $password
-     * @return Be2bill_Api_BatchClient
+     * @return Dalenys_Api_BatchClient
      */
     public static function buildProductionBatchClient($identifier, $password)
     {
         $api = self::buildProductionDirectLinkClient($identifier, $password);
 
-        return new Be2bill_Api_BatchClient($api);
+        return new Dalenys_Api_BatchClient($api);
     }
 
     /**
@@ -93,15 +93,15 @@ abstract class Be2bill_Api_ClientBuilder
      * @api
      * @param $identifier
      * @param $password
-     * @return Be2bill_Api_FormClient
+     * @return Dalenys_Api_FormClient
      */
     public static function buildSandboxFormClient($identifier, $password)
     {
-        $api = new Be2bill_Api_FormClient(
+        $api = new Dalenys_Api_FormClient(
             $identifier,
             $password,
-            new Be2bill_Api_Renderer_Html(current(self::$sandboxUrls)),
-            new Be2bill_Api_Hash_Parameters()
+            new Dalenys_Api_Renderer_Html(current(self::$sandboxUrls)),
+            new Dalenys_Api_Hash_Parameters()
         );
 
         return $api;
@@ -113,16 +113,16 @@ abstract class Be2bill_Api_ClientBuilder
      * @api
      * @param $identifier
      * @param $password
-     * @return Be2bill_Api_DirectLinkClient
+     * @return Dalenys_Api_DirectLinkClient
      */
     public static function buildSandboxDirectLinkClient($identifier, $password)
     {
-        $api = new Be2bill_Api_DirectLinkClient(
+        $api = new Dalenys_Api_DirectLinkClient(
             $identifier,
             $password,
             self::$sandboxUrls,
-            new Be2bill_Api_Sender_Curl(),
-            new Be2bill_Api_Hash_Parameters()
+            new Dalenys_Api_Sender_Curl(),
+            new Dalenys_Api_Hash_Parameters()
         );
 
         return $api;
@@ -134,13 +134,13 @@ abstract class Be2bill_Api_ClientBuilder
      * @api
      * @param $identifier
      * @param $password
-     * @return Be2bill_Api_BatchClient
+     * @return Dalenys_Api_BatchClient
      */
     public static function buildSandboxBatchClient($identifier, $password)
     {
         $api = self::buildSandboxDirectLinkClient($identifier, $password);
 
-        return new Be2bill_Api_BatchClient($api);
+        return new Dalenys_Api_BatchClient($api);
     }
 
     /**

@@ -14,7 +14,7 @@ if ($argc < 2) {
 $password = $argv[1];
 parse_str($argv[2], $query);
 
-$hash = new Be2bill_Api_Hash_Parameters();
+$hash = new Dalenys_Api_Hash_Parameters();
 
 echo $hash->compute($password, $query), "\n";
 exit(0);

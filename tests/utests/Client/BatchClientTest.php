@@ -10,8 +10,8 @@ class Client_BatchTest extends TestCase
 
     public function setUp()
     {
-        $this->senderDummy = $this->createMock('Be2bill_Api_Sender_Sendable');
-        $this->hashStub    = $this->createMock('Be2bill_Api_Hash_Hashable');
+        $this->senderDummy = $this->createMock('Dalenys_Api_Sender_Sendable');
+        $this->hashStub    = $this->createMock('Dalenys_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->any())
             ->method('compute')
@@ -28,13 +28,13 @@ class Client_BatchTest extends TestCase
 
     public function testSetInputFileAcceptFilePath()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
 
         $file = 'php://memory';
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
         $batchClient->setInputFile($file);
 
         $this->assertNotEmpty($batchClient->getFile());
@@ -43,13 +43,13 @@ class Client_BatchTest extends TestCase
 
     public function testSetInputFileAcceptFileDescriptor()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
 
         $file = fopen('php://memory', 'w+');
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
         $batchClient->setInputFile($file);
 
         $this->assertNotEmpty($batchClient->getFile());
@@ -58,7 +58,7 @@ class Client_BatchTest extends TestCase
 
     public function test1Transaction()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setMethods(['requestOne'])
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
@@ -87,14 +87,14 @@ class Client_BatchTest extends TestCase
 
         $file = $this->generateCsv(1);
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
         $batchClient->setInputFile($file);
         $batchClient->run();
     }
 
     public function test2Transactions()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setMethods(['requestOne'])
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
@@ -123,48 +123,48 @@ class Client_BatchTest extends TestCase
 
         $file = $this->generateCsv(2);
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
         $batchClient->setInputFile($file);
         $batchClient->run();
     }
 
     /**
-     * @expectedException Be2bill_Api_Batch_Exception_InvalidBatchFile
+     * @expectedException Dalenys_Api_Batch_Exception_InvalidBatchFile
      */
     public function testHashNotAllowedAsCsvColumn()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setMethods(['requestOne'])
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
 
         $file = $this->generateCsv(1, array('k0' => array('HASH' => 'toto')));
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
         $batchClient->setInputFile($file);
         $batchClient->run();
     }
 
     /**
-     * @expectedException Be2bill_Api_Batch_Exception_InvalidBatchFile
+     * @expectedException Dalenys_Api_Batch_Exception_InvalidBatchFile
      */
     public function testIdentifierNotAllowedAsCsvColumn()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setMethods(['requestOne'])
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
 
         $file = $this->generateCsv(1, array('k0' => array('IDENTIFIER' => 'toto')));
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
         $batchClient->setInputFile($file);
         $batchClient->run();
     }
 
     public function testDoNotSendEmptyColumns()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setMethods(['requestOne'])
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
@@ -193,14 +193,14 @@ class Client_BatchTest extends TestCase
 
         $file = $this->generateCsv(1, array('k0' => array('CACA' => '')));
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
         $batchClient->setInputFile($file);
         $batchClient->run();
     }
 
     public function testNotifyRealTimeTransactions()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setMethods(['requestOne'])
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
@@ -227,12 +227,12 @@ class Client_BatchTest extends TestCase
             )
             ->will($this->returnValue(array('EXECCODE' => '0000', 'MESSAGE' => 'OK')));
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
 
         $observerMock = $this->createMock('SplObserver');
         $observerMock->expects($this->exactly(5))
             ->method('update')
-            ->with($this->isInstanceOf('Be2bill_Api_BatchClient'));
+            ->with($this->isInstanceOf('Dalenys_Api_BatchClient'));
 
         $file = $this->generateCsv(5);
 
@@ -243,7 +243,7 @@ class Client_BatchTest extends TestCase
 
     public function testSkipEmptyLine()
     {
-        $apiMock = $this->getMockBuilder('Be2bill_Api_DirectLinkClient')
+        $apiMock = $this->getMockBuilder('Dalenys_Api_DirectLinkClient')
             ->setMethods(['requestOne'])
             ->setConstructorArgs($this->directLinkMockArguments)
             ->getMock();
@@ -251,12 +251,12 @@ class Client_BatchTest extends TestCase
         $apiMock->expects($this->exactly(3))
             ->method('requestOne');
 
-        $batchClient = new Be2bill_Api_BatchClient($apiMock);
+        $batchClient = new Dalenys_Api_BatchClient($apiMock);
 
         $observerMock = $this->createMock('SplObserver');
         $observerMock->expects($this->exactly(3))
             ->method('update')
-            ->with($this->isInstanceOf('Be2bill_Api_BatchClient'));
+            ->with($this->isInstanceOf('Dalenys_Api_BatchClient'));
 
         $file = fopen('php://memory', 'w+');
         fwrite($file, "AMOUNT;ORDERID;CARDCPDE\n");

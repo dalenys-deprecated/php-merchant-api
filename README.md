@@ -1,15 +1,14 @@
-[Be2bill Merchant API] (http://developer.be2bill.com/)
+[Dalenys Merchant API] (http://developer.dalenys.com/)
 
-A simple PHP implementation of the Be2bill payment platform API.
+A simple PHP implementation of the Dalenys payment platform API.
 
-[![Build Status](https://travis-ci.org/be2bill/php-merchant-api.svg?branch=master)](https://travis-ci.org/be2bill/php-merchant-api)
-[![Latest Stable Version](https://poser.pugx.org/be2bill/php-merchant-api/v/stable)](https://packagist.org/packages/be2bill/php-merchant-api) 
-[![Total Downloads](https://poser.pugx.org/be2bill/php-merchant-api/downloads)](https://packagist.org/packages/be2bill/php-merchant-api) 
-[![License](https://poser.pugx.org/be2bill/php-merchant-api/license)](https://packagist.org/packages/be2bill/php-merchant-api)
+[![Build Status](https://travis-ci.org/dalenys/php-merchant-api.svg?branch=master)](https://travis-ci.org/dalenys/php-merchant-api)
+[![Latest Stable Version](https://poser.pugx.org/dalenys/php-merchant-api/v/stable)](https://packagist.org/packages/dalenys/php-merchant-api) 
+[![Total Downloads](https://poser.pugx.org/dalenys/php-merchant-api/downloads)](https://packagist.org/packages/dalenys/php-merchant-api) 
+[![License](https://poser.pugx.org/dalenys/php-merchant-api/license)](https://packagist.org/packages/dalenys/php-merchant-api)
 
-This library closely adheres to the official [Merchant API guidelines](https://github.com/be2bill/merchant-api-guidelines).
 
-You can read the API [apiGen generated documentation](https://codedoc.pub/be2bill/php-merchant-api/master/index.html)  
+You can read the API [apiGen generated documentation](https://codedoc.pub/dalenys/php-merchant-api/master/index.html)  
 
 
 ## Installing
@@ -20,7 +19,7 @@ You can easily install this library by adding the following lines to your compos
 ```json
 {
   "require": {
-    "be2bill/php-merchant-api": "1.*"
+    "dalenys/php-merchant-api": "1.*"
   }
 }
 ```
@@ -28,7 +27,7 @@ You can easily install this library by adding the following lines to your compos
 or by using this command line in a terminal at the root of your project
 
 ```bash
-composer require be2bill/php-merchant-api 1.*
+composer require dalenys/php-merchant-api 1.*
 ```
 
 ### Manual install
@@ -44,13 +43,13 @@ Here is the code sample for implementing a simple 10€ payment form
 ```php
 <?php
 
-define('BE2BILL_IDENTIFIER', 'YOUR ACCOUNT IDENTIFIER');
-define('BE2BILL_PASSWORD', 'YOUR ACCOUNT PASSWORD');
+define('DALENYS_IDENTIFIER', 'YOUR ACCOUNT IDENTIFIER');
+define('DALENYS_PASSWORD', 'YOUR ACCOUNT PASSWORD');
 
-// Just implement BE2BILL_IDENTIFIER and BE2BILL_PASSWORD as defined
-$be2bill = Be2bill_Api_ClientBuilder::buildProductionFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+// Just implement DALENYS_IDENTIFIER and DALENYS_PASSWORD as defined
+$dalenys = Dalenys_Api_ClientBuilder::buildProductionFormClient(DALENYS_IDENTIFIER, DALENYS_PASSWORD);
 
-echo $be2bill->buildPaymentFormButton(10000, 'order_123', 'user_123456', 'Payment sample');
+echo $dalenys->buildPaymentFormButton(10000, 'order_123', 'user_123456', 'Payment sample');
 ```
 
 ### Payment options
@@ -60,7 +59,7 @@ The most useful options are:
 - 3DSECURE = yes/no => Ask for 3DSECURE authentication
 - CARDFULLNAME => When set the card holder inputs will be filled with specified data
 
-For the full list of options you can read the Be2bill documentation
+For the full list of options you can read the Dalenys documentation
 
 ### Sandbox environment
 You can easily test your integration with the sandbox environment. This environment will simulate payments without processing any real money move.
@@ -69,7 +68,7 @@ You just have to use another builder method:
 ```php
 <?php
 
-$be2bill = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+$dalenys = Dalenys_Api_ClientBuilder::buildSandboxFormClient(DALENYS_IDENTIFIER, DALENYS_PASSWORD);
 ```
 
 ### Transaction edition
@@ -79,9 +78,9 @@ You should use the direct link AP:
 ```php
 <?php
 
-$be2bill = Be2bill_Api_ClientBuilder::buildSandboxDirectLinkClient(BE2BILL_IDENTIFIER, BE2BILL_PASSWORD);
+$dalenys = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient(DALENYS_IDENTIFIER, DALENYS_PASSWORD);
 
-$be2bill->capture('A1234', 'order_42', 'capturing a transaction');
+$dalenys->capture('A1234', 'order_42', 'capturing a transaction');
 ```
 
 ## Testing
@@ -94,7 +93,7 @@ If you want to run the unit test suite you can run from the project root:
 phpunit tests/utests
 ```
 
-If you want to run the functional test suite (really send dummy payment requests to the Be2bill sandbox): edit the config.php and replace IDENTIFIER and PASSWORD with the provided one (sandbox)
+If you want to run the functional test suite (really send dummy payment requests to the Dalenys sandbox): edit the config.php and replace IDENTIFIER and PASSWORD with the provided one (sandbox)
 
 ```shell
 phpunit tests/ftests

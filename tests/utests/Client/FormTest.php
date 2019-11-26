@@ -8,20 +8,20 @@ class Client_FormTest extends TestCase
     protected $hashStub = null;
 
     /**
-     * @var Be2bill_Api_FormClient
+     * @var Dalenys_Api_FormClient
      */
     protected $api = null;
 
     public function setUp()
     {
-        $this->renderMock  = $this->createMock('Be2bill_Api_Renderer_Renderable');
-        $this->hashStub    = $this->createMock('Be2bill_Api_Hash_Hashable');
+        $this->renderMock  = $this->createMock('Dalenys_Api_Renderer_Renderable');
+        $this->hashStub    = $this->createMock('Dalenys_Api_Hash_Hashable');
 
         $this->hashStub->expects($this->once())
             ->method('compute')
             ->will($this->returnValue('dummy'));
 
-        $this->api = new Be2bill_Api_FormClient(
+        $this->api = new Dalenys_Api_FormClient(
             'i',
             'p',
             $this->renderMock,

@@ -3,14 +3,14 @@
 /**
  * Observer debugger
  *
- * @package Be2bill\Batch
+ * @package Dalenys\Batch
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Will display on console output some debug data
  */
-class Be2bill_Api_Batch_Observer_Debug implements SplObserver
+class Dalenys_Api_Batch_Observer_Debug implements SplObserver
 {
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>

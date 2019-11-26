@@ -3,14 +3,14 @@
 /**
  * Hash parameters
  *
- * @package Be2bill\Hash
+ * @package Dalenys\Hash
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
- * Compute a hash from Be2bill parameters
+ * Compute a hash from Dalenys parameters
  */
-class Be2bill_Api_Hash_Parameters implements Be2bill_Api_Hash_Hashable
+class Dalenys_Api_Hash_Parameters implements Dalenys_Api_Hash_Hashable
 {
     /**
      * Compute a HASH from an array

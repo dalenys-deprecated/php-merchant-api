@@ -6,7 +6,7 @@ class BatchClientTest extends TestCase
 {
     protected function setUp()
     {
-        $this->tools = new Be2bill_Api_Test_Tools();
+        $this->tools = new Dalenys_Api_Test_Tools();
     }
 
     public function test5Transactions()
@@ -91,11 +91,11 @@ class BatchClientTest extends TestCase
 
         rewind($inputFile);
 
-        $batchApi = Be2bill_Api_ClientBuilder::buildSandboxBatchClient($this->getIdentifier(), $this->getPassword());
+        $batchApi = Dalenys_Api_ClientBuilder::buildSandboxBatchClient($this->getIdentifier(), $this->getPassword());
         $batchApi->setInputFile($inputFile);
 
-        $batchApi->attach(new Be2bill_Api_Batch_Observer_Debug());
-        $batchApi->attach(new Be2bill_Api_Batch_Observer_FileReport($outputFile));
+        $batchApi->attach(new Dalenys_Api_Batch_Observer_Debug());
+        $batchApi->attach(new Dalenys_Api_Batch_Observer_FileReport($outputFile));
 
         $batchApi->run();
 
@@ -117,11 +117,11 @@ class BatchClientTest extends TestCase
 
     protected function getIdentifier()
     {
-        return BE2BILL_TEST_IDENTIFIER;
+        return DALENYS_TEST_IDENTIFIER;
     }
 
     protected function getPassword()
     {
-        return BE2BILL_TEST_PASSWORD;
+        return DALENYS_TEST_PASSWORD;
     }
 }

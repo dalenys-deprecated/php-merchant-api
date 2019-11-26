@@ -3,14 +3,14 @@
 /**
  * Render interface
  *
- * @package Be2bill\Renderer
+ * @package Dalenys\Renderer
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Render a payment form
  */
-interface Be2bill_Api_Renderer_Renderable
+interface Dalenys_Api_Renderer_Renderable
 {
     /**
      * Display a payment form

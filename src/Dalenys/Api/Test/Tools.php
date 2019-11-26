@@ -3,14 +3,14 @@
 /**
  * Functional test tools
  *
- * @package Be2bill\Test
+ * @package Dalenys\Test
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Toolkit class for tests
  */
-class Be2bill_Api_Test_Tools
+class Dalenys_Api_Test_Tools
 {
     /**
      * Get a validity date in the future (whooow!)

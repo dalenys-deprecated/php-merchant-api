@@ -3,14 +3,14 @@
 /**
  * HTML renderer
  *
- * @package Be2bill\Renderer
+ * @package Dalenys\Renderer
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
 /**
  * Render a payment form in HTML
  */
-class Be2bill_Api_Renderer_Html implements Be2bill_Api_Renderer_Renderable
+class Dalenys_Api_Renderer_Html implements Dalenys_Api_Renderer_Renderable
 {
     /**
      * @var string The form action URL

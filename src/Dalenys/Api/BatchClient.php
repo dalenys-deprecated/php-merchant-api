@@ -3,7 +3,7 @@
 /**
  * Batch client
  *
- * @package Be2bill
+ * @package Dalenys
  * @author Jérémy Cohen Solal <jeremy@dalenys.com>
  */
 
@@ -11,7 +11,7 @@
  * Implements batch mode (cli side)
  * @version 1.2.0
  */
-class Be2bill_Api_BatchClient implements SplSubject
+class Dalenys_Api_BatchClient implements SplSubject
 {
     /**
      * @var string CSV delimiter
@@ -49,7 +49,7 @@ class Be2bill_Api_BatchClient implements SplSubject
     protected $headers;
 
     /**
-     * @var Be2bill_Api_DirectLinkClient Be2bill API
+     * @var Dalenys_Api_DirectLinkClient Dalenys API
      */
     protected $api;
 
@@ -66,9 +66,9 @@ class Be2bill_Api_BatchClient implements SplSubject
     /**
      * Instanciate
      *
-     * @param Be2bill_Api_DirectLinkClient $api
+     * @param Dalenys_Api_DirectLinkClient $api
      */
-    public function __construct(Be2bill_Api_DirectLinkClient $api)
+    public function __construct(Dalenys_Api_DirectLinkClient $api)
     {
         $this->api = $api;
     }
@@ -255,7 +255,7 @@ class Be2bill_Api_BatchClient implements SplSubject
      * Return CSV line
      *
      * @param array $headers
-     * @throws Be2bill_Api_Batch_Exception_InvalidBatchFile
+     * @throws Dalenys_Api_Batch_Exception_InvalidBatchFile
      * @return array
      */
     protected function getCsvLine(array $headers)
@@ -266,7 +266,7 @@ class Be2bill_Api_BatchClient implements SplSubject
         if ($line[0] === null) {
             return false;
         } elseif ($this->headers && sizeof($line) != sizeof($this->headers)) {
-            throw new Be2bill_Api_Batch_Exception_InvalidBatchFile("Invalid line");
+            throw new Dalenys_Api_Batch_Exception_InvalidBatchFile("Invalid line");
         }
 
         $params = array_combine($headers, $line);
@@ -278,14 +278,14 @@ class Be2bill_Api_BatchClient implements SplSubject
      *
      * Should not contains IDENTIFIER and HASH
      * @param $headers
-     * @throws Be2bill_Api_Batch_Exception_InvalidBatchFile
+     * @throws Dalenys_Api_Batch_Exception_InvalidBatchFile
      */
     protected function validateFileHeaders(array $headers)
     {
         if (in_array('IDENTIFIER', $headers)) {
-            throw new Be2bill_Api_Batch_Exception_InvalidBatchFile('IDENTIFIER is not allowed in batch file');
+            throw new Dalenys_Api_Batch_Exception_InvalidBatchFile('IDENTIFIER is not allowed in batch file');
         } elseif (in_array('HASH', $headers)) {
-            throw new Be2bill_Api_Batch_Exception_InvalidBatchFile('HASH is not allowed in batch file');
+            throw new Dalenys_Api_Batch_Exception_InvalidBatchFile('HASH is not allowed in batch file');
         }
     }
 

@@ -6,6 +6,7 @@
             <directory>./tests/utests</directory>
         </testsuite>
         <testsuite name="ftests">
+            <exclude>./tests/ftests/FormClientTest.php</exclude>
             <directory>./tests/ftests</directory>
         </testsuite>
     </testsuites>

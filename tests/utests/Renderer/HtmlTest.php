@@ -6,7 +6,7 @@ class Renderer_HtmlTest extends TestCase
 {
     public function testBuildHiddenInput()
     {
-        $renderer = new Be2bill_Api_Renderer_Html('http://test.com/');
+        $renderer = new Dalenys_Api_Renderer_Html('http://test.com/');
 
         $this->assertEquals(
             '<input type="hidden" name="foo" value="bar" />',
@@ -16,7 +16,7 @@ class Renderer_HtmlTest extends TestCase
 
     public function testEscaping()
     {
-        $renderer = new Be2bill_Api_Renderer_Html('http://test.com/');
+        $renderer = new Dalenys_Api_Renderer_Html('http://test.com/');
 
         $this->assertEquals(
             '<input type="hidden" name="foo" value="h&eacute;" />',
@@ -26,7 +26,7 @@ class Renderer_HtmlTest extends TestCase
 
     public function testBuildHiddenInputs()
     {
-        $renderer = new Be2bill_Api_Renderer_Html('http://test.com/');
+        $renderer = new Dalenys_Api_Renderer_Html('http://test.com/');
 
         $this->assertEquals(
             '<input type="hidden" name="foo" value="bar" /><input type="hidden" name="baz" value="boz" />',
@@ -36,14 +36,14 @@ class Renderer_HtmlTest extends TestCase
 
     public function testBuildSubmitInput()
     {
-        $renderer = new Be2bill_Api_Renderer_Html('http://test.com');
+        $renderer = new Dalenys_Api_Renderer_Html('http://test.com');
 
         $this->assertEquals('<input type="submit"  />', $renderer->buildSubmitInput(array()));
     }
 
     public function testRender()
     {
-        $renderer = new Be2bill_Api_Renderer_Html('http://test.com');
+        $renderer = new Dalenys_Api_Renderer_Html('http://test.com');
 
         $html = '<form method="post" action="http://test.com/front/form/process" target="t" >' .
         '<input type="hidden" name="foo" value="bar" /><input type="submit" name="biz"  /></form>';

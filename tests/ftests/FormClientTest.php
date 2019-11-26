@@ -1,12 +1,15 @@
 <?php
 
+/**
+ * These tests are not working anymore since the last html structural changes on payment form
+ */
 use PHPUnit\Framework\TestCase;
 
 class FormClientTest extends TestCase
 {
     public function testPaymentFormDisplay()
     {
-        $formApi = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $formApi = Dalenys_Api_ClientBuilder::buildSandboxFormClient(DALENYS_TEST_IDENTIFIER, DALENYS_TEST_PASSWORD);
 
         $html = $formApi->buildPaymentFormButton('1000', 'order-' . time(), 'ident', 'desc');
 
@@ -22,7 +25,7 @@ class FormClientTest extends TestCase
 
     public function testAuthorizationFormDisplay()
     {
-        $formApi = Be2bill_Api_ClientBuilder::buildSandboxFormClient(BE2BILL_TEST_IDENTIFIER, BE2BILL_TEST_PASSWORD);
+        $formApi = Dalenys_Api_ClientBuilder::buildSandboxFormClient(DALENYS_TEST_IDENTIFIER, DALENYS_TEST_PASSWORD);
 
         $html = $formApi->buildAuthorizationFormButton('1000', 'order-' . time(), 'ident', 'desc');
 
