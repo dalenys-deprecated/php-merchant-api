@@ -15,7 +15,7 @@ You can easily install this library by adding the following lines to your compos
 ```json
 {
   "require": {
-    "dalenys/php-merchant-api": "1.*"
+    "dalenys/php-merchant-api": "2.*"
   }
 }
 ```
