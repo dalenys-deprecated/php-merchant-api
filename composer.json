@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "7.*",
-        "ext-tidy": "*"
+        "ext-tidy": "*",
+        "ext-intl": "*"
     },
     "autoload": {
         "psr-0": {
@@ -31,6 +32,10 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "chmod +x bin/batch"
+        "post-install-cmd": "chmod +x bin/batch",
+        "tests": "phpunit",
+        "utests": "phpunit --testsuite utests",
+        "ftests": "phpunit --testsuite ftests",
+        "doc": "rm -rf doc && ./phpDocumentor.phar -d ./src -t ./doc"
     }
 }

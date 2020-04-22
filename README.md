@@ -85,22 +85,16 @@ $dalenys->capture('A1234', 'order_42', 'capturing a transaction');
 
 ## Testing
 
-First you have to copy tests/ftests/config.php.dist to tests/ftests/config.php
+- First you have to copy tests/ftests/config.php.dist to tests/ftests/config.php
+- Then run `composer tests`
 
-If you want to run the unit test suite you can run from the project root:
+If you want to run only the unit or functional test suites:
 
-```shell
-phpunit tests/utests
-```
+`composer utests` or `composer ftests`
 
-If you want to run the functional test suite (really send dummy payment requests to the Dalenys sandbox): edit the config.php and replace IDENTIFIER and PASSWORD with the provided one (sandbox)
+## Documentation
 
-```shell
-phpunit tests/ftests
-```
+- The documentation is available in [doc](doc) folder.
+    - Ensure to download the [phar package](http://www.phpdoc.org/phpDocumentor.phar)
 
-If you want to run all the tests, configure the functional test then simply:
-
-```shell
-phpunit
-```
+- You can generate it with https://www.phpdoc.org/ by running `composer doc`

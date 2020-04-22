@@ -1,0 +1,2970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-288158438"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-288158438" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Dalenys_Api_Hash_Hashable.html">Dalenys_Api_Hash_Hashable</a></li>
+                                                    <li class="interface"><a href="../classes/Dalenys_Api_Renderer_Renderable.html">Dalenys_Api_Renderer_Renderable</a></li>
+                                                    <li class="interface"><a href="../classes/Dalenys_Api_Sender_Sendable.html">Dalenys_Api_Sender_Sendable</a></li>
+                                                                                                    <li class="class"><a href="../classes/Dalenys_Api_Autoloader.html">Dalenys_Api_Autoloader</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Batch_Exception_InvalidBatchFile.html">Dalenys_Api_Batch_Exception_InvalidBatchFile</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Batch_Observer_Debug.html">Dalenys_Api_Batch_Observer_Debug</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Batch_Observer_FileReport.html">Dalenys_Api_Batch_Observer_FileReport</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Batch_Observer_Sleep.html">Dalenys_Api_Batch_Observer_Sleep</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_BatchClient.html">Dalenys_Api_BatchClient</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_ClientBuilder.html">Dalenys_Api_ClientBuilder</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_DirectLinkClient.html">Dalenys_Api_DirectLinkClient</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_FormClient.html">Dalenys_Api_FormClient</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Hash_Parameters.html">Dalenys_Api_Hash_Parameters</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Renderer_Html.html">Dalenys_Api_Renderer_Html</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Sender_Curl.html">Dalenys_Api_Sender_Curl</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Test_FCase.html">Dalenys_Api_Test_FCase</a></li>
+                                                    <li class="class"><a href="../classes/Dalenys_Api_Test_Tools.html">Dalenys_Api_Test_Tools</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>Dalenys_Api_DirectLinkClient</h1>
+                    <p><em>Implements Dalenys payment API</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_setCredentials" class="">setCredentials()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_setVersion" class="">setVersion()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_payment" class="">payment()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_authorization" class="">authorization()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_credit" class="">credit()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_oneClickPayment" class="">oneClickPayment()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_oneClickAuthorization" class="">oneClickAuthorization()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_refund" class="">refund()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_capture" class="">capture()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_subscriptionAuthorization" class="">subscriptionAuthorization()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_subscriptionPayment" class="">subscriptionPayment()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_stopNTimes" class="">stopNTimes()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_redirectForPayment" class="">redirectForPayment()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getTransactionsByTransactionId" class="">getTransactionsByTransactionId()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getTransactionsByOrderId" class="">getTransactionsByOrderId()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_exportTransactions" class="">exportTransactions()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_exportChargebacks" class="">exportChargebacks()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_exportReconciliation" class="">exportReconciliation()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_exportReconciledTransactions" class="">exportReconciledTransactions()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_hash" class="">hash()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_checkHash" class="">checkHash()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_setUrls" class="">setUrls()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_requests" class="">requests()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getDirectLinkUrls" class="">getDirectLinkUrls()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getIdentifier" class="">getIdentifier()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getPassword" class="">getPassword()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_requestOne" class="">requestOne()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getURLs" class="">getURLs()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_transaction" class="">transaction()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getTransactions" class="">getTransactions()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_isHttpUrl" class="">isHttpUrl()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_isMail" class="">isMail()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getURL" class="">getURL()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getDateOrDateRangeParameter" class="">getDateOrDateRangeParameter()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_getVersion" class="">getVersion()</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#method_amountOrAmounts" class="">amountOrAmounts()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_version" class="">$version</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_urls" class="">$urls</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_directLinkPath" class="">$directLinkPath</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_exportPath" class="">$exportPath</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_reconciliationPath" class="">$reconciliationPath</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_identifier" class="">$identifier</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_password" class="">$password</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_sender" class="">$sender</a><br />
+                                                                    <a href="../classes/Dalenys_Api_DirectLinkClient.html#property_hash" class="">$hash</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/DirectLinkClient.html"><div class="path-wrapper">DirectLinkClient.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Dalenys</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Dalenys_Api_DirectLinkClient</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_version" name="property_version" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$version</h3>
+                <pre class="signature">$version : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; API VERSION                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_urls" name="property_urls" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$urls</h3>
+                <pre class="signature">$urls : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; The API urls (with fallback)                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_directLinkPath" name="property_directLinkPath" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$directLinkPath</h3>
+                <pre class="signature">$directLinkPath : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; The directlink part                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_exportPath" name="property_exportPath" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$exportPath</h3>
+                <pre class="signature">$exportPath : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; The export part                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_reconciliationPath" name="property_reconciliationPath" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$reconciliationPath</h3>
+                <pre class="signature">$reconciliationPath : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; The reconciliation part                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_identifier" name="property_identifier" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$identifier</h3>
+                <pre class="signature">$identifier : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; The Dalenys identifier                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_password" name="property_password" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$password</h3>
+                <pre class="signature">$password : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; The Dalenys password                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sender" name="property_sender" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$sender</h3>
+                <pre class="signature">$sender : \Dalenys_Api_Sender_Sendable</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/Dalenys_Api_Sender_Sendable.html">\Dalenys_Api_Sender_Sendable</a>
+                &mdash; The sender object                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_hash" name="property_hash" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$hash</h3>
+                <pre class="signature">$hash : \Dalenys_Api_Hash_Hashable</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/Dalenys_Api_Hash_Hashable.html">\Dalenys_Api_Hash_Hashable</a>
+                &mdash; The hashing object                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$identifier</span>, string  <span class="argument">$password</span>, array  <span class="argument">$urls</span>, \Dalenys_Api_Sender_Sendable  <span class="argument">$sender</span>, \Dalenys_Api_Hash_Hashable  <span class="argument">$hash</span>) </pre>
+                <p><em>Instanciate</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$identifier </td>
+                                <td><p>Dalenys identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$password </td>
+                                <td><p>Dalenys password</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$urls </td>
+                                <td><p>Dalenys URLS</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Dalenys_Api_Sender_Sendable.html">\Dalenys_Api_Sender_Sendable</a></td>
+                                <td>$sender </td>
+                                <td><p>The sender object to use</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/Dalenys_Api_Hash_Hashable.html">\Dalenys_Api_Hash_Hashable</a></td>
+                                <td>$hash </td>
+                                <td><p>The hashing object to use</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setCredentials" name="method_setCredentials" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setCredentials()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setCredentials(string  <span class="argument">$identifier</span>, string  <span class="argument">$password</span>) </pre>
+                <p><em>Configurate API credentials</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$identifier </td>
+                                <td><p>The Dalenys identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$password </td>
+                                <td><p>The Dalenys password</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setVersion" name="method_setVersion" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setVersion()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setVersion(string  <span class="argument">$version</span>) </pre>
+                <p><em>Set default Dalenys VERSION parameter</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$version </td>
+                                <td><p>The VERSION number (ex: 3.0)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_payment" name="method_payment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">payment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">payment(string  <span class="argument">$cardPan</span>, string  <span class="argument">$cardDate</span>, string  <span class="argument">$cardCryptogram</span>, string  <span class="argument">$cardFullName</span>, integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>Directlink payment</em></p>
+                <p>You have to specify SENSIBLE payment data (card, cryptogramm...)</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR payment
+$result = $api-&gt;payment(
+ '1111222233334444',
+ '04-15',
+ 132,
+ 'john doe',
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+);
+
+print_r($result);</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardPan </td>
+                                <td><p>The card number (sensible)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardDate </td>
+                                <td><p>The card validity date (sensible) Format mm-yy</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardCryptogram </td>
+                                <td><p>The card cryptogram (sensible)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardFullName </td>
+                                <td><p>The card full name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier (ex: login)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client email</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction descrtiption</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (@see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'payment',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="http://fr.pcisecuritystandards.org/minisite/en/"><span class="namespace-wrapper">http://fr.pcisecuritystandards.org/minisite/en/</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_authorization" name="method_authorization" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">authorization()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">authorization(string  <span class="argument">$cardPan</span>, string  <span class="argument">$cardDate</span>, string  <span class="argument">$cardCryptogram</span>, string  <span class="argument">$cardFullName</span>, integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>Directlink authorization</em></p>
+                <p>You have to specify SENSIBLE payment data (card, cryptogramm...)</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR payment
+$result = $api-&gt;authorization(
+ '1111222233334444',
+ '04-15',
+ 132,
+ 'john doe',
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+);
+
+print_r($result);</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardPan </td>
+                                <td><p>The card number (sensible)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardDate </td>
+                                <td><p>The card validity date (sensible) Format mm-yy</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardCryptogram </td>
+                                <td><p>The card cryptogram (sensible)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardFullName </td>
+                                <td><p>The card full name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier (ex: login)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client email</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction descrtiption</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'authorization',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="http://fr.pcisecuritystandards.org/minisite/en/"><span class="namespace-wrapper">http://fr.pcisecuritystandards.org/minisite/en/</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_credit" name="method_credit" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">credit()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">credit(string  <span class="argument">$cardPan</span>, string  <span class="argument">$cardDate</span>, string  <span class="argument">$cardCryptogram</span>, string  <span class="argument">$cardFullName</span>, integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>Directlink credit</em></p>
+                <p>You have to specify SENSIBLE card data (card, cryptogramm...)</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR credit
+$result = $api-&gt;credit(
+ '1111222233334444',
+ '04-15',
+ 132,
+ 'john doe',
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+);
+
+print_r($result);</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardPan </td>
+                                <td><p>The card number (sensible)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardDate </td>
+                                <td><p>The card validity date (sensible) Format mm-yy</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardCryptogram </td>
+                                <td><p>The card cryptogram (sensible)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cardFullName </td>
+                                <td><p>The card full name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier (ex: login)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client email</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction descrtiption</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'credit',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="http://fr.pcisecuritystandards.org/minisite/en/"><span class="namespace-wrapper">http://fr.pcisecuritystandards.org/minisite/en/</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_oneClickPayment" name="method_oneClickPayment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">oneClickPayment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">oneClickPayment(string  <span class="argument">$alias</span>, integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to initiate a oneClick transaction using an ALIAS</em></p>
+                <p>You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR standard payment (with alias creation)
+$result = $api-&gt;payment(
+ '1111222233334444',
+ '04-15',
+ 132,
+ 'john doe',
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+ ['CREATEALIAS' =&gt; 'yes']
+);
+
+$result2 = $api-&gt;oneClickPayment(
+ $result['ALIAS'],
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+);
+</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$alias </td>
+                                <td><p>The card ALIAS</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client EMAIL</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction description</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'payment',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_oneClickAuthorization" name="method_oneClickAuthorization" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">oneClickAuthorization()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">oneClickAuthorization(string  <span class="argument">$alias</span>, integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to initiate a oneClick transaction using an ALIAS</em></p>
+                <p>You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR standard payment (with alias creation)
+$result = $api-&gt;payment(
+ '1111222233334444',
+ '04-15',
+ 132,
+ 'john doe',
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+ ['CREATEALIAS' =&gt; 'yes']
+);
+
+$result2 = $api-&gt;oneClickAuthorization(
+ $result['ALIAS'],
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+);
+</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$alias </td>
+                                <td><p>The card ALIAS</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client EMAIL</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction description</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'authorization',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_refund" name="method_refund" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">refund()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">refund(string  <span class="argument">$transactionId</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$description</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to refund a transaction</em></p>
+                <p>Usage example:</p>
+<ul>
+<li>
+<pre><code class="language-php">
+$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');</code></pre>
+</li>
+</ul>
+<p>$result = $api-&gt;refund(
+'A123',
+'order_123',
+'sample refund'
+);</p>
+<pre><code></code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$transactionId </td>
+                                <td><p>The transaction id to refund</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction description</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'refund',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_capture" name="method_capture" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">capture()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">capture(string  <span class="argument">$transactionId</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$description</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to capture an authorization</em></p>
+                <p>Usage example:</p>
+<ul>
+<li>
+<pre><code class="language-php">
+$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');</code></pre>
+</li>
+</ul>
+<p>$result = $api-&gt;capture(
+'A123',
+'order_123',
+'sample refund'
+);</p>
+<pre><code></code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$transactionId </td>
+                                <td><p>The authorization id to capture</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction description</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'capture',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_subscriptionAuthorization" name="method_subscriptionAuthorization" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">subscriptionAuthorization()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">subscriptionAuthorization(string  <span class="argument">$alias</span>, integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to initiate a subscription transaction using an ALIAS</em></p>
+                <p>You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR standard payment (with alias creation)
+$result = $api-&gt;payment(
+ '1111222233334444',
+ '04-15',
+ 132,
+ 'john doe',
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+ ['CREATEALIAS' =&gt; 'yes']
+);
+
+$result2 = $api-&gt;subscriptionAuthorization(
+ $result['ALIAS'],
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+);
+</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$alias </td>
+                                <td><p>The card ALIAS</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client EMAIL</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction description</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'payment',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_subscriptionPayment" name="method_subscriptionPayment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">subscriptionPayment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">subscriptionPayment(string  <span class="argument">$alias</span>, integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to initiate a oneClick transaction using an ALIAS</em></p>
+                <p>You have to process an authorization or a payment with the option CREATEALIAS = yes to get an ALIAS</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR standard payment (with alias creation)
+$result = $api-&gt;payment(
+ '1111222233334444',
+ '04-15',
+ 132,
+ 'john doe',
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+ ['CREATEALIAS' =&gt; 'yes']
+);
+
+$result2 = $api-&gt;subscriptionPayment(
+ $result['ALIAS'],
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+);
+</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$alias </td>
+                                <td><p>The card ALIAS</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client EMAIL</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction description</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array. Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Transaction succeded',
+ 'OPERATIONTYPE' =&gt; 'payment',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_stopNTimes" name="method_stopNTimes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">stopNTimes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">stopNTimes(string  <span class="argument">$scheduleId</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to stop a N times scheduling</em></p>
+                <p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR standard payment (with alias creation)
+$result = $api-&gt;stopNTimes('A123');</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$scheduleId </td>
+                                <td><p>The schedule id</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_redirectForPayment" name="method_redirectForPayment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">redirectForPayment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">redirectForPayment(integer  <span class="argument">$amount</span>, string  <span class="argument">$orderId</span>, string  <span class="argument">$clientIdentifier</span>, string  <span class="argument">$clientEmail</span>, string  <span class="argument">$clientIP</span>, string  <span class="argument">$description</span>, string  <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>Redirect a cardholder to a hosted payment page (wallet or direct debit payment methods)</em></p>
+                <p>In case of success, you will have to display the REDIRECTHTML code with a base64_decode to redirect
+the user to the payment page.</p>
+<p>Usage example:</p>
+<pre><code class="language-php">$api = Dalenys_Api_ClientBuilder::buildSandboxDirectLinkClient('IDENTIFIER', 'PASSWORD');
+
+// 10 EUR standard payment
+$result = $api-&gt;redirectForPayment(
+ 1000,
+ 'order_123',
+ 'john_doe42',
+ 'john.doe@mail.com',
+ '178.152.42.44',
+ 'sample transaction',
+ 'firefox'
+ ['CREATEALIAS' =&gt; 'yes']
+);
+
+echo base64_decode($result['REDIRECTHTML']);</code></pre>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td><p>The amount (in the currency smallest subdivision Ex: $amount = 100 &gt; 1€)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The orderid (should be unique by transaction, but no unicity check are performed)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIdentifier </td>
+                                <td><p>The client identifier</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientEmail </td>
+                                <td><p>The client EMAIL</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientIP </td>
+                                <td><p>The client public IP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$description </td>
+                                <td><p>The transaction description</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$clientUserAgent </td>
+                                <td><p>The client user agent</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array.
+It will contains a REDIRECTHTML wich contains a base64 redirection code for the payment supplier page.
+Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0002',
+ 'MESSAGE' =&gt; 'Waiting for redirection',
+ 'OPERATIONTYPE' =&gt; 'payment',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+ 'REDIRECTHTML' =&gt; 'ksdjfkldsjfkldjsklfjdsfklds'
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTransactionsByTransactionId" name="method_getTransactionsByTransactionId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTransactionsByTransactionId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTransactionsByTransactionId(string  <span class="argument">$transactionId</span>, string  <span class="argument">$destination = null</span>, string  <span class="argument">$compression = &#039;GZIP&#039;</span>) : array</pre>
+                <p><em>Get a transaction by this ID</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$transactionId </td>
+                                <td><p>The transaction ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$destination </td>
+                                <td><p>This parameter accept 3 possibilities:</p>
+<ul>
+<li>url &gt; will throw the report to the specified URL (csv)</li>
+<li>email &gt; will throw the report to the specified email (csv)</li>
+<li>null &gt; will return the transaction data directly</li>
+</ul></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$compression </td>
+                                <td><p>ZIP / GZIP or BZIP</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array.
+It will contains a DATA parameters wich contains the transaction
+Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Operation succeeded',
+ 'OPERATIONTYPE' =&gt; 'payment',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+ 'DATA' =&gt; [
+     0 =&gt; [
+         'IDENTIFIER' =&gt; 'IDENTIFIER',
+         // ...
+     ]
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTransactionsByOrderId" name="method_getTransactionsByOrderId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTransactionsByOrderId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTransactionsByOrderId(string  <span class="argument">$orderId</span>, string  <span class="argument">$destination = null</span>, string  <span class="argument">$compression = &#039;GZIP&#039;</span>) : array</pre>
+                <p><em>Get a transaction by order ID</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$orderId </td>
+                                <td><p>The transaction orderid ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$destination </td>
+                                <td><p>This parameter accept 3 possibilities:</p>
+<ul>
+<li>url &gt; will throw the report to the specified URL (csv)</li>
+<li>email &gt; will throw the report to the specified email (csv)</li>
+<li>null &gt; will return the transaction data directly</li>
+</ul></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$compression </td>
+                                <td><p>ZIP / GZIP or BZIP</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>The result array.
+It will contains a DATA parameters wich contains the transaction
+Will look like:</p>
+<pre><code class="language-php">[
+ 'CODE' =&gt; '0000',
+ 'MESSAGE' =&gt; 'Operation succeeded',
+ 'OPERATIONTYPE' =&gt; 'payment',
+ 'ORDERID' =&gt; 'order_13213',
+ 'TRANSACTIONID' =&gt; 'A123',
+ 'DESCRIPTOR' =&gt; 'shop'
+ 'DATA' =&gt; [
+     0 =&gt; [
+         'IDENTIFIER' =&gt; 'IDENTIFIER',
+         // ...
+     ]
+]</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exportTransactions" name="method_exportTransactions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exportTransactions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exportTransactions(\date  <span class="argument">$date</span>, string  <span class="argument">$destination</span>, string  <span class="argument">$compression = &#039;GZIP&#039;</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>This method is used to recover the list of transactions for a given day or month.</em></p>
+                <p>This method only ask for sending a report. The report will be sent by email or http request.
+This will return the result of the report creation request</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\date</td>
+                                <td>$date </td>
+                                <td><p>YYYY-MM or YYYY-MM-DD or array(startDate, endDate)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$destination </td>
+                                <td><p>This parameter accept 2 possibilities:</p>
+<ul>
+<li>url &gt; will throw the report to the specified URL (csv)</li>
+<li>email &gt; will throw the report to the specified email (csv)</li>
+</ul></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$compression </td>
+                                <td><p>ZIP / GZIP or BZIP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exportChargebacks" name="method_exportChargebacks" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exportChargebacks()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exportChargebacks(\date  <span class="argument">$date</span>, string  <span class="argument">$destination</span>, string  <span class="argument">$compression = &#039;GZIP&#039;</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>Export the list of chargebacked transactions for a given day or month.</em></p>
+                <p>This method only ask for sending a report. The report will be sent by email or http request.
+This will return the result of the report creation request</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\date</td>
+                                <td>$date </td>
+                                <td><p>YYYY-MM or YYYY-MM-DD or array(startDate, endDate)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$destination </td>
+                                <td><p>This parameter accept 2 possibilities:</p>
+<ul>
+<li>url &gt; will throw the report to the specified URL (csv)</li>
+<li>email &gt; will throw the report to the specified email (csv)</li>
+</ul></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$compression </td>
+                                <td><p>ZIP / GZIP or BZIP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exportReconciliation" name="method_exportReconciliation" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exportReconciliation()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exportReconciliation(\date  <span class="argument">$date</span>, string  <span class="argument">$destination</span>, string  <span class="argument">$compression = &#039;GZIP&#039;</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>Export the reconciliation</em></p>
+                <p>This method only ask for sending a report. The report will be sent by email or http request.
+This will return the result of the report creation request</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\date</td>
+                                <td>$date </td>
+                                <td><p>YYYY-MM or YYYY-MM-DD or array(startDate, endDate)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$destination </td>
+                                <td><p>This parameter accept 2 possibilities:</p>
+<ul>
+<li>url &gt; will throw the report to the specified URL (csv)</li>
+<li>email &gt; will throw the report to the specified email (csv)</li>
+</ul></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$compression </td>
+                                <td><p>ZIP / GZIP or BZIP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_exportReconciledTransactions" name="method_exportReconciledTransactions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">exportReconciledTransactions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">exportReconciledTransactions(\date  <span class="argument">$date</span>, string  <span class="argument">$destination</span>, string  <span class="argument">$compression = &#039;GZIP&#039;</span>, array  <span class="argument">$options = array()</span>) : array</pre>
+                <p><em>Export the list of reconciled transactions for a given day or month.</em></p>
+                <p>This method only ask for sending a report. The report will be sent by email or http request.
+This will return the result of the report creation request</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\date</td>
+                                <td>$date </td>
+                                <td><p>YYYY-MM or YYYY-MM-DD or array(startDate, endDate)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$destination </td>
+                                <td><p>This parameter accept 2 possibilities:</p>
+<ul>
+<li>url &gt; will throw the report to the specified URL (csv)</li>
+<li>email &gt; will throw the report to the specified email (csv)</li>
+</ul></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$compression </td>
+                                <td><p>ZIP / GZIP or BZIP</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>Some other payment options (see <a href="http://developer.dalenys.com">http://developer.dalenys.com</a>
+the dalenys api reference for the full list)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            api
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_hash" name="method_hash" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">hash()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">hash(array  <span class="argument">$params = array()</span>) : string</pre>
+                <p><em>Hash parameters</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_checkHash" name="method_checkHash" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">checkHash()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">checkHash(array  <span class="argument">$params</span>) : boolean</pre>
+                <p><em>Check a hash received in a notification/redirection URL</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>The POST or GET variable to verify</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUrls" name="method_setUrls" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUrls()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUrls(string|array  <span class="argument">$urls</span>) </pre>
+                <p><em>Set dalenys base urls</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|array</td>
+                                <td>$urls </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_requests" name="method_requests" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">requests()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">requests(array  <span class="argument">$urls</span>, array  <span class="argument">$params = array()</span>) : boolean|string</pre>
+                <p><em>Send requests with a fallback system</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$urls </td>
+                                <td><p>The url list to request</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDirectLinkUrls" name="method_getDirectLinkUrls" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDirectLinkUrls()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDirectLinkUrls() : array</pre>
+                <p><em>Return directlink url with concatened path</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getIdentifier" name="method_getIdentifier" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getIdentifier()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getIdentifier() : string</pre>
+                <p><em>Return identifier</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>$identifier</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPassword" name="method_getPassword" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPassword()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPassword() : string</pre>
+                <p><em>Return password</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>$password</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_requestOne" name="method_requestOne" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">requestOne()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">requestOne(  <span class="argument">$url</span>, array  <span class="argument">$params = array()</span>) : mixed</pre>
+                <p><em>Send one request</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getURLs" name="method_getURLs" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getURLs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getURLs(  <span class="argument">$path</span>) : array</pre>
+                <p><em>Add $path to each url in productionUrls</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$path </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_transaction" name="method_transaction" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">transaction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">transaction(  <span class="argument">$orderId</span>,   <span class="argument">$clientIdentifier</span>,   <span class="argument">$clientEmail</span>,   <span class="argument">$clientIP</span>,   <span class="argument">$description</span>,   <span class="argument">$clientUserAgent</span>, array  <span class="argument">$options = array()</span>) : boolean|string</pre>
+                <p><em>Trigger a transaction</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$orderId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$clientIdentifier </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$clientEmail </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$clientIP </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$description </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$clientUserAgent </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTransactions" name="method_getTransactions" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getTransactions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTransactions(  <span class="argument">$searchBy</span>,   <span class="argument">$id</span>,   <span class="argument">$destination</span>,   <span class="argument">$compression</span>) : boolean|mixed</pre>
+                <p><em>Export a transaction</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$searchBy </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$id </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$destination </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$compression </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isHttpUrl" name="method_isHttpUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isHttpUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isHttpUrl(  <span class="argument">$url</span>) : boolean</pre>
+                <p><em>Return true if $url is a http/https url</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$url </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isMail" name="method_isMail" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">isMail()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isMail(  <span class="argument">$mail</span>) : boolean</pre>
+                <p><em>Return true if $mail is a valid email</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$mail </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getURL" name="method_getURL" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getURL()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getURL(  <span class="argument">$path</span>) : string</pre>
+                <p><em>Return the first url with path</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$path </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDateOrDateRangeParameter" name="method_getDateOrDateRangeParameter" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getDateOrDateRangeParameter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDateOrDateRangeParameter(string|array  <span class="argument">$date</span>) : mixed</pre>
+                <p><em>Handle DATE or STARTDATE/ENDDATE parameters for export methods</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|array</td>
+                                <td>$date </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getVersion" name="method_getVersion" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getVersion()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getVersion(array  <span class="argument">$options = array()</span>) : string</pre>
+                <p><em>Get Dalenys API VERSION</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>The version number</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_amountOrAmounts" name="method_amountOrAmounts" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">amountOrAmounts()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">amountOrAmounts(integer  <span class="argument">$amount</span>, array  <span class="argument">$params</span>) : array</pre>
+                <p><em>Handle amount or ntimes amounts parameter</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$amount </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Edited $params</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">DirectLinkClient.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/DirectLinkClient.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on April 22nd, 2020 at 16:14.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,9 +1,9 @@
+*.phar
 .*
 !.gitignore
 !.*.yml
 !.editorconfig
-phpdoc.xml
-docs
+!doc/*
 vendor
 composer.phar
 composer.lock
