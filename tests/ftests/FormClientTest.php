@@ -1,8 +1,5 @@
 <?php
 
-/**
- * These tests are not working anymore since the last html structural changes on payment form
- */
 use PHPUnit\Framework\TestCase;
 
 class FormClientTest extends TestCase
@@ -39,9 +36,18 @@ class FormClientTest extends TestCase
         $this->assertArrayHasKey('IDENTIFIER', $inputs);
     }
 
+    protected function cleanHtml($html)
+    {
+        return  tidy_repair_string($html, ['indent' => true]);
+    }
+
     protected function getInputsFromHtml($html)
     {
-        $xml = simplexml_load_string('<html>' . $html . '</html>');
+        $cleanHtml = $this->cleanHtml($html);
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($cleanHtml);
+        $xml = simplexml_import_dom($dom);
 
         $params = array();
         foreach ($xml->xpath("//input[@name][@value]") as $elm) {
