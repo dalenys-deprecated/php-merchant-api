@@ -7,10 +7,6 @@ A simple PHP implementation of the Dalenys payment platform API.
 [![Total Downloads](https://poser.pugx.org/dalenys/php-merchant-api/downloads)](https://packagist.org/packages/dalenys/php-merchant-api) 
 [![License](https://poser.pugx.org/dalenys/php-merchant-api/license)](https://packagist.org/packages/dalenys/php-merchant-api)
 
-
-You can read the API [apiGen generated documentation](https://codedoc.pub/dalenys/php-merchant-api/master/index.html)  
-
-
 ## Installing
 
 ### Composer
