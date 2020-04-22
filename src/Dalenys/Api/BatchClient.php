@@ -262,8 +262,8 @@ class Dalenys_Api_BatchClient implements SplSubject
     {
         $line = fgetcsv($this->inputFd, null, $this->delimiter, $this->enclosure);
 
-        // Empty line
-        if ($line[0] === null) {
+        // Empty line case (fgetcsv behaves differently depending on php version)
+        if (!$line || $line[0] === null) {
             return false;
         } elseif ($this->headers && sizeof($line) != sizeof($this->headers)) {
             throw new Dalenys_Api_Batch_Exception_InvalidBatchFile("Invalid line");

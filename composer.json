@@ -1,35 +1,36 @@
 {
-  "name": "dalenys/php-merchant-api",
-  "type": "library",
-  "description": "Dalenys PHP merchant API",
-  "keywords": [
-    "dalenys",
-    "dalenys",
-    "dalenys payment",
-    "payment",
-    "visa",
-    "mastercard",
-    "amex",
-    "american express",
-    "psp",
-    "acquiring",
-    "php"
-  ],
-  "homepage": "http://developer.dalenys.com/",
-  "license": "BSD-3-Clause",
-  "require": {
-    "php": ">=5.2.0",
-    "ext-curl": "*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "7.*"
-  },
-  "autoload": {
-    "psr-0": {
-      "Dalenys_Api_": "src/"
+    "name": "dalenys/php-merchant-api",
+    "type": "library",
+    "description": "Dalenys PHP merchant API",
+    "keywords": [
+        "dalenys",
+        "dalenys",
+        "dalenys payment",
+        "payment",
+        "visa",
+        "mastercard",
+        "amex",
+        "american express",
+        "psp",
+        "acquiring",
+        "php"
+    ],
+    "homepage": "http://developer.dalenys.com/",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.2.0",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7.*",
+        "ext-tidy": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Dalenys_Api_": "src/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": "chmod +x bin/batch"
     }
-  },
-  "scripts": {
-    "post-install-cmd": "chmod +x bin/batch"
-  }
 }

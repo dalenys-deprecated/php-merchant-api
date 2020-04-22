@@ -28,3 +28,19 @@ php7.3:
     - php --version
     - ./phpunit --version
     - ./phpunit tests/utests
+
+php-7.4:
+  image: php:7.4
+  script:
+    - ls
+    - php --version
+    - ./phpunit --version
+    - ./phpunit tests/utests
+
+php-latest:
+  image: php:latest
+  script:
+    - ls
+    - php --version
+    - ./phpunit --version
+    - ./phpunit tests/utests
