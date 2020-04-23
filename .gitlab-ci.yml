@@ -11,7 +11,7 @@ php7.1:
     - ls
     - php --version
     - ./phpunit --version
-    - ./phpunit tests/utests
+    - ./phpunit
 
 php7.2:
   image: php:7.2
@@ -19,7 +19,7 @@ php7.2:
     - ls
     - php --version
     - ./phpunit --version
-    - ./phpunit tests/utests
+    - ./phpunit
 
 php7.3:
   image: php:7.3
@@ -27,7 +27,7 @@ php7.3:
     - ls
     - php --version
     - ./phpunit --version
-    - ./phpunit tests/utests
+    - ./phpunit
 
 php-7.4:
   image: php:7.4
@@ -35,7 +35,7 @@ php-7.4:
     - ls
     - php --version
     - ./phpunit --version
-    - ./phpunit tests/utests
+    - ./phpunit
 
 php-latest:
   image: php:latest
@@ -43,4 +43,4 @@ php-latest:
     - ls
     - php --version
     - ./phpunit --version
-    - ./phpunit tests/utests
+    - ./phpunit
