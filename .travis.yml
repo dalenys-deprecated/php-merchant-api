@@ -8,9 +8,10 @@ php:
 #  - nightly
 
 install:
-  - composer install
+  - curl -L -o phpunit https://phar.phpunit.de/phpunit-7.phar
+  - chmod +x phpunit
   - cp tests/ftests/config.php.dist tests/ftests/config.php
-script: vendor/bin/phpunit --coverage-text tests/utests
+script: ./phpunit
 env:
   secure: ekhDBZcfLatzXVYEumYKXWhQvA+eBP+RrVkNSrZ3tw33ZvfabmQtF5CNTmko5Ln4tv4eDjk5mxVICbfX3+4KpeE9YYvgrhSE7clHuabKKDmVJV2PYiT8vHsQqBZ0q0vQPC+mj0Bh+F6tXDfPJ0LRDKzwlKpGFzDUZjthQzzCKQ0=
 
