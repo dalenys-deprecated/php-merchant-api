@@ -43,4 +43,4 @@ php-latest:
     - ls
     - php --version
     - ./phpunit --version
-    - ./phpunit 
+    - ./phpunit
