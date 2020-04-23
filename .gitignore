@@ -6,4 +6,3 @@
 !doc/*
 vendor
 composer.phar
-composer.lock
