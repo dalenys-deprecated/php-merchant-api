@@ -29,7 +29,7 @@ abstract class Dalenys_Api_ClientBuilder
      *
      * @var array
      */
-    protected static $sandboxUrls = array('https://secure-test.be2bill.com'); // TODO: change to dalenys
+    protected static $sandboxUrls = array('https://secure-test.dalenys.com'); // TODO: change to dalenys
 
     /**
      * Build a production form builder
