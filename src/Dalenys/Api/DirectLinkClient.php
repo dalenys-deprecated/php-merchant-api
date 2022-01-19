@@ -1422,7 +1422,7 @@ class Dalenys_Api_DirectLinkClient
      */
     protected function isHttpUrl($url)
     {
-        return preg_match('#^https?://.+#', $url) == 1;
+        return $url !== null && preg_match('#^https?://.+#', $url) == 1;
     }
 
     /**
@@ -1433,7 +1433,7 @@ class Dalenys_Api_DirectLinkClient
      */
     protected function isMail($mail)
     {
-        return preg_match('/.+@.+\..{2,}/', $mail) == 1;
+        return $mail !== null && preg_match('/.+@.+\..{2,}/', $mail) == 1;
     }
 
     /**
