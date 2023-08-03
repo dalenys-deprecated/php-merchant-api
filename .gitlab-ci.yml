@@ -44,3 +44,28 @@ php-latest:
     - php --version
     - ./phpunit --version
     - ./phpunit
+
+scan_sonar:
+  image: 
+    name: docker.io/sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    # FORCE SONAR TO USE THIS PATH
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  script:
+    - export SONAR_PROJECT_KEY="${CI_PROJECT_PATH_SLUG}-${CI_PROJECT_NAME}"
+    - |
+      export SONAR_PROJECT_NAME="${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}: ${CI_PROJECT_NAME}"
+    - |
+      sonar-scanner \
+        -Dsonar.organization="${SONAR_ORGANIZATION}" \
+        -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
+        -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
+        -Dsonar.sources="src" \
+        -Dsonar.tests="tests" \
+        -Dsonar.host.url="https://sonarcloud.io" || (echo_error "if the error is \"Could not find a default branch to fall back on\", you should consider to execute a pipeline on branch master with CREATE_SONAR_PROJECT set to true" && false)
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master" && $SONAR_TOKEN
+    - if: $CI_MERGE_REQUEST_ID && $SONAR_TOKEN
+  allow_failure: true
